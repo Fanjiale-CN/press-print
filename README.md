@@ -85,12 +85,15 @@ No single state should dominate every region by default.
 | --- | --- |
 | ![](examples/retail/source-noodles.jpeg) | ![](examples/retail/result-noodles.png) |
 
+See [`examples/README.md`](examples/README.md) for the example-set guide and media note.
+
 ## Repository structure
 
 ```text
 press-print/
 ├── SKILL.md
 ├── README.md
+├── CONTRIBUTING.md
 ├── LICENSE
 ├── CHANGELOG.md
 ├── prompt/
@@ -98,6 +101,7 @@ press-print/
 ├── eval/
 │   └── quality-rubric.md
 └── examples/
+    ├── README.md
     ├── urban/
     ├── landscape/
     ├── performance/
@@ -109,13 +113,13 @@ press-print/
 
 Clients that support `SKILL.md` / Agent Skills can install or copy this repository into their skills directory.
 
-The skill file contains the operational workflow and constraints. The full master prompt is in `prompt/press-print-v1.md`.
+The skill file contains the operational workflow and constraints. The full master prompt is in [`prompt/press-print-v1.md`](prompt/press-print-v1.md).
 
 For manual image generation, use the master prompt together with a source image.
 
 ## Evaluation
 
-Use `eval/quality-rubric.md` to compare models or iterations. It scores:
+Use [`eval/quality-rubric.md`](eval/quality-rubric.md) to compare models or iterations. It scores:
 
 - semantic retention
 - reconstruction strength
@@ -125,11 +129,15 @@ Use `eval/quality-rubric.md` to compare models or iterations. It scores:
 
 The rubric also defines hard failures such as filter-only output, blanket halftone, hallucinated text, semantic loss, and arbitrary poster geometry.
 
+## Contributing
+
+Model comparisons, reproducible failure cases, source/result pairs, and prompt refinements are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Current status
 
 **Version:** 1.0.0  
 **Edition:** Image-Only  
-**Status:** Initial public release
+**Status:** Public release
 
 ## Author
 
@@ -137,4 +145,6 @@ Created by **Fan Jiale / Galok**.
 
 ## License
 
-MIT. See `LICENSE`.
+MIT for the Press-Print skill text, prompt system, documentation, and related project materials. See `LICENSE`.
+
+Example images are provided for demonstration and evaluation; image rights may depend on their original provenance. See [`examples/README.md`](examples/README.md).
