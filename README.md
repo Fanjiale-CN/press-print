@@ -53,39 +53,41 @@ Cut, torn, layered, shifted, or interrupted fragments.
 
 No single state should dominate every region by default.
 
-## Examples
+## Showcase
 
-### Urban
+These are the canonical high-resolution v1.0 showcase plates. Each plate is displayed as one complete before/after image exactly as uploaded. Click any image to open the original repository asset at full resolution.
 
-| Source | Press-Print |
-| --- | --- |
-| ![](examples/urban/source-shibuya.jpeg) | ![](examples/urban/result-shibuya.png) |
+### 01
+<a href="examples/showcase/0D0EB3E7-CDA9-4F6C-B8C5-B6613F6CEBCB.png"><img src="examples/showcase/0D0EB3E7-CDA9-4F6C-B8C5-B6613F6CEBCB.png" alt="Press-Print showcase 01" width="100%"></a>
 
-### Landscape
+### 02
+<a href="examples/showcase/2045E30A-8BAE-4625-B726-1EBC31166618.png"><img src="examples/showcase/2045E30A-8BAE-4625-B726-1EBC31166618.png" alt="Press-Print showcase 02" width="100%"></a>
 
-| Source | Press-Print |
-| --- | --- |
-| ![](examples/landscape/source-bay.jpeg) | ![](examples/landscape/result-bay.png) |
+### 03
+<a href="examples/showcase/43A519AD-FAA7-40EE-9425-D8EA1CCAA11C.png"><img src="examples/showcase/43A519AD-FAA7-40EE-9425-D8EA1CCAA11C.png" alt="Press-Print showcase 03" width="100%"></a>
 
-### Performance
+### 04
+<a href="examples/showcase/48FEE737-3D46-446B-AAEF-6F1ADB22E70F.png"><img src="examples/showcase/48FEE737-3D46-446B-AAEF-6F1ADB22E70F.png" alt="Press-Print showcase 04" width="100%"></a>
 
-| Source | Press-Print |
-| --- | --- |
-| ![](examples/performance/source-aerial-dancer.jpeg) | ![](examples/performance/result-aerial-dancer.png) |
+### 05
+<a href="examples/showcase/52C803C9-C030-4574-8FEF-CE30FDF6A5C4.png"><img src="examples/showcase/52C803C9-C030-4574-8FEF-CE30FDF6A5C4.png" alt="Press-Print showcase 05" width="100%"></a>
 
-### Architecture
+### 06
+<a href="examples/showcase/7AA8CDA5-FC9F-4698-A622-329A248F90FB.png"><img src="examples/showcase/7AA8CDA5-FC9F-4698-A622-329A248F90FB.png" alt="Press-Print showcase 06" width="100%"></a>
 
-| Source | Press-Print |
-| --- | --- |
-| ![](examples/architecture/source-museum.jpeg) | ![](examples/architecture/result-museum.png) |
+### 07
+<a href="examples/showcase/8E3C63CD-7AD2-4E0A-A4AD-AB9C82A9044A.png"><img src="examples/showcase/8E3C63CD-7AD2-4E0A-A4AD-AB9C82A9044A.png" alt="Press-Print showcase 07" width="100%"></a>
 
-### Retail
+### 08
+<a href="examples/showcase/A9F371AC-D68C-4BC5-AD10-261487723695.png"><img src="examples/showcase/A9F371AC-D68C-4BC5-AD10-261487723695.png" alt="Press-Print showcase 08" width="100%"></a>
 
-| Source | Press-Print |
-| --- | --- |
-| ![](examples/retail/source-noodles.jpeg) | ![](examples/retail/result-noodles.png) |
+### 09
+<a href="examples/showcase/AE838326-B4A9-443E-AF99-B1FE4AB22525.png"><img src="examples/showcase/AE838326-B4A9-443E-AF99-B1FE4AB22525.png" alt="Press-Print showcase 09" width="100%"></a>
 
-See [`examples/README.md`](examples/README.md) for the example-set guide and media note.
+### 10
+<a href="examples/showcase/C24DF515-DCB7-4D3A-A871-BDC8F58B38C1.png"><img src="examples/showcase/C24DF515-DCB7-4D3A-A871-BDC8F58B38C1.png" alt="Press-Print showcase 10" width="100%"></a>
+
+See [`examples/README.md`](examples/README.md) for the showcase note and evaluation guidance.
 
 ## Repository structure
 
@@ -102,11 +104,8 @@ press-print/
 │   └── quality-rubric.md
 └── examples/
     ├── README.md
-    ├── urban/
-    ├── landscape/
-    ├── performance/
-    ├── architecture/
-    └── retail/
+    └── showcase/
+        └── high-resolution v1.0 showcase plates
 ```
 
 ## Using it as a Skill
@@ -147,4 +146,4 @@ Created by **Fan Jiale / Galok**.
 
 MIT for the Press-Print skill text, prompt system, documentation, and related project materials. See `LICENSE`.
 
-Example images are provided for demonstration and evaluation; image rights may depend on their original provenance. See [`examples/README.md`](examples/README.md).
+Showcase images are provided for demonstration and evaluation; image rights may depend on their original provenance. See [`examples/README.md`](examples/README.md).

@@ -1,27 +1,26 @@
 # Press-Print examples
 
-This directory contains source/result pairs used to demonstrate and evaluate Press-Print v1.0 across different image categories.
+This directory contains the canonical high-resolution showcase plates for Press-Print v1.0.
 
-## Categories
+## Showcase
 
-- `urban/` — dense city scenes and public space
-- `landscape/` — coastlines, open space, vegetation, and distant urban structure
-- `performance/` — human figures, gesture, costume, motion, and stage-like environments
-- `architecture/` — buildings, rooflines, facades, courtyards, and public monuments
-- `retail/` — shelves, packaging rhythm, repeated commercial structure, and dense object fields
-
-Each pair follows the naming convention:
+All current example media lives in:
 
 ```text
-source-*.jpeg
-result-*.png
+showcase/
 ```
+
+Each image in `showcase/` is a complete before/after plate exactly as uploaded to the repository. The plates should be treated as the canonical showcase assets for v1.0.
+
+Do not split them into separate source/result thumbnails for the README. Do not recompress them into low-resolution derivatives for display. The repository originals are intentionally kept at high resolution so the print texture, halftone structure, edges, and small visual details remain inspectable.
+
+The main README displays each plate at full content width and links directly to the original repository asset.
 
 ## What to look for
 
 A strong Press-Print result should preserve the source's semantic identity and its most distinctive structural anchors while clearly reconstructing the original camera composition.
 
-When reviewing examples, look for:
+When reviewing the showcase, look for:
 
 - recognizability without photographic completeness
 - a visible new hierarchy rather than filter-only treatment
@@ -34,4 +33,4 @@ Use [`../eval/quality-rubric.md`](../eval/quality-rubric.md) for formal scoring.
 
 ## Media note
 
-The MIT License in the repository applies to the Press-Print skill text, prompt system, documentation, and related project materials. Example source photographs and generated example images are included for demonstration and evaluation; image rights may be subject to their original provenance and should not be assumed to be granted under the MIT License unless explicitly stated.
+The MIT License in the repository applies to the Press-Print skill text, prompt system, documentation, and related project materials. Showcase images are included for demonstration and evaluation; image rights may be subject to their original provenance and should not be assumed to be granted under the MIT License unless explicitly stated.
