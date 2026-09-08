@@ -129,7 +129,7 @@ The rubric also defines hard failures such as filter-only output, blanket halfto
 
 **Version:** 1.0.0  
 **Edition:** Image-Only  
-**Status:** Initial public release candidate
+**Status:** Initial public release
 
 ## Author
 
