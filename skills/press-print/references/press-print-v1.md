@@ -1,497 +1,180 @@
-# Press-Print v1.0 — Image-Only Master Prompt
+# Press-Print v1.0.1 — Image-Only Master Prompt
 
-Create a sophisticated image using **Press-Print**, a contemporary editorial print reconstruction system combining selective photography, graphic reduction, halftone and duotone printing, controlled collage, flat color, and modernist composition.
+Create a sophisticated image using **Press-Print**, a contemporary print-driven visual reconstruction system combining selective photography, graphic reduction, halftone and duotone printing, controlled collage, flat color, and modernist composition.
 
-The final result must feel like a premium contemporary editorial poster or magazine image:
-bold,
-graphic,
-cropped,
-layered,
-printed,
-designed,
-intelligent,
-and clearly non-photographic.
+The result must feel bold, graphic, cropped, layered, printed, designed, intelligent, publication-quality, and clearly non-photographic.
 
-This is not a simple style transfer task.
-This is a reconstruction task.
+This is a reconstruction task, not a simple style transfer.
 
-## CORE DIRECTIVE
+## Core directive
 
-Do not process the source image as one intact photograph.
-
-Break the source image into visual components.
-Redesign the relationship between those components.
-Rebuild the image as an editorial composition.
-
-Treat photography as source material only.
+Break the source image into meaningful visual components, redesign the relationship between those components, and rebuild the image as a print-driven visual composition.
 
 **Preserve semantic identity, not visual completeness.**
 
-The viewer should still understand what the image is about, but the original photo should no longer remain visually intact in its original form.
+The viewer should still understand what the image is about, but the original photograph should no longer remain visually intact.
 
-## STRUCTURAL ANCHORS
+A second rule is equally important:
 
-Before disassembling the image, identify 1 to 3 source-defining visual structures that make the scene recognizable.
+**Source text is content. New typography is generation.**
 
-Examples:
-- a coastline curve
-- a distinctive tower silhouette
-- a railway direction
-- a major window grid
-- a characteristic tree canopy
-- a crossing pattern
-- a roofline
-- a figure pose
-- a repeated shelf rhythm
+Press-Print may selectively retain text already present in the source when that text contributes to scene identity. It must never invent new typography.
 
-Preserve these anchors clearly enough to retain the identity of the source.
+## Source text policy
 
-Reconstruct everything around them freely.
+Before reconstruction, inspect visible source text and classify it by role.
 
-Do not confuse transformation with destruction of the source's most distinctive geometry.
+### A. Incidental text
 
-## NON-NEGOTIABLE TRANSFORMATION RULES
+Distant ads, tiny labels, background copy, small packaging text, and other non-essential wording may be cropped, obscured, simplified, reduced into texture, or left partially unreadable inside retained photographic fragments.
+
+### B. Scene-identifying text
+
+Station signage, road signs, storefront names, entrance labels, directional signs, and location markers may contribute to semantic identity. Prefer to retain them as source imagery when feasible.
+
+Do not translate, rewrite, duplicate, enlarge, or promote them into new design elements.
+
+### C. Identity-critical text
+
+Primary station names, brand names, book titles, artwork titles, major wayfinding labels, and other exact wording that materially matters should retain original language, wording, spelling, and semantic role whenever feasible.
+
+Treat them as protected image content, not editable typography.
+
+### D. Text-dominant source
+
+For posters, menus, magazine covers, book covers, packaging fronts, or signage dominated by typography, Press-Print may crop, partially obscure, layer, or retain the original text as source imagery, but must not redesign it into a new typography system.
+
+Do not newly typeset, translate, rewrite, duplicate, invent, or relocate source text as a fresh headline, caption, label, or body-copy system.
+
+### Text-preservation fallback
+
+If exact source text cannot be preserved reliably, crop it, obscure it, simplify it, retain it as photographic texture, or reduce its prominence.
+
+Never invent approximate replacement wording. Never output guessed text, misspelled reconstructions, pseudo-text, invented translations, or filler copy.
+
+**Do not interpret “editorial” as permission to add editorial typography.** Press-Print editoriality comes from composition, cropping, hierarchy, image-state contrast, texture, print treatment, and visual rhythm.
+
+## Structural anchors
+
+Before disassembling the image, identify 1 to 3 source-defining structures that make the scene recognizable, such as a coastline curve, tower silhouette, railway direction, window grid, tree canopy, crossing pattern, roofline, figure pose, shelf rhythm, or identity-critical source signage.
+
+Preserve these anchors clearly enough to retain source identity.
+
+## Non-negotiable transformation rules
 
 1. The original photographic composition must not remain fully intact.
 2. The image must be visibly reconstructed, not merely stylized.
-3. Separate or reinterpret meaningful visual components according to the complexity of the source.
-4. Use differentiated treatments across major regions when this improves the composition.
-5. Some literal information should be removed, cropped, abstracted, grouped, or displaced.
-6. The image must show clear editorial hierarchy.
-7. If the result still looks like the original photo with a print filter applied, the transformation has failed.
-8. If the result destroys the source-defining visual anchors, the transformation has also failed.
+3. Separate or reinterpret meaningful visual components according to source complexity.
+4. Use differentiated treatments across major regions when useful.
+5. Remove, crop, abstract, group, or displace some literal information.
+6. Establish clear dominant, secondary, and quiet zones.
+7. A filter-only result is a failure.
+8. Destroying source-defining anchors is a failure.
+9. Adding new headlines, labels, body copy, pseudo-text, decorative letters, or other typography is a failure.
+10. Rewriting, translating, duplicating, materially respelling, or promoting source text into a new typographic element is a failure.
 
-## MANDATORY WORKFLOW
+## Mandatory workflow
 
-### STEP 1 — DISASSEMBLE
+### 1. Disassemble
 
-Break the source into meaningful visual components.
+Break the source into meaningful components such as main subject, background structure, source signage, windows, skyline, train body, architectural mass, people, road markings, sky, water, vegetation, repeated patterns, symbolic details, and light/shadow masses.
 
-Complex images will usually support 3 to 7 components. Simpler images may use fewer. Do not force unnecessary fragmentation.
+Complex images will usually support 3 to 7 components. Do not force unnecessary fragmentation.
 
-Possible components:
-- main subject
-- background structure
-- signage as visual form
-- windows
-- skyline
-- train body
-- architectural mass
-- people as silhouettes
-- road markings
-- sky
-- water
-- vegetation
-- repeated patterns
-- symbolic details
-- light and shadow masses
+### 2. Recompose
 
-Do not keep everything fused into one uninterrupted photo.
+Rebuild components into a new hierarchy using crop, scale shift, isolation, overlap, displacement, selective repetition, compressed depth, interruption, enlarged source fragments, and active negative space.
 
-### STEP 2 — RECOMPOSE
+Do not use newly generated typography as a shortcut to hierarchy.
 
-Rebuild those components into a new editorial hierarchy.
+### 3. Reassign visual states
 
-Possible operations:
-- enlarge one component disproportionately
-- crop one component aggressively
-- isolate a fragment
-- repeat a component selectively
-- shift one component
-- layer one component over another
-- move a secondary element into foreground status
-- break background continuity
-- compress depth
-- interrupt original space with graphic structure
-- create a quiet negative-space region
+Use different states selectively:
 
-The new composition must feel art-directed and intentional.
+- **PHOTOGRAPHIC** for limited recognizable detail and protected source text.
+- **PRINTED** for halftone, duotone, high-contrast, or offset-print-like regions.
+- **GRAPHIC** for flat color fields, silhouettes, simplified geometry, and abstracted structural forms.
+- **COLLAGED** for cut, layered, torn, shifted, or interrupted source fragments.
 
-### STEP 3 — REASSIGN VISUAL STATES
+Do not apply one uniform treatment to the whole image.
 
-Different parts of the image should receive different image states when compositionally useful.
+### 4. Reduce
 
-**PHOTOGRAPHIC**
-Retain selected recognizable detail in limited areas only.
+Delete, flatten, group, or simplify secondary information. When text is secondary and not identity-bearing, reducing or obscuring it is preferable to regenerating it inaccurately.
 
-**PRINTED**
-Convert selected areas into halftone, duotone, high-contrast, or offset-print-like texture.
+### 5. Hierarchize
 
-**GRAPHIC**
-Convert selected areas into flat color fields, silhouettes, simplified geometry, or abstracted structural forms.
+Use scale, crop, contrast, color, density, overlap, negative space, texture, and source-derived geometry to create hierarchy.
 
-**COLLAGED**
-Treat selected areas as cut-out fragments, layered printed pieces, torn-edge modules, or displaced editorial fragments.
+Do not generate headlines, caption columns, filler copy, or decorative labels.
 
-Do not apply one uniform treatment to the entire image.
-Create contrast between image states.
-Do not force variety where it has no compositional purpose.
+## Source-derived graphics
 
-### STEP 4 — REDUCE
-
-Delete, flatten, group, or simplify secondary information.
-
-Do not preserve every object, every surface, every line, every sign, or every detail.
-Keep what matters.
-Remove what weakens the composition.
-
-### STEP 5 — HIERARCHIZE
-
-Make some regions dominant, some secondary, and some nearly silent.
-
-The whole image must not speak at one volume.
-
-## SOURCE-DERIVED GRAPHICS
-
-Graphic interventions should emerge from structures already present in the source whenever possible.
-
-Derive graphic shapes from:
-- architecture
-- roads
-- coastlines
-- windows
-- shadows
-- vegetation
-- railings
-- signage
-- repeated structural patterns
-- clothing or figure silhouettes
-- existing light masses
+Graphic intervention should grow from architecture, roads, coastlines, windows, shadows, vegetation, railings, source signage, repeated structures, clothing/figure silhouettes, or existing light masses.
 
 Do not invent arbitrary circles, suns, triangles, stripes, or decorative blocks merely to make the image feel designed.
 
-If a large geometric field is used, it should have a visible compositional relationship to something already present in the source.
-
-## STYLE
-
-- Press-Print
-- contemporary editorial print reconstruction
-- contemporary publishing and poster sensibility
-- high design awareness
-- modernist composition with expressive force
-- graphic and art-directed
-- bold asymmetry
-- strong cropping
-- layered visual structure
-- halftone and duotone sensibility
-- screenprint and offset-print character
-- flat color mixed with selected photographic fragments
-- intelligent abstraction
-- collage used with discipline
-- controlled visual tension
-- premium cultural, media, and magazine aesthetic
-- modern rather than nostalgic
-- not cute
-- not decorative clutter
-
-## COMPOSITION RULES
-
-Treat the final image like an editorial page or cover image, not like a preserved camera view.
-
-Use:
-- asymmetrical balance
-- strong hierarchy
-- large graphic masses
-- active negative space
-- directional movement
-- interruption
-- overlap
-- fragmentation
-- contrast between dense and quiet regions
-
-Allow:
-- aggressive cropping
-- enlarged fragments
-- displaced details
-- cut-out components
-- partial occlusion
-- incomplete continuity
-- selective enlargement of structural elements
-
-Do not simply keep the whole scene centered and intact.
-
-## SUBJECT RULE
-
-Preserve recognizability at the level of meaning and defining structure.
-
-Do not preserve everything literally.
-
-Examples:
-- a metro scene may be reduced to icon-like signage shapes, arrows, bars, ceiling rhythm, and passenger flow
-- a train scene may be reduced to track rhythm, carriage stripe, poles, and urban mass
-- a tower may be reduced to silhouette, facade rhythm, and reflective plane
-- an airport may be reduced to seating rhythm, window grid, aircraft fragment, and waiting figures
-- a beach may be reduced to coast curve, sea mass, trees, and skyline fragments
-- a performance may be reduced to figure pose, costume movement, audience density, lighting geometry, and architectural frame
-- a retail shelf may be reduced to packaging blocks, repeated shelf bands, price-label rhythm, and one or two selected product fragments
-
-Preserve the identity of the subject.
-Do not preserve all of its information.
-
-## PRESERVE SEMANTIC IDENTITY, NOT VISUAL COMPLETENESS
-
-This rule is critical.
-
-The result should preserve:
-- what the subject is
-- where the emphasis is
-- what kind of place or scene it is
-- the emotional or informational tone
-- the most distinctive source-defining visual structures
-
-The result should not preserve:
-- the full original framing
-- every original object
-- every original relationship
-- every photographic detail
-- the original scene as a complete uninterrupted record
-
-## COLOR
-
-Use a restrained editorial print palette with roughly 3 to 6 major color families.
-
-Prefer:
-- one dominant structural dark
-- one light paper-like base
-- one or two strong accent colors
-- one supporting secondary hue if needed
-
-Useful color families include:
-- deep navy
-- cobalt blue
-- warm paper or ivory
-- off-white
-- black
-- charcoal
-- vermilion red
-- orange-red
-- muted turquoise
-- mustard
-- muted green
-- coral
-
-Reduce the original photographic color complexity significantly.
-
-Use color strategically to:
-- direct attention
-- compress space
-- separate components
-- unify the design
-- create editorial tension
+## Visual language
 
-Do not simply inherit full photographic color.
-Flat color fields are encouraged.
-Duotone treatment is encouraged.
-Avoid excessive gradients.
+Aim for contemporary print-driven reconstruction, publication-quality image design, modernist composition, bold asymmetry, strong cropping, layered structure, halftone/duotone contrast, screenprint and offset character, flat color mixed with selected photographic fragments, intelligent abstraction, disciplined collage, controlled tension, and modern rather than nostalgic energy.
 
-## TEXTURE AND PRINT LANGUAGE
-
-Use print language deliberately.
-
-Possible tools:
-- halftone dots
-- coarse or fine screen patterns
-- duotone conversion
-- offset-print feeling
-- slight misregistration
-- matte printed texture
-- torn paper edges
-- cut-paper edges
-- imperfect printed layering
-- ink-density variation
-
-Use texture as structure, not decoration.
-
-Do not bury the whole image under grunge.
-Do not make everything distressed.
-Do not simulate fake age everywhere.
-
-## HALFTONE RULE
-
-Halftone is a selective tool, not a blanket effect.
-
-Use halftone to:
-- flatten one region
-- create contrast with a clean region
-- distinguish one layer from another
-- convert photography into graphic information
-- create print identity
-
-Do not apply the same halftone treatment to the entire image.
-Do not let every area share the same density or texture logic.
-
-## COLLAGE RULE
-
-Collage must behave like editorial structure.
-
-Use collage to:
-- isolate fragments
-- shift hierarchy
-- disrupt continuity
-- introduce modular visual logic
-- create controlled layering
-
-Do not make it look like:
-- a scrapbook
-- a mood board
-- random stickers
-- casual cut-and-paste craft
-- childish layout play
-
-Every fragment must have compositional purpose.
-
-## SPACE
-
-Flatten space selectively.
-
-Compress depth.
-Break continuity.
-Allow background and foreground to merge when useful.
-Turn some spatial regions into planes, bands, blocks, or fields.
-
-The final image should function primarily as a designed surface.
-
-Some depth may remain, but only where it strengthens the composition.
+The work should feel like a designed image surface, not a page waiting for a headline and body copy.
 
-## NEGATIVE SPACE
+## Color
 
-Use negative space actively and deliberately.
+Use roughly 3 to 6 major color families: one structural dark, one light paper-like base, one or two strong accents, and one supporting hue if needed.
 
-Allow areas of:
-- paper tone
-- clean off-white
-- flat color
-- reduced sky
-- quiet graphic emptiness
-
-Negative space should create:
-- hierarchy
-- clarity
-- rhythm
-- emphasis
-- breathing room
-
-Do not fill every available area.
-
-## DETAIL DISTRIBUTION
-
-Use strict hierarchy.
-
-**PRIMARY ZONES**
-- highest contrast
-- clearest recognition
-- strongest detail
-- strongest compositional role
-
-**SECONDARY ZONES**
-- reduced
-- grouped
-- simplified
-- partially abstracted
-
-**TERTIARY ZONES**
-- flattened
-- silenced
-- cropped out
-- converted into texture
-- converted into shape
-- removed entirely
-
-Do not distribute attention evenly across the image.
-
-## LIGHT AND TONALITY
-
-Do not keep natural photographic lighting as the dominant system.
-
-Reduce:
-- subtle realistic shading
-- soft tonal realism
-- photographic transitions
-- glossy highlights
-- ordinary camera depth realism
-
-Use instead:
-- silhouette
-- density contrast
-- flat graphic light-dark separation
-- print contrast
-- selective tonal blocking
-- bold highlight-shadow simplification
-
-The image should feel printed and constructed, not optically recorded.
-
-## LINE AND EDGE BEHAVIOR
-
-Use intentional edges.
-
-Possible edge types:
-- crisp cut-out edges
-- torn edges
-- printed edges
-- bold silhouette edges
-- slightly rough handmade boundaries
-
-Avoid:
-- soft painterly blending
-- full-scene blur
-- uniform vector outlines around everything
-- over-rendered contour drawing
-- airbrushed digital smoothness
-
-Edges should feel designed and tactile.
-
-## MODERNITY
-
-Keep modern subjects modern.
-
-A metro sign remains a metro sign.
-A train remains a train.
-A skyline remains contemporary.
-An airport remains contemporary.
-
-Do not convert the subject into a fake antique poster from another era.
-
-This is contemporary print language.
-
-## FAILURE MODES TO AVOID
-
-- the whole image remains basically the original photo
-- only a poster filter is applied
-- halftone is spread everywhere uniformly
-- all details are preserved unchanged
-- collage becomes random decoration
-- the result becomes a flat vector illustration only
-- the result becomes nostalgic vintage imitation
-- the result becomes a clean corporate poster
-- the result becomes a scrapbook
-- the result becomes muddy or visually crowded
-- the result becomes a generic social-media illustration
-- arbitrary decorative circles, suns, triangles, or stripes dominate the result
+Reduce photographic color complexity substantially. Flat color and duotone treatment are encouraged. Avoid excessive gradients.
+
+## Texture and halftone
+
+Use halftone, duotone, offset-print character, slight misregistration, matte texture, paper edges, and ink-density variation selectively.
+
+Texture is structural, not decorative. Do not bury the whole image under grunge or blanket halftone.
+
+## Collage
+
+Use collage to isolate fragments, shift hierarchy, disrupt continuity, create modular logic, and control layering.
+
+Avoid scrapbook, mood-board, random-sticker, or casual craft aesthetics.
+
+## Space and detail
+
+Flatten space selectively. Compress depth. Break continuity. Use negative space actively.
+
+Primary zones may retain the strongest recognition and detail. Secondary zones should be reduced or simplified. Tertiary zones may be flattened, cropped, textured, or removed.
+
+## Modernity
+
+Keep modern subjects modern. A metro sign remains a metro sign. A train remains a train. A skyline remains contemporary. An airport remains contemporary.
+
+Do not convert the subject into fake antique nostalgia.
+
+## Failure modes
+
+Reject or regenerate if any of the following occurs:
+
+- filter-only transformation
+- blanket halftone
+- generic retro poster styling
+- clean corporate vector poster styling
+- random scrapbook collage
+- arbitrary decorative geometry dominates
+- source identity is lost
 - source-defining geometry is destroyed
-- text is newly invented or added
+- newly invented text or typography appears
+- pseudo-text or filler editorial copy appears
+- source text is translated, rewritten, duplicated, enlarged into a headline, or materially respelled
+- identity-critical source text is replaced with hallucinated approximations
 
-## SUCCESS TEST
+## Success test
 
-A successful result should make the viewer think:
+A successful result should feel as though a designer disassembled the photograph, retained its most meaningful identity, then rebuilt it into a publishable print-driven image.
 
-> This clearly comes from a photograph, but it has been re-edited, reconstructed, abstracted, and redesigned into a publishable print-driven image.
-
-The image should feel:
-editorial,
-graphic,
-printed,
-cropped,
-layered,
-intelligent,
-modernist,
-high-contrast,
-mature,
-visually forceful,
-and clearly transformed.
-
-The final work must feel publishable.
+Important source text should either remain faithfully embedded in source imagery or be deliberately reduced/obscured rather than regenerated incorrectly.
 
 **Do not add new text.**
-Preserve original source text only when it survives naturally as part of a retained photographic fragment; do not invent, rewrite, expand, or editorialize it.
+Preserve source text selectively when it materially contributes to semantic identity.
+If exact source text cannot be preserved reliably, obscure or crop it rather than inventing a replacement.
 
 Preserve the original aspect ratio unless a different aspect ratio is explicitly requested.
