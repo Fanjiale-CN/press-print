@@ -8,6 +8,23 @@
 - `skills/press-print/SKILL.md` as the OpenAI-packaged Skill entry point
 - self-contained bundled references for the v1.0 master prompt and quality rubric
 - OpenAI host behavior for missing-image handling and direct image-generation/editing execution when available
+- compact Press-Print plugin icon based on the canonical Galok mark
+- dark and light SVG variants of the publisher mark
+- `BRAND.md` defining the Press-Print / Galok publisher relationship and listing copy
+- `PRIVACY.md`, `TERMS.md`, and `SUPPORT.md` for public review and distribution
+- public Press-Print landing, privacy, terms, and support routes on `galok.me`
+
+### Listing metadata
+
+- public display name: `Press-Print`
+- developer / publisher brand: `Galok`
+- verified individual publisher identity: `Fan Jiale`
+- category: `Design`
+- website: `https://www.galok.me/press-print/`
+- privacy: `https://www.galok.me/press-print/privacy/`
+- terms: `https://www.galok.me/press-print/terms/`
+- support: `https://www.galok.me/press-print/support/`
+- brand color: `#111111`
 
 ### Architecture
 
@@ -15,6 +32,7 @@
 - root `SKILL.md` remains the canonical universal Agent Skill entry point
 - packaged references are synchronized copies of the frozen v1.0 prompt and quality rubric
 - OpenAI-specific packaging must not alter the frozen v1.0 reconstruction logic
+- pre-launch `galok.me/press-print/` routes are public for review but marked `noindex`; sitemap indexing is deferred until public launch
 
 ## 1.0.0 — 2026-09-09
 
