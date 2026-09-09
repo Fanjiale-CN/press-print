@@ -36,6 +36,28 @@ This packaged copy preserves the frozen Press-Print v1.0 reconstruction behavior
 - Before invoking image generation/editing, carry forward an explicit hard negative constraint: no new text, no pseudo-text, no typographic decoration.
 - Do not expose private chain-of-thought or hidden source analysis. Perform structural analysis internally and return the final result or a concise user-facing explanation when generation cannot proceed.
 
+### Scope boundary for explicit invocation
+
+Explicitly invoking Press-Print does not override the v1.0 product boundary.
+
+If the user asks primarily for any of the following:
+
+- a typography-heavy poster
+- an event, exhibition, campaign, or promotional poster
+- a layout centered on a headline, date, body copy, captions, or editorial text
+- a general graphic-design composition where typography is a primary design system
+- a new poster designed from scratch rather than a reconstruction of the supplied photograph
+
+do not silently turn Press-Print into a general poster-design tool.
+
+If a source photograph is present, explain briefly that Press-Print v1.0 can reconstruct the photograph as an image-only editorial print composition, but does not provide typography-led poster design.
+
+Offer the supported alternative: transform the supplied photograph with Press-Print while omitting newly generated typography.
+
+If no source photograph is present, ask for one.
+
+Do not generate a generic typography-led poster as a substitute for an out-of-scope Press-Print request.
+
 For the full image-generation prompt, consult `references/press-print-v1.md` when detailed reconstruction guidance is useful.
 For formal output evaluation, consult `references/quality-rubric.md`.
 
@@ -56,7 +78,7 @@ Typical source categories include:
 
 ## Do not use this skill when
 
-Do not use Press-Print when the user asks for:
+Do not use Press-Print when the user's primary goal is:
 
 - photorealistic enhancement
 - faithful restoration
@@ -64,7 +86,12 @@ Do not use Press-Print when the user asks for:
 - watercolor or painterly conversion
 - generic vector illustration
 - typography-led poster design
+- event, exhibition, campaign, or promotional poster design
+- headline/date/body-copy driven editorial layout
+- general graphic design from scratch
 - historical or antique imitation
+
+When Press-Print is explicitly invoked for one of these out-of-scope tasks, do not ignore the mismatch and proceed anyway. Briefly state the v1.0 boundary and, when appropriate, offer a supported Press-Print transformation of the supplied photograph instead.
 
 Typography is intentionally excluded from v1.0. Do not invent captions, place names, dates, slogans, labels, or decorative text.
 

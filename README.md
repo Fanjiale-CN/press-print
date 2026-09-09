@@ -46,6 +46,16 @@ Press-Print v1.0 is intentionally **image-only**.
 
 It does not introduce new typography, captions, place names, dates, slogans, or metadata. Typography support is being kept outside the core system until image reconstruction quality is stable.
 
+### What v1.0 is not
+
+Press-Print v1.0 is not a general-purpose poster or graphic-design system.
+
+It is designed to reconstruct an existing source photograph into a contemporary print-driven image. It is not intended for typography-led poster layouts, event or exhibition posters, headline/date/body-copy compositions, or graphic designs created from scratch.
+
+If a request primarily depends on newly generated typography or editorial copy, it falls outside the v1.0 scope.
+
+A future version may explore controlled editorial typography as a separate capability without changing the image-only v1.0 baseline.
+
 ## Core principles
 
 - photography is source material, not the final composition
