@@ -6,7 +6,7 @@
     "name": "Fan Jiale / Galok",
     "url": "https://www.galok.me"
   },
-  "homepage": "https://www.galok.me",
+  "homepage": "https://www.galok.me/press-print/",
   "repository": "https://github.com/Fanjiale-CN/press-print",
   "license": "MIT",
   "keywords": [
@@ -21,9 +21,15 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Press-Print",
-    "shortDescription": "Editorial print reconstruction for photographs",
-    "longDescription": "Transform user-supplied photographs into contemporary print-driven compositions using source-aware reconstruction, selective halftone and duotone treatment, graphic reduction, controlled collage, and modernist hierarchy.",
+    "shortDescription": "Editorial print reconstruction for user-supplied photographs",
+    "longDescription": "Press-Print transforms user-supplied photographs into contemporary print-driven compositions using source-aware reconstruction, selective halftone and duotone treatment, graphic reduction, controlled collage, and modernist hierarchy while preserving the source's semantic identity.",
     "developerName": "Galok",
-    "category": "Design"
+    "category": "Design",
+    "websiteURL": "https://www.galok.me/press-print/",
+    "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
+    "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
+    "brandColor": "#111111",
+    "composerIcon": "./assets/press-print-icon.png",
+    "logo": "./assets/press-print-icon.png"
   }
 }
