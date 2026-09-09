@@ -2,9 +2,33 @@
 
 **A source-aware visual reconstruction system for transforming photographs into contemporary print-driven compositions.**
 
+Press-Print is an open-source **Agent Skill / SKILL.md** for image transformation, image generation workflows, editorial design, halftone, duotone, collage, and contemporary print-driven visual reconstruction.
+
 Press-Print takes a photograph apart and rebuilds it as a bold, layered, graphic image using selective photography, halftone and duotone printing, flat color, controlled collage, source-derived geometry, and modernist editorial hierarchy.
 
 > **Preserve semantic identity, not visual completeness.**
+
+## Install
+
+Press-Print can be installed directly from GitHub. Direct installation does **not** depend on skills.sh or GitHub search indexing.
+
+Check that the skill is discoverable in the repository:
+
+```bash
+npx skills add Fanjiale-CN/press-print --list
+```
+
+Install Press-Print:
+
+```bash
+npx skills add Fanjiale-CN/press-print --skill press-print
+```
+
+Repository: `Fanjiale-CN/press-print`  
+Skill: `press-print`  
+Entry point: `SKILL.md`
+
+If a skill directory or search engine has not indexed this repository yet, use the direct install command above.
 
 ## Why Press-Print exists
 
