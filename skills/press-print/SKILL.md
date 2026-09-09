@@ -1,13 +1,13 @@
 ---
 name: press-print
 description: >-
-  Transform a user-supplied photograph into a text-free Press-Print image: a source-aware contemporary
-  editorial print reconstruction using selective photography, halftone or duotone treatment, flat graphic
-  fields, controlled collage, modernist hierarchy, and print texture. Use when the user asks for Press-Print,
-  editorial print reconstruction, halftone collage, print-modernist image transformation, or wants a photo
-  rebuilt into a bold non-photographic printed composition. Preserve semantic identity and source-defining
-  structural anchors. Avoid fabricated text, arbitrary decorative geometry, blanket halftone, generic vintage
-  poster styling, and filter-only transformations. Image-only v1.0.
+  Transform a user-supplied photograph into a Press-Print image without adding new typography: a source-aware
+  contemporary editorial print reconstruction using selective photography, halftone or duotone treatment,
+  flat graphic fields, controlled collage, modernist hierarchy, and print texture. Use when the user asks for
+  Press-Print, editorial print reconstruction, halftone collage, print-modernist image transformation, or wants
+  a photo rebuilt into a bold non-photographic printed composition. Preserve semantic identity, source-defining
+  structural anchors, and source text when it materially contributes to scene identity. Never invent replacement
+  text, filler copy, headlines, labels, captions, pseudo-text, or decorative typography. Image-only v1.0.1.
 ---
 
 # Press-Print
@@ -20,25 +20,30 @@ Its governing principle is:
 
 Treat the source photograph as evidence and raw material, not as a finished composition that merely needs a filter.
 
+A second governing rule applies whenever text is visible in the source:
+
+> Source text is content. New typography is generation.
+
+Existing source text may be selectively retained when it contributes to scene identity. Newly invented typography is outside the Press-Print v1.0.1 system.
+
 ## OpenAI host behavior
 
-This packaged copy preserves the frozen Press-Print v1.0 reconstruction behavior while defining how the workflow should operate in ChatGPT and Codex.
+This packaged copy preserves the Press-Print v1.0.1 reconstruction behavior while defining how the workflow should operate in ChatGPT and Codex.
 
 - Expect a user-supplied source image.
 - If the user asks for Press-Print without supplying an image, ask them to upload or attach one rather than inventing a source.
 - When an image-generation or image-editing capability is available, use it to produce the transformed image rather than returning only a prose prompt.
 - Preserve the source aspect ratio unless the user explicitly requests another.
-- Do not add newly invented text.
+- Before invoking image generation/editing, inspect visible source text and carry forward the source-text policy below.
+- Add no newly invented text, pseudo-text, captions, labels, metadata, standalone letters, or decorative typography.
 - Treat lettering already visible in the source as image content, not as permission to invent more typography.
-- Existing source text may remain inside retained source fragments when structurally necessary, but do not enlarge it into a new headline, rewrite it, add parallel captions, or create new labels around it.
-- Do not generate decorative pseudo-text, filler copy, tiny editorial captions, dates, slogans, metadata, standalone letters, or new words/numbers anywhere in the composition.
-- If the layout needs a graphic mass where typography might normally appear, use non-text visual structure instead: source-derived shape, flat field, halftone region, texture, crop, or negative space.
-- Before invoking image generation/editing, carry forward an explicit hard negative constraint: no new text, no pseudo-text, no typographic decoration.
+- If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than generating an approximate replacement.
+- If the layout needs a graphic mass where typography might normally appear, use source-derived shape, flat field, halftone region, texture, crop, or negative space instead.
 - Do not expose private chain-of-thought or hidden source analysis. Perform structural analysis internally and return the final result or a concise user-facing explanation when generation cannot proceed.
 
 ### Scope boundary for explicit invocation
 
-Explicitly invoking Press-Print does not override the v1.0 product boundary.
+Explicitly invoking Press-Print does not override the v1.0.1 product boundary.
 
 If the user asks primarily for any of the following:
 
@@ -50,9 +55,7 @@ If the user asks primarily for any of the following:
 
 do not silently turn Press-Print into a general poster-design tool.
 
-If a source photograph is present, explain briefly that Press-Print v1.0 can reconstruct the photograph as an image-only editorial print composition, but does not provide typography-led poster design.
-
-Offer the supported alternative: transform the supplied photograph with Press-Print while omitting newly generated typography.
+If a source photograph is present, explain briefly that Press-Print can reconstruct the photograph as an image-only print-driven composition while adding no new typography.
 
 If no source photograph is present, ask for one.
 
@@ -63,7 +66,7 @@ For formal output evaluation, consult `references/quality-rubric.md`.
 
 ## Use this skill when
 
-Use Press-Print when the user wants a supplied image transformed into a bold, graphic, layered, printed, editorial composition with a clearly non-photographic result.
+Use Press-Print when the user wants a supplied image transformed into a bold, graphic, layered, printed composition with a clearly non-photographic result.
 
 Typical source categories include:
 
@@ -91,9 +94,49 @@ Do not use Press-Print when the user's primary goal is:
 - general graphic design from scratch
 - historical or antique imitation
 
-When Press-Print is explicitly invoked for one of these out-of-scope tasks, do not ignore the mismatch and proceed anyway. Briefly state the v1.0 boundary and, when appropriate, offer a supported Press-Print transformation of the supplied photograph instead.
+When Press-Print is explicitly invoked for an out-of-scope typography-led task, do not ignore the mismatch and proceed anyway. If a source photograph is present, offer the supported alternative: reconstruct the photograph while adding no new typography.
 
-Typography is intentionally excluded from v1.0. Do not invent captions, place names, dates, slogans, labels, or decorative text.
+## Source text policy
+
+Before generating, inspect the source for visible text and classify it by role.
+
+### A. Incidental text
+
+Examples include distant advertising, tiny labels, background copy, or text that is not important to scene identity.
+
+It may be cropped, obscured, simplified, reduced into texture, or left partially unreadable inside a retained photographic fragment. Exact preservation is not required.
+
+### B. Scene-identifying text
+
+Examples include station signage, road signs, storefront names, directional labels, entrance signs, or location markers that help identify the scene.
+
+Prefer to retain this text as part of source imagery when feasible.
+
+Do not translate, rewrite, duplicate, enlarge, or promote it into a new design element.
+
+### C. Identity-critical text
+
+Examples include a primary station name, brand name, book title, artwork title, major wayfinding label, or other wording whose exact identity materially matters.
+
+Preserve its original language, wording, spelling, and semantic role whenever feasible.
+
+Treat it as protected image content, not editable typography.
+
+### D. Text-dominant source
+
+Examples include posters, menus, magazine covers, packaging fronts, book covers, or signage where typography occupies a large part of the source.
+
+Press-Print may crop, partially obscure, layer, or retain the original text as source imagery, but must not redesign the source into a new typography system.
+
+Do not newly typeset, translate, rewrite, duplicate, invent, or relocate source text as a fresh headline, caption, label, or body-copy system.
+
+### Text preservation fallback
+
+If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than inventing approximate replacement text.
+
+Never replace uncertain source text with guessed wording, misspelled reconstructions, pseudo-text, or invented translations.
+
+Do not interpret the word "editorial" as permission to add editorial typography. Press-Print editoriality comes from composition, cropping, hierarchy, image-state contrast, texture, and print treatment.
 
 ## Core procedure
 
@@ -115,10 +158,11 @@ Examples:
 - figure pose
 - row of lanterns
 - shelf rhythm
+- identity-critical source signage
 
 Preserve these clearly enough to retain the source identity.
 
-Do not confuse transformation with destruction of the source's most distinctive geometry.
+Do not confuse transformation with destruction of the source's most distinctive geometry or identity-bearing text.
 
 ### 2. Disassemble
 
@@ -135,7 +179,7 @@ Possible components include:
 - water
 - roads
 - windows
-- signage as shape only
+- source signage
 - repeated patterns
 - light and shadow masses
 
@@ -143,7 +187,7 @@ Complex images will usually support 3 to 7 components. Simpler sources may use f
 
 ### 3. Recompose
 
-Rebuild the components into a new editorial hierarchy.
+Rebuild the components into a new hierarchy.
 
 Possible operations:
 
@@ -160,12 +204,14 @@ Possible operations:
 
 The original camera composition must not remain fully intact.
 
+Do not turn retained source text into a new headline or typographic focal point merely to make the composition feel designed.
+
 ### 4. Reassign visual states
 
 Assign different parts of the image to different visual states.
 
 **PHOTOGRAPHIC**  
-Retain limited recognizable detail where it is valuable.
+Retain limited recognizable detail where it is valuable, especially when exact source text or identity-bearing detail needs protection.
 
 **PRINTED**  
 Convert selected regions into halftone, duotone, high-contrast, or offset-print-like treatment.
@@ -213,7 +259,7 @@ Do not invent arbitrary circles, suns, triangles, stripes, or decorative blocks 
 
 Aim for:
 
-- contemporary editorial print sensibility
+- contemporary editorial print sensibility without generated typography
 - bold asymmetry
 - strong cropping
 - limited color families
@@ -246,12 +292,7 @@ Reduce the source's photographic color complexity substantially.
 
 Halftone is a selective structural tool, not a blanket effect.
 
-Use it to:
-
-- flatten selected photographic regions
-- separate layers
-- convert realism into printed information
-- create contrast against clean flat zones
+Use it to flatten selected photographic regions, separate layers, convert realism into printed information, and create contrast against clean flat zones.
 
 Never coat the entire image in the same dot pattern or density.
 
@@ -261,13 +302,7 @@ Collage must behave as editorial structure.
 
 Every fragment must have a compositional job.
 
-Avoid:
-
-- scrapbook layouts
-- random stickers
-- decorative fragments with no structural purpose
-- excessive torn edges
-- mood-board aesthetics
+Avoid scrapbook layouts, random stickers, decorative fragments with no structural purpose, excessive torn edges, and mood-board aesthetics.
 
 ## Detail hierarchy
 
@@ -283,30 +318,24 @@ Do not distribute attention evenly.
 
 Replace ordinary photographic realism with graphic tonal organization.
 
-Prefer:
-
-- silhouette
-- tonal blocks
-- print density
-- flat light-dark separation
-- selective highlights
-- compressed depth
-- layered planes
+Prefer silhouette, tonal blocks, print density, flat light-dark separation, selective highlights, compressed depth, and layered planes.
 
 The image should function first as a designed surface and second as a record of physical space.
 
 ## Hard constraints
 
-- No newly invented text.
-- No pseudo-text, filler copy, decorative letters, labels, captions, dates, slogans, or metadata.
-- Source text may survive only as part of retained source imagery; do not promote, rewrite, duplicate, or expand it into new typography.
+- No newly invented text or typography.
+- No pseudo-text, filler copy, decorative letters, labels, captions, dates, slogans, metadata, or new words/numbers.
+- Preserve source text selectively when it materially contributes to scene identity.
+- Never translate, rewrite, duplicate, enlarge, restyle, or promote source text into a new headline or editorial element.
+- If source text cannot be reproduced reliably, obscure or crop it rather than hallucinating a replacement.
 - Preserve the original aspect ratio unless the user requests another.
 - Do not leave the source photograph intact.
 - Do not reduce the whole image to one uniform vector treatment.
 - Do not use blanket halftone.
 - Do not fake antique paper, sepia history, or nostalgia for its own sake.
 - Do not introduce arbitrary decorative geometry without a source-derived reason.
-- Do not destroy the source-defining structural anchors.
+- Do not destroy source-defining structural anchors.
 
 ## Failure test
 
@@ -319,13 +348,16 @@ The transformation has failed if it looks like:
 - a muddy all-over halftone
 - a composition whose key source identity has been lost
 - an AI poster dominated by arbitrary circles, suns, stripes, or decorative blocks
-- an editorial poster that invents new headlines, captions, labels, filler copy, or pseudo-text
+- a composition containing newly invented headlines, captions, labels, filler copy, pseudo-text, or decorative typography
+- source text rewritten, translated, duplicated, enlarged into a headline, or replaced with hallucinated approximations
 
 ## Success test
 
-A successful Press-Print result should feel as though a designer disassembled the photograph, retained its most meaningful visual identity, then rebuilt it into a publishable contemporary printed composition.
+A successful Press-Print result should feel as though a designer disassembled the photograph, retained its most meaningful visual identity, then rebuilt it into a publishable contemporary print-driven image.
 
 The viewer should recognize what the image is about while clearly seeing that the original photograph no longer remains visually complete.
+
+Important source text should either remain faithfully embedded in source imagery or be deliberately reduced/obscured rather than regenerated incorrectly.
 
 For the full generation prompt, read `references/press-print-v1.md`.
 For evaluation, read `references/quality-rubric.md`.
