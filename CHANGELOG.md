@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased — OpenAI Plugin packaging
+
+### Added
+
+- `.codex-plugin/plugin.json` for OpenAI plugin packaging
+- `skills/press-print/SKILL.md` as the OpenAI-packaged Skill entry point
+- self-contained bundled references for the v1.0 master prompt and quality rubric
+- OpenAI host behavior for missing-image handling and direct image-generation/editing execution when available
+
+### Architecture
+
+- remains a Skills-only plugin with no MCP server, authentication layer, or external runtime dependency
+- root `SKILL.md` remains the canonical universal Agent Skill entry point
+- packaged references are synchronized copies of the frozen v1.0 prompt and quality rubric
+- OpenAI-specific packaging must not alter the frozen v1.0 reconstruction logic
+
 ## 1.0.0 — 2026-09-09
 
 Initial Press-Print image-only release.
