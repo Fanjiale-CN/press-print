@@ -42,6 +42,23 @@ Press-Print v1.0 is image-only.
 
 Please keep typography, inferred place names, captions, slogans, dates, and metadata outside the core v1.0 proposal unless the discussion is explicitly about a future typography extension.
 
+## Core baseline and platform packaging
+
+Press-Print v1.0.0 is the frozen image-only core baseline.
+
+The canonical behavioral sources are the root [`SKILL.md`](SKILL.md) and [`prompt/press-print-v1.md`](prompt/press-print-v1.md). The evaluation contract lives in [`eval/quality-rubric.md`](eval/quality-rubric.md).
+
+Platform-specific packaging may add manifests, metadata, assets, or synchronized copies of the Skill, but it should not silently change the v1.0 behavior.
+
+When adapting Press-Print to another platform:
+
+1. keep the root `SKILL.md` as the universal Agent Skills entry point
+2. keep platform-specific Skill copies synchronized with the canonical core
+3. treat packaging changes separately from behavioral changes
+4. require a version bump and changelog entry for any change that alters reconstruction behavior, trigger boundaries, or hard constraints
+
+This keeps OpenAI, Codex, Vercel Skills, and future integrations aligned around the same core system.
+
 ## Example submissions
 
 When possible, include:
