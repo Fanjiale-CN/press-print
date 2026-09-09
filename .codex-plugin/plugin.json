@@ -1,7 +1,7 @@
 {
   "name": "press-print",
-  "version": "1.0.0",
-  "description": "Source-aware visual reconstruction for transforming photographs into contemporary print-driven compositions.",
+  "version": "1.0.1",
+  "description": "Source-aware visual reconstruction for transforming photographs into contemporary print-driven compositions without adding new typography.",
   "author": {
     "name": "Fan Jiale / Galok",
     "email": "galokview@outlook.com",
@@ -23,17 +23,17 @@
   "interface": {
     "displayName": "Press-Print",
     "shortDescription": "Editorial photo reconstruction",
-    "longDescription": "Press-Print transforms a user-supplied source photograph into a contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0 is image-only and does not invent captions, place names, dates, slogans, labels, or decorative text.",
-    "developerName": "Galok",
+    "longDescription": "Press-Print transforms a user-supplied source photograph into a contemporary print-driven visual reconstruction while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0.1 adds no new typography. Existing source text may be selectively retained when it contributes to scene identity; uncertain text should be cropped, obscured, or reduced rather than hallucinated.",
+    "developerName": "Fan Jiale",
     "category": "Creativity",
     "websiteURL": "https://www.galok.me/press-print/",
     "supportURL": "https://www.galok.me/press-print/support/",
     "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
     "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
     "defaultPrompt": [
-      "Transform this photograph with Press-Print.",
-      "Rebuild this city photo as an editorial print composition. Keep the skyline readable.",
-      "Turn this portrait into a Press-Print reconstruction. No text."
+      "Transform this photograph with Press-Print. Do not add new text or typography.",
+      "Rebuild this city photo with Press-Print. Preserve defining structures and do not add new text.",
+      "Reconstruct this portrait with Press-Print. Preserve source text only if it already exists; add no new typography."
     ],
     "brandColor": "#111111",
     "composerIcon": "./assets/press-print-icon.png",
