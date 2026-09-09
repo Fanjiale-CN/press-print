@@ -1,4 +1,4 @@
-# Press-Print v1.0 Quality Rubric
+# Press-Print v1.0.1 Quality Rubric
 
 Use this rubric to evaluate generated Press-Print results consistently across models and source categories.
 
@@ -10,9 +10,9 @@ Score out of 100.
 
 Does the result still clearly communicate what the source image is about?
 
-- 22–25: unmistakably retains the scene's identity and defining anchors
-- 17–21: mostly recognizable, with minor structural loss
-- 10–16: genericized or partially confused
+- 22–25: unmistakably retains the scene's identity, defining anchors, and identity-bearing source text where relevant
+- 17–21: mostly recognizable, with minor structural or text loss
+- 10–16: genericized, partially confused, or important source text handled poorly
 - 0–9: source identity substantially lost
 
 ### 2. Reconstruction Strength — 25 points
@@ -24,9 +24,9 @@ Has the photograph genuinely been rebuilt rather than filtered?
 - 10–16: mostly stylization with limited structural intervention
 - 0–9: filter-only transformation
 
-### 3. Editorial Hierarchy — 20 points
+### 3. Visual Hierarchy — 20 points
 
-Does the image have clear dominant, secondary, and quiet zones?
+Does the image have clear dominant, secondary, and quiet zones without relying on newly generated typography?
 
 - 18–20: strong hierarchy, rhythm, and controlled negative space
 - 14–17: readable hierarchy with minor crowding or imbalance
@@ -44,12 +44,12 @@ Are photographic, printed, graphic, and collaged states used selectively rather 
 
 ### 5. Restraint and Source Discipline — 15 points
 
-Do graphic interventions grow from the source rather than from generic poster habits?
+Do graphic interventions grow from the source rather than from generic poster habits, and is source text handled faithfully?
 
-- 13–15: source-derived, controlled, mature, and purposeful
-- 10–12: mostly disciplined with minor decorative excess
-- 6–9: visible template habits or arbitrary geometry
-- 0–5: generic poster tropes dominate the source
+- 13–15: source-derived, controlled, mature, purposeful; important source text is faithfully retained or deliberately reduced
+- 10–12: mostly disciplined with minor decorative excess or minor text-handling weakness
+- 6–9: visible template habits, arbitrary geometry, or questionable source-text reconstruction
+- 0–5: generic poster tropes dominate, new typography is invented, or source text is materially hallucinated
 
 ## Interpretation
 
@@ -59,16 +59,31 @@ Do graphic interventions grow from the source rather than from generic poster ha
 - **60–69**: style cues present, system not fully understood
 - **Below 60**: failed Press-Print transformation
 
+## Source text evaluation
+
+When source text is visible, evaluate it by role:
+
+- **Incidental text** may be cropped, obscured, simplified, or reduced into texture.
+- **Scene-identifying text** should preferably remain embedded in source imagery when feasible.
+- **Identity-critical text** should retain original language, wording, spelling, and semantic role whenever feasible.
+- **Text-dominant sources** may retain or crop original typography, but must not be redesigned into a new typography system.
+
+If exact source text cannot be preserved reliably, obscuring or cropping it is preferable to inventing an approximation.
+
 ## Hard failures
 
 Any of the following should trigger rejection or regeneration even if the numeric score is otherwise acceptable:
 
-- newly invented text or place names
+- newly invented readable text
+- pseudo-text, filler copy, decorative letters, captions, labels, dates, slogans, or editorial body copy
+- source text translated, rewritten, duplicated, materially respelled, or enlarged into a new headline
+- identity-critical source text replaced with hallucinated or approximate wording
+- generated typography used to create hierarchy that should have been achieved through composition, crop, scale, color, texture, or negative space
 - filter-only transformation
 - source identity is no longer recognizable
 - blanket halftone across nearly the entire image
-- arbitrary circles, suns, triangles, or blocks dominate without source justification
-- generic nostalgic poster aesthetic replaces contemporary editorial logic
+- arbitrary circles, suns, triangles, stripes, or blocks dominate without source justification
+- generic nostalgic poster aesthetic replaces contemporary print logic
 - random scrapbook or sticker collage
 - all major regions receive the same visual treatment
 - source-defining geometry is destroyed without a compelling compositional reason
@@ -81,5 +96,6 @@ When comparing multiple image models:
 2. Use the same Press-Print prompt version.
 3. Keep aspect ratio and generation intent constant.
 4. Score each output independently before comparing them side by side.
-5. Record recurring model-specific failure patterns.
-6. Do not change the prompt after every isolated bad generation. Revise only when a failure pattern repeats across multiple source categories.
+5. For sources containing text, record whether the model retained, obscured, hallucinated, translated, duplicated, or promoted source text.
+6. Record recurring model-specific failure patterns.
+7. Do not change the prompt after every isolated bad generation. Revise only when a failure pattern repeats across multiple source categories.
