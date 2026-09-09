@@ -1,0 +1,29 @@
+{
+  "name": "press-print",
+  "version": "1.0.0",
+  "description": "Source-aware visual reconstruction for transforming photographs into contemporary print-driven compositions.",
+  "author": {
+    "name": "Fan Jiale / Galok",
+    "url": "https://www.galok.me"
+  },
+  "homepage": "https://www.galok.me",
+  "repository": "https://github.com/Fanjiale-CN/press-print",
+  "license": "MIT",
+  "keywords": [
+    "image-generation",
+    "editorial-design",
+    "print-design",
+    "halftone",
+    "duotone",
+    "collage",
+    "visual-reconstruction"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Press-Print",
+    "shortDescription": "Editorial print reconstruction for photographs",
+    "longDescription": "Transform user-supplied photographs into contemporary print-driven compositions using source-aware reconstruction, selective halftone and duotone treatment, graphic reduction, controlled collage, and modernist hierarchy.",
+    "developerName": "Galok",
+    "category": "Design"
+  }
+}
