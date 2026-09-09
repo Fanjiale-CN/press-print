@@ -1,0 +1,20 @@
+{
+  "name": "press-print-dev",
+  "interface": {
+    "displayName": "Press-Print Development"
+  },
+  "plugins": [
+    {
+      "name": "press-print",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}

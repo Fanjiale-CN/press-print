@@ -13,6 +13,9 @@
 - `BRAND.md` defining the Press-Print / Galok publisher relationship and listing copy
 - `PRIVACY.md`, `TERMS.md`, and `SUPPORT.md` for public review and distribution
 - public Press-Print landing, privacy, terms, and support routes on `galok.me`
+- repo-scoped development marketplace at `.agents/plugins/marketplace.json`
+- `eval/openai-plugin-test-plan.md` covering direct, indirect, follow-up, negative, boundary, and image-tool execution tests
+- starter prompts and public support contact metadata in the OpenAI plugin manifest
 
 ### Listing metadata
 
@@ -33,6 +36,7 @@
 - packaged references are synchronized copies of the frozen v1.0 prompt and quality rubric
 - OpenAI-specific packaging must not alter the frozen v1.0 reconstruction logic
 - pre-launch `galok.me/press-print/` routes are public for review but marked `noindex`; sitemap indexing is deferred until public launch
+- development marketplace exposes the repository-root plugin for local ChatGPT desktop installation and testing
 
 ## 1.0.0 — 2026-09-09
 

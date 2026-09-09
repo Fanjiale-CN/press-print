@@ -4,6 +4,7 @@
   "description": "Source-aware visual reconstruction for transforming photographs into contemporary print-driven compositions.",
   "author": {
     "name": "Fan Jiale / Galok",
+    "email": "galokview@outlook.com",
     "url": "https://www.galok.me"
   },
   "homepage": "https://www.galok.me/press-print/",
@@ -28,6 +29,11 @@
     "websiteURL": "https://www.galok.me/press-print/",
     "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
     "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
+    "defaultPrompt": [
+      "Transform this photograph with Press-Print.",
+      "Rebuild this image as an editorial print composition.",
+      "Use Press-Print while preserving the scene's structural anchors."
+    ],
     "brandColor": "#111111",
     "composerIcon": "./assets/press-print-icon.png",
     "logo": "./assets/press-print-icon.png"
