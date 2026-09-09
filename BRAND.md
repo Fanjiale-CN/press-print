@@ -4,27 +4,31 @@
 
 - **Product / plugin name:** Press-Print
 - **Publisher brand:** Galok
-- **Publisher:** Fan Jiale, publishing under the Galok identity
+- **Publisher:** Fan Jiale, an individual developer publishing under the Galok brand
 - **OpenAI listing developer name:** Galok
 - **OpenAI developer identity:** Fan Jiale when submitting as a verified individual
 - **Repository:** https://github.com/Fanjiale-CN/press-print
 - **Website:** https://www.galok.me/press-print/
 
-Press-Print is a Galok project. Galok is the public creative identity; it is not presented as a separate legal company. Public policy and support pages should make the relationship explicit so the product name, website, support contact, and verified individual identity remain consistent during review.
+Press-Print is a Galok project. Galok is the public creative identity; it is not presented as a separate legal company. Public policy and support pages make the relationship explicit so the product name, website, support contact, privacy policy, terms, and verified individual identity remain consistent during review.
 
 ## Positioning
 
 **One-line definition**
 
-> A source-aware visual reconstruction system for transforming photographs into contemporary print-driven compositions.
+> A source-aware visual reconstruction system for transforming user-supplied photographs into contemporary print-driven compositions.
 
 **Short listing description**
 
-> Editorial print reconstruction for user-supplied photographs.
+> Editorial photo reconstruction
 
 **Long listing description**
 
-> Press-Print transforms user-supplied photographs into contemporary print-driven compositions using source-aware reconstruction, selective halftone and duotone treatment, graphic reduction, controlled collage, and modernist hierarchy while preserving the source's semantic identity.
+> Press-Print transforms a source photograph into a contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It identifies key structural anchors in the source and rebuilds the composition through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy. Press-Print v1.0 requires a user-supplied source photograph and is image-only; it does not invent captions, place names, dates, slogans, labels, or decorative text.
+
+**OpenAI category**
+
+> Creativity
 
 ## Mark and icon system
 
