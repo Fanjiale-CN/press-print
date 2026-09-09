@@ -12,9 +12,10 @@ Press-Print is a Skills-only Plugin. It does not include an MCP server, authenti
 
 - Plugin name: `Press-Print`
 - Publisher brand: `Galok`
-- Developer identity: `Fan Jiale` (must be selected from a verified OpenAI Platform identity in the submission portal)
-- Category: `Design`
-- Version baseline: `1.0.0`
+- Developer identity: `Fan Jiale` (verified individual identity to select in the OpenAI Platform submission portal)
+- Category: `Creativity`
+- Short description: `Editorial photo reconstruction`
+- Version: `1.0.0`
 - Repository: `https://github.com/Fanjiale-CN/press-print`
 
 ## Skill bundle to upload
@@ -38,12 +39,14 @@ Use this exact tested tree for the Skills tab. Do not replace it with the reposi
 - Privacy: `https://www.galok.me/press-print/privacy/`
 - Terms: `https://www.galok.me/press-print/terms/`
 
+The website, support page, privacy policy, and terms use the same publisher relationship: Fan Jiale is the individual developer and Galok is the public publishing brand.
+
 ## Submission files
 
-- `listing-and-prompts.md` — copy for the Info and Prompts tabs
+- `listing-and-prompts.md` — final copy for the Info and Prompts tabs
 - `test-cases.md` — five positive and three negative review tests
 - `release-notes.md` — initial-submission release notes and availability recommendation
-- `final-checklist.md` — readiness check and remaining human-only actions
+- `final-checklist.md` — readiness check and remaining portal actions
 
 ## Reviewer setup
 
