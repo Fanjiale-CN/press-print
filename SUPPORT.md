@@ -1,6 +1,6 @@
 # Press-Print Support
 
-Press-Print is maintained as an open-source project by Fan Jiale / Galok.
+Press-Print is published and maintained by **Fan Jiale**, an individual developer, under the **Galok** brand.
 
 ## Best support channel
 
@@ -8,7 +8,7 @@ For bugs, trigger problems, installation failures, reproducible visual regressio
 
 https://github.com/Fanjiale-CN/press-print/issues
 
-When reporting a problem, include only information needed to reproduce it. Do not post credentials, private images, private conversations, government identifiers, financial information, health information, or other sensitive personal data in a public issue.
+GitHub Issues are public. Do not post credentials, private images, private conversations, government identifiers, financial information, health information, or other sensitive personal data.
 
 ## Private contact
 
@@ -30,6 +30,6 @@ Where practical, include:
 
 ## Scope of support
 
-Support covers the Press-Print Skill, its packaging, public documentation, and reproducible behavior within supported host environments. Account, billing, model availability, or platform outages controlled by a host provider should be handled through that provider's support channels.
+Support covers the Press-Print Skills-only Plugin / Agent Skill, its packaging, public documentation, and reproducible behavior within supported host environments. Account, billing, model availability, or platform outages controlled by a host provider should be handled through that provider's support channels.
 
 Public support URL: https://www.galok.me/press-print/support/
