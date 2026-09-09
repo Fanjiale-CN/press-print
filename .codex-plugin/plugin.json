@@ -26,8 +26,11 @@
     "longDescription": "Press-Print transforms a user-supplied source photograph into a strongly flattened contemporary print reconstruction while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0.2 adds no new typography by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.",
     "developerName": "Fan Jiale",
     "category": "Creativity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
     "websiteURL": "https://www.galok.me/press-print/",
-    "supportURL": "https://www.galok.me/press-print/support/",
     "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
     "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
     "defaultPrompt": [

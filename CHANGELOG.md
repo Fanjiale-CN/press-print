@@ -14,6 +14,8 @@
 - strengthened halftone as a clearly visible, intentionally varied structural device
 - strengthened torn-paper collage through visible tears, cut-paper overlaps, rough interruptions, pasted fragments, and deliberate paper-layer transitions
 - synchronized the universal Skill, OpenAI-packaged Skill, master prompt, packaged prompt reference, quality rubric, manifest, listing copy, and review tests
+- replaced the truncated plugin icon with a safely decodable 1024×1024 RGBA PNG exported from the canonical dark SVG mark
+- aligned the plugin manifest with the current ingestion schema by adding capabilities and removing the unsupported `supportURL` field
 - bumped OpenAI plugin metadata to `1.0.2`
 
 ### Text-control contract
