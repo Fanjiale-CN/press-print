@@ -1,6 +1,8 @@
 # OpenAI Review Test Cases
 
-These cases are written for the first public Skills-only Plugin submission. Press-Print requires no account, authentication, demo credentials, or private fixture data.
+These cases cover Press-Print v1.0.1, including the source-text policy introduced after the initial v1.0.0 public release.
+
+Press-Print requires no account, authentication, demo credentials, or private fixture data.
 
 For positive tests, attach any non-sensitive photograph matching the requested source category. Unless the prompt requests a different crop, the expected output keeps the source aspect ratio.
 
@@ -10,91 +12,83 @@ For positive tests, attach any non-sensitive photograph matching the requested s
 
 **User prompt**
 
-`Use Press-Print to transform this photograph into a contemporary editorial print composition.`
+`Transform this photograph with Press-Print. Do not add new text or typography.`
 
 **Fixture**
 
 Attach a non-sensitive city, transport, or public-space photograph.
 
-**Expected skill / workflow behavior**
+**Expected behavior**
 
-Press-Print should activate, identify a small number of source-defining structural anchors, disassemble and recompose the photograph, and use selective photographic, printed, graphic, and/or collaged states rather than a single whole-image filter.
+Press-Print should activate, identify source-defining anchors, disassemble and recompose the photograph, and use selective photographic, printed, graphic, and/or collaged states rather than a single whole-image filter.
 
-**Expected result shape**
+If the source contains text, existing source text may be retained selectively when it contributes to scene identity, but no new headline, caption, filler copy, label, pseudo-text, or decorative typography should be created.
 
-A directly generated or edited image that remains recognizably tied to the source while being clearly reconstructed into a print-driven composition. The response should not stop at providing a prompt for another model.
-
-### P2 — Direct Chinese invocation
+### P2 — Chinese invocation with source signage
 
 **User prompt**
 
-`用 Press-Print 重构这张照片，保留最重要的结构特征。`
+`用 Press-Print 重构这张照片，保留最重要的结构特征，不要新增文字。`
 
 **Fixture**
 
-Attach a non-sensitive photograph.
+Attach a non-sensitive metro, railway, street, storefront, or public-space photograph containing visible signage.
 
-**Expected skill / workflow behavior**
+**Expected behavior**
 
-The same Press-Print workflow should run in Chinese without requiring the user to restate the method in English.
+The workflow should run in Chinese. Scene-identifying or identity-critical source text may remain as source imagery when feasible.
 
-**Expected result shape**
+The model should not translate, rewrite, duplicate, materially respell, enlarge, or promote source signage into new typography.
 
-A directly generated or edited Press-Print image with preserved source identity, strong hierarchy, and non-uniform treatment across the composition.
+If exact source text cannot be preserved reliably, it should be cropped, obscured, simplified, or reduced into texture rather than hallucinated.
 
 ### P3 — Indirect editorial reconstruction request
 
 **User prompt**
 
-`Turn this photograph into a bold contemporary editorial print reconstruction while preserving its defining structure.`
+`Turn this photograph into a bold contemporary print reconstruction while preserving its defining structure. Add no new typography.`
 
 **Fixture**
 
 Attach a non-sensitive photograph.
 
-**Expected skill / workflow behavior**
+**Expected behavior**
 
 Press-Print may be selected from its description even when the product name is not used. The workflow should preserve semantic identity and reconstruct the camera composition rather than applying a generic retro or halftone filter.
 
-**Expected result shape**
-
-A reconstructed image with clear dominant, secondary, and quiet zones and visible treatment diversity.
+The word "editorial" or "print" must not trigger invented headlines, columns of filler copy, captions, metadata, or pseudo-text.
 
 ### P4 — Portrait source
 
 **User prompt**
 
-`Transform this portrait with Press-Print while keeping the subject recognizable.`
+`Reconstruct this portrait with Press-Print. Preserve source text only if it already exists; add no new typography.`
 
 **Fixture**
 
 Attach a non-sensitive portrait photograph the reviewer has permission to use.
 
-**Expected skill / workflow behavior**
+**Expected behavior**
 
-Press-Print should preserve the subject's defining facial/pose identity while reorganizing the portrait through selective crop, scale, graphic fields, print texture, and controlled collage.
+Press-Print should preserve defining facial/pose identity while reorganizing the portrait through selective crop, scale, graphic fields, print texture, and controlled collage.
 
-**Expected result shape**
-
-A recognizable portrait reconstructed into a contemporary printed composition, without reducing the entire image to one uniform vector or halftone treatment.
+Clothing text, signs, or other existing source wording may remain selectively, but no new typography should be introduced.
 
 ### P5 — Architecture or landscape source
 
 **User prompt**
 
-`Use Press-Print on this architecture or landscape photo and preserve its main structural anchors.`
+`Use Press-Print on this architecture or landscape photo and preserve its main structural anchors. Add no new text.`
 
 **Fixture**
 
 Attach a non-sensitive architecture, streetscape, or landscape photograph.
 
-**Expected skill / workflow behavior**
+**Expected behavior**
 
-Press-Print should identify source-derived geometry such as rooflines, roads, windows, skyline, coastline, or terrain and use those structures to drive the graphic intervention.
+Press-Print should identify source-derived geometry such as rooflines, roads, windows, skyline, coastline, or terrain and use those structures to drive graphic intervention.
 
-**Expected result shape**
-
-A print-driven reconstruction that keeps the scene identifiable, avoids arbitrary decorative geometry, and uses selective halftone/duotone/graphic/collage treatment.
+The result should remain identifiable, avoid arbitrary decorative geometry, and use selective halftone/duotone/graphic/collage treatment without generated typography.
 
 ## Negative test cases
 
@@ -112,10 +106,6 @@ Press-Print should not be selected because faithful restoration is outside its r
 
 Use the host's normal photo restoration or enhancement behavior instead.
 
-**Why Press-Print should not complete it**
-
-The user's goal is to preserve photographic realism rather than rebuild the image into a print-driven composition.
-
 ### N2 — Watercolor conversion
 
 **User prompt**
@@ -130,10 +120,6 @@ Press-Print should not be selected.
 
 Use a watercolor or painterly image transformation workflow.
 
-**Why Press-Print should not complete it**
-
-Watercolor conversion is explicitly outside the Press-Print visual system.
-
 ### N3 — Typography-led poster design
 
 **User prompt**
@@ -144,10 +130,15 @@ Watercolor conversion is explicitly outside the Press-Print visual system.
 
 Press-Print should not be selected automatically for this request.
 
-**Safe fallback**
+If Press-Print is explicitly invoked and a source photograph is attached, it may offer to reconstruct the photograph while adding no new typography. It must not silently become a general-purpose poster or typesetting system.
 
-Use a general graphic-design or image-generation workflow appropriate for typography-led poster design.
+## Regression checks for v1.0.1
 
-**Why Press-Print should not complete it**
+A generated result must be rejected or regenerated if any of the following occurs:
 
-Press-Print v1.0 is scoped to source-photograph reconstruction and is not a general-purpose typography-led poster system.
+- new readable text appears that did not exist in the source
+- pseudo-text or filler editorial copy appears
+- source text is translated, rewritten, duplicated, materially respelled, or enlarged into a new headline
+- identity-critical source text is replaced with hallucinated wording
+- empty space is filled with invented caption columns or metadata
+- generated typography is used to create visual hierarchy instead of crop, scale, color, texture, geometry, or negative space
