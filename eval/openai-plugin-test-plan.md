@@ -1,10 +1,10 @@
 # Press-Print OpenAI Plugin Test Plan
 
-This test plan covers the first installed-plugin validation pass for the Skills-only OpenAI Plugin package.
+This test plan covers the v1.0.2 installed-plugin validation pass for the Skills-only OpenAI Plugin package.
 
 ## Goal
 
-Verify that Press-Print can be discovered through a repo marketplace, installed in a supported ChatGPT desktop surface, invoked directly or indirectly, and used with a supplied image without drifting from the frozen v1.0 behavior.
+Verify that Press-Print can be discovered through a repo marketplace, installed in a supported ChatGPT desktop surface, invoked directly or indirectly, and used with a supplied image while following the v1.0.2 planar, source-text, language, footprint, halftone, and torn-paper rules.
 
 ## Marketplace setup
 
@@ -25,7 +25,7 @@ After adding the marketplace, restart the ChatGPT desktop app before installing 
 
 ## Test rules
 
-Run each test in a new conversation unless the case is explicitly a follow-up test. Keep the same source image when comparing outputs across revisions. Record whether the plugin activated, whether image generation/editing actually ran, and whether the result satisfies the v1.0 quality rubric.
+Run each test in a new conversation unless the case is explicitly a follow-up test. Keep the same source image when comparing outputs across revisions. Record whether the plugin activated, whether image generation/editing actually ran, and whether the result satisfies the v1.0.2 quality rubric.
 
 ## Positive tests
 
@@ -88,6 +88,33 @@ Expected:
 - Structural anchors remain recognizable.
 - The result becomes more reconstructed without turning into arbitrary decoration.
 
+### P6 — Exact user-requested text
+
+Input:
+
+`@Press-Print Reconstruct this photograph and add only the exact text “地铁”.`
+
+Attach a source photograph.
+
+Expected:
+- The result may add `地铁`.
+- No other new text, translation, bilingual duplicate, caption, label, date, or pseudo-text appears.
+- The requested text remains visually controlled when placement and size are unspecified.
+
+### P7 — High text-density source
+
+Input:
+
+`@Press-Print Reconstruct this signage-heavy street photograph without adding text.`
+
+Attach a source photograph of a dense commercial street, station, convenience store, supermarket, or signage wall.
+
+Expected:
+- The result preserves typographic density rather than typographic completeness.
+- Only a small number of identity-bearing source texts remain clearly readable.
+- Most other text becomes cropped fragments, halftone, texture, or occlusion.
+- Monolingual source signs are not translated or made bilingual.
+
 ## Negative tests
 
 ### N1 — Restoration
@@ -112,7 +139,7 @@ Input:
 
 `Design a typography-heavy poster with a large headline and date.`
 
-Expected: Press-Print v1.0 should not be selected because generated typography is intentionally excluded.
+Expected: Press-Print v1.0.2 should not be selected because from-scratch typography-led design remains outside scope. The exact-user-wording exception does not permit invented poster copy.
 
 ## Visual quality checks
 
@@ -124,9 +151,14 @@ Check specifically that:
 - 1 to 3 structural anchors survive
 - the original camera composition is visibly reconstructed
 - photographic, printed, graphic, and collaged states are selective rather than uniform
-- halftone is not applied across the entire image
+- the composition is strongly flattened into a designed 2D surface with interlocking planes
+- halftone is clearly visible and structurally varied without being applied across the entire image
+- torn-paper edges, cut-paper overlaps, or deliberate paper-layer transitions support the collage structure
 - arbitrary circles, suns, triangles, stripes, or blocks do not dominate
-- no new text is invented
+- no unrequested text is invented
+- source text is not translated or duplicated into a bilingual version
+- exact user-requested text is not altered or accompanied by extra copy
+- readable text stays within the 15% total / 8% per-block guidance unless source necessity or an explicit request to enlarge the user's exact supplied text requires otherwise
 - the original aspect ratio is preserved unless explicitly changed
 - the result is not merely the source photograph plus a print filter
 

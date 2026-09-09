@@ -1,13 +1,14 @@
 ---
 name: press-print
 description: >-
-  Transform a user-supplied photograph into a Press-Print image without adding new typography: a source-aware
-  contemporary editorial print reconstruction using selective photography, halftone or duotone treatment,
-  flat graphic fields, controlled collage, modernist hierarchy, and print texture. Use when the user asks for
+  Transform a user-supplied photograph into a Press-Print image: a source-aware contemporary editorial print
+  reconstruction using selective photography, visible halftone or duotone treatment, strongly flattened graphic
+  fields, tactile torn-paper collage, modernist hierarchy, and print texture. Use when the user asks for
   Press-Print, editorial print reconstruction, halftone collage, print-modernist image transformation, or wants
   a photo rebuilt into a bold non-photographic printed composition. Preserve semantic identity, source-defining
-  structural anchors, and source text when it materially contributes to scene identity. Never invent replacement
-  text, filler copy, headlines, labels, captions, pseudo-text, or decorative typography. Image-only v1.0.1.
+  structural anchors, and source text when it materially contributes to scene identity. By default, add zero new
+  text. If the user explicitly supplies exact text, add only that exact wording. Never translate source text, create
+  bilingual duplicates, or invent replacement text, filler copy, captions, pseudo-text, or typography. v1.0.2.
 ---
 
 # Press-Print
@@ -24,26 +25,27 @@ A second governing rule applies whenever text is visible in the source:
 
 > Source text is content. New typography is generation.
 
-Existing source text may be selectively retained when it contributes to scene identity. Newly invented typography is outside the Press-Print v1.0.1 system.
+Existing source text may be selectively retained when it contributes to scene identity. Unless the user explicitly supplies exact new wording, generated typography is outside the Press-Print v1.0.2 system.
 
 ## OpenAI host behavior
 
-This packaged copy preserves the Press-Print v1.0.1 reconstruction behavior while defining how the workflow should operate in ChatGPT and Codex.
+This packaged copy preserves the Press-Print v1.0.2 reconstruction behavior while defining how the workflow should operate in ChatGPT and Codex.
 
 - Expect a user-supplied source image.
 - If the user asks for Press-Print without supplying an image, ask them to upload or attach one rather than inventing a source.
 - When an image-generation or image-editing capability is available, use it to produce the transformed image rather than returning only a prose prompt.
 - Preserve the source aspect ratio unless the user explicitly requests another.
 - Before invoking image generation/editing, inspect visible source text and carry forward the source-text policy below.
-- Add no newly invented text, pseudo-text, captions, labels, metadata, standalone letters, or decorative typography.
+- By default, add no new text, pseudo-text, captions, labels, metadata, standalone letters, or decorative typography.
 - Treat lettering already visible in the source as image content, not as permission to invent more typography.
 - If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than generating an approximate replacement.
 - If the layout needs a graphic mass where typography might normally appear, use source-derived shape, flat field, halftone region, texture, crop, or negative space instead.
+- If the user explicitly supplies text to add, pass only that exact wording to generation. Do not translate, expand, or supplement it.
 - Do not expose private chain-of-thought or hidden source analysis. Perform structural analysis internally and return the final result or a concise user-facing explanation when generation cannot proceed.
 
 ### Scope boundary for explicit invocation
 
-Explicitly invoking Press-Print does not override the v1.0.1 product boundary.
+Explicitly invoking Press-Print does not override the v1.0.2 product boundary.
 
 If the user asks primarily for any of the following:
 
@@ -55,7 +57,7 @@ If the user asks primarily for any of the following:
 
 do not silently turn Press-Print into a general poster-design tool.
 
-If a source photograph is present, explain briefly that Press-Print can reconstruct the photograph as an image-only print-driven composition while adding no new typography.
+If a source photograph is present, explain briefly that Press-Print can reconstruct the photograph and, if requested, add only the user's exact wording without generating any other copy.
 
 If no source photograph is present, ask for one.
 
@@ -94,11 +96,19 @@ Do not use Press-Print when the user's primary goal is:
 - general graphic design from scratch
 - historical or antique imitation
 
-When Press-Print is explicitly invoked for an out-of-scope typography-led task, do not ignore the mismatch and proceed anyway. If a source photograph is present, offer the supported alternative: reconstruct the photograph while adding no new typography.
+When Press-Print is explicitly invoked for an out-of-scope typography-led task, do not ignore the mismatch and proceed anyway. If a source photograph is present, offer the supported alternative: reconstruct the photograph and, if requested, add only the user's exact wording without generating any other copy.
 
 ## Source text policy
 
 Before generating, inspect the source for visible text and classify it by role.
+
+### Default rule
+
+If the user does not explicitly request added text, do not add any text that is not already present in the source image.
+
+If the source contains no detectable text and the user does not explicitly request text, the output must contain zero text.
+
+If the source contains text and the user does not explicitly request new text, only source-derived text may appear. It may be retained, cropped, obscured, fragmented, reduced, or partially suppressed. Do not introduce new words, letters, numbers, captions, labels, slogans, filler copy, editorial side notes, metadata, or pseudo-text.
 
 ### A. Incidental text
 
@@ -112,7 +122,7 @@ Examples include station signage, road signs, storefront names, directional labe
 
 Prefer to retain this text as part of source imagery when feasible.
 
-Do not translate, rewrite, duplicate, enlarge, or promote it into a new design element.
+Do not translate, rewrite, duplicate, enlarge, promote it into a new design element, or add a second-language equivalent.
 
 ### C. Identity-critical text
 
@@ -137,6 +147,26 @@ If exact source text cannot be preserved reliably, crop, obscure, simplify, or r
 Never replace uncertain source text with guessed wording, misspelled reconstructions, pseudo-text, or invented translations.
 
 Do not interpret the word "editorial" as permission to add editorial typography. Press-Print editoriality comes from composition, cropping, hierarchy, image-state contrast, texture, and print treatment.
+
+### Language rule
+
+Preserve source text in its original language. Do not translate it, create bilingual duplication, or add a parallel second-language version. Monolingual source text stays monolingual. Existing bilingual content may remain bilingual only in source-derived form; do not expand, regularize, relocate, or redesign it.
+
+### High text-density scenes
+
+For dense commercial streets, rail stations, convenience stores, supermarkets, signage walls, and other text-rich environments, preserve typographic density rather than typographic completeness. Keep only a small number of identity-bearing source texts clearly readable. Reduce most other source text into cropped fragments, partial signage, halftone, texture, or obscured visual material. Dense source text never grants permission to generate more text.
+
+### Text footprint
+
+Unless the user explicitly requests larger treatment of the exact text they supplied, total clearly readable text should usually occupy no more than about 15% of the final image area, and any single readable block should usually occupy no more than about 8%. Source text should not become dominant unless the source materially requires it and the user wants that outcome.
+
+### User-requested text exception
+
+If the user explicitly requests added text, render only the exact wording supplied. Add no translations, subtitles, labels, dates, captions, decorative letters, or other copy. Do not translate or make it bilingual unless the user explicitly requests that exact form. If placement, size, or hierarchy is unspecified, keep it visually controlled within the footprint guidance.
+
+Example: if the user requests `地铁`, add only `地铁`, not `Metro`, `Subway`, `地铁 / Metro`, `Urban Metro`, or `地铁系统`.
+
+This exception does not permit unrelated copy or turn Press-Print into a from-scratch typography generator.
 
 ## Core procedure
 
@@ -259,7 +289,11 @@ Do not invent arbitrary circles, suns, triangles, stripes, or decorative blocks 
 
 Aim for:
 
-- contemporary editorial print sensibility without generated typography
+- contemporary editorial print sensibility without unrequested typography
+- an extremely flat arrangement of shapes on a 2D surface
+- strongly compressed space with little to no perspective
+- interlocking foreground, middle-ground, and background planes
+- minimal volumetric modeling and no realistic cast shadows
 - bold asymmetry
 - strong cropping
 - limited color families
@@ -267,7 +301,9 @@ Aim for:
 - matte printed texture
 - controlled collage
 - flat color fields
-- tactile cut or torn edges
+- clearly visible, intentionally varied halftone regions
+- tactile torn-paper edges and cut-paper overlaps
+- rough-edged interruptions and visible paper-layer transitions
 - high-contrast hierarchy
 - compressed or interrupted depth
 - active negative space
@@ -290,19 +326,22 @@ Reduce the source's photographic color complexity substantially.
 
 ## Halftone
 
-Halftone is a selective structural tool, not a blanket effect.
+Halftone must be clearly perceptible and intentional. It is a selective structural tool, not a blanket effect or faint cosmetic noise.
 
 Use it to flatten selected photographic regions, separate layers, convert realism into printed information, and create contrast against clean flat zones.
 
 Never coat the entire image in the same dot pattern or density.
+Vary dot scale, density, direction, and placement deliberately. Contrast printed regions with clean flat zones.
 
 ## Collage
 
-Collage must behave as editorial structure.
+Collage must have a stronger tactile torn-paper character while behaving as editorial structure.
 
 Every fragment must have a compositional job.
 
-Avoid scrapbook layouts, random stickers, decorative fragments with no structural purpose, excessive torn edges, and mood-board aesthetics.
+Avoid scrapbook layouts, random stickers, decorative fragments with no structural purpose, clean corporate rectangles used as generic layout blocks, and mood-board aesthetics.
+
+Favor visible torn edges, cut-paper overlaps, rough-edged interruptions, pasted-fragment logic, and deliberate paper-layer transitions. Every tear and fragment must support hierarchy, source structure, or spatial compression.
 
 ## Detail hierarchy
 
@@ -316,18 +355,25 @@ Do not distribute attention evenly.
 
 ## Lighting and space
 
-Replace ordinary photographic realism with graphic tonal organization.
+Treat the entire image as a designed 2D surface. Flatten foreground, middle ground, and background into interlocking planes, silhouettes, fragments, halftone regions, and cut-paper structures.
+
+Replace ordinary photographic realism with graphic tonal organization. Prefer front-facing, near-flat, or simplified top-down viewpoints.
 
 Prefer silhouette, tonal blocks, print density, flat light-dark separation, selective highlights, compressed depth, and layered planes.
+
+Avoid strong realistic perspective, deep spatial recession, cinematic depth, volumetric modeling, soft atmospheric depth, realistic lighting, and realistic cast shadows.
 
 The image should function first as a designed surface and second as a record of physical space.
 
 ## Hard constraints
 
-- No newly invented text or typography.
+- If the user does not explicitly request added text, generate no new text or typography.
 - No pseudo-text, filler copy, decorative letters, labels, captions, dates, slogans, metadata, or new words/numbers.
 - Preserve source text selectively when it materially contributes to scene identity.
-- Never translate, rewrite, duplicate, enlarge, restyle, or promote source text into a new headline or editorial element.
+- Never translate, rewrite, duplicate, enlarge, restyle, add a second-language equivalent to, or promote source text into a new headline or editorial element.
+- Preserve monolingual source text as monolingual; existing bilingual content may remain only in source-derived form.
+- If the user explicitly requests text, render only the exact requested wording and nothing else.
+- Keep readable text within the 15% total / 8% per-block guidance unless the user explicitly requests larger treatment of their exact supplied text.
 - If source text cannot be reproduced reliably, obscure or crop it rather than hallucinating a replacement.
 - Preserve the original aspect ratio unless the user requests another.
 - Do not leave the source photograph intact.
@@ -348,8 +394,11 @@ The transformation has failed if it looks like:
 - a muddy all-over halftone
 - a composition whose key source identity has been lost
 - an AI poster dominated by arbitrary circles, suns, stripes, or decorative blocks
-- a composition containing newly invented headlines, captions, labels, filler copy, pseudo-text, or decorative typography
+- a composition containing unrequested headlines, captions, labels, filler copy, pseudo-text, or decorative typography
 - source text rewritten, translated, duplicated, enlarged into a headline, or replaced with hallucinated approximations
+- a monolingual source made bilingual or given a translated parallel version
+- user-requested text altered, expanded, translated, or accompanied by additional copy
+- readable text exceeding the controlled footprint without source necessity or an explicit request to enlarge the user's exact supplied text
 
 ## Success test
 
@@ -358,6 +407,8 @@ A successful Press-Print result should feel as though a designer disassembled th
 The viewer should recognize what the image is about while clearly seeing that the original photograph no longer remains visually complete.
 
 Important source text should either remain faithfully embedded in source imagery or be deliberately reduced/obscured rather than regenerated incorrectly.
+
+Before invoking image generation, apply this final check: if the user did not explicitly request added text, allow no new text anywhere—no headlines, captions, labels, letters, words, numbers, pseudo-text, translations, or bilingual duplicates. Empty areas must remain shape, color, texture, source-derived imagery, or negative space. If the user did request text, send only the exact requested wording.
 
 For the full generation prompt, read `references/press-print-v1.md`.
 For evaluation, read `references/quality-rubric.md`.

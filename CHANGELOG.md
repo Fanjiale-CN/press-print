@@ -1,6 +1,26 @@
 # Changelog
 
-## Unreleased — v1.0.1 source-text hotfix
+## 1.0.2 — 2026-09-10
+
+### Changed
+
+- rebuilt the master prompt around stronger flat, planar, and designed-2D-surface composition
+- added the default zero-new-text rule for sources with and without visible text
+- prohibited translation, parallel bilingual versions, and second-language equivalents of monolingual source text
+- added explicit handling for source content that is already bilingual
+- added the exact-user-wording exception without permitting extra copy, translation, or unrequested bilingual variants
+- added text-footprint guidance of about 15% total readable area and about 8% for any single readable block unless the user explicitly requests larger treatment of their exact supplied text
+- added high text-density scene guidance that preserves typographic density rather than typographic completeness
+- strengthened halftone as a clearly visible, intentionally varied structural device
+- strengthened torn-paper collage through visible tears, cut-paper overlaps, rough interruptions, pasted fragments, and deliberate paper-layer transitions
+- synchronized the universal Skill, OpenAI-packaged Skill, master prompt, packaged prompt reference, quality rubric, manifest, listing copy, and review tests
+- bumped OpenAI plugin metadata to `1.0.2`
+
+### Text-control contract
+
+A compliant v1.0.2 result adds zero new text by default. Source text remains in its original language and may be retained, cropped, obscured, fragmented, or reduced. When a user explicitly supplies text to add, only that exact wording may appear; no translation, bilingual duplication, subtitle, caption, label, or filler copy may be added.
+
+## 1.0.1 — 2026-09-10
 
 ### Changed
 
@@ -46,7 +66,7 @@ A compliant v1.0.1 result may retain original source signage when it contributes
 - verified individual publisher identity: `Fan Jiale`
 - category: `Creativity`
 - short description: `Editorial photo reconstruction`
-- current prepared submission version: `1.0.1`
+- current prepared submission version: `1.0.2`
 - website: `https://www.galok.me/press-print/`
 - privacy: `https://www.galok.me/press-print/privacy/`
 - terms: `https://www.galok.me/press-print/terms/`

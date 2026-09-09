@@ -1,6 +1,6 @@
 # OpenAI Review Test Cases
 
-These cases cover Press-Print v1.0.1, including the source-text policy introduced after the initial v1.0.0 public release.
+These cases cover Press-Print v1.0.2, including the source-text policy introduced after the initial v1.0.0 public release and the v1.0.2 planar, language, footprint, high-density, and exact-user-wording rules.
 
 Press-Print requires no account, authentication, demo credentials, or private fixture data.
 
@@ -39,6 +39,8 @@ Attach a non-sensitive metro, railway, street, storefront, or public-space photo
 The workflow should run in Chinese. Scene-identifying or identity-critical source text may remain as source imagery when feasible.
 
 The model should not translate, rewrite, duplicate, materially respell, enlarge, or promote source signage into new typography.
+
+For dense signage, preserve typographic density rather than typographic completeness. Keep only a small number of identity-bearing source texts readable and reduce the rest into fragments, halftone, texture, or occlusion. Do not make monolingual signs bilingual.
 
 If exact source text cannot be preserved reliably, it should be cropped, obscured, simplified, or reduced into texture rather than hallucinated.
 
@@ -90,6 +92,20 @@ Press-Print should identify source-derived geometry such as rooflines, roads, wi
 
 The result should remain identifiable, avoid arbitrary decorative geometry, and use selective halftone/duotone/graphic/collage treatment without generated typography.
 
+### P6 — Exact user-requested text
+
+**User prompt**
+
+`Use Press-Print to reconstruct this photograph and add only the exact text “地铁”.`
+
+**Fixture**
+
+Attach a non-sensitive photograph.
+
+**Expected behavior**
+
+The result may add `地铁` and no other new text. It must not add `Metro`, `Subway`, `地铁 / Metro`, a subtitle, caption, date, label, pseudo-text, or any parallel translation. If size and placement are unspecified, the requested text should remain visually controlled.
+
 ## Negative test cases
 
 ### N1 — Faithful restoration
@@ -130,15 +146,20 @@ Use a watercolor or painterly image transformation workflow.
 
 Press-Print should not be selected automatically for this request.
 
-If Press-Print is explicitly invoked and a source photograph is attached, it may offer to reconstruct the photograph while adding no new typography. It must not silently become a general-purpose poster or typesetting system.
+If Press-Print is explicitly invoked and a source photograph is attached, it may offer to reconstruct the photograph and add only exact wording explicitly supplied by the user. It must not silently become a general-purpose poster or typesetting system or invent surrounding copy.
 
-## Regression checks for v1.0.1
+## Regression checks for v1.0.2
 
 A generated result must be rejected or regenerated if any of the following occurs:
 
-- new readable text appears that did not exist in the source
+- unrequested readable text appears that did not exist in the source
 - pseudo-text or filler editorial copy appears
 - source text is translated, rewritten, duplicated, materially respelled, or enlarged into a new headline
+- monolingual source text is given a translated or bilingual parallel version
+- user-requested text is altered, expanded, translated, or accompanied by extra copy
+- total readable text exceeds about 15% of the image or a single block exceeds about 8% without source necessity or an explicit request to enlarge the user's exact supplied text
 - identity-critical source text is replaced with hallucinated wording
 - empty space is filled with invented caption columns or metadata
 - generated typography is used to create visual hierarchy instead of crop, scale, color, texture, geometry, or negative space
+- halftone is faint cosmetic noise instead of visible structural contrast
+- collage loses torn-paper, cut-paper, or tactile paper-layer character and collapses into clean corporate rectangles

@@ -18,7 +18,7 @@ It identifies key structural anchors in the source and rebuilds the composition 
 
 > **Preserve semantic identity, not visual completeness.**
 
-Press-Print v1.0.1 requires a user-supplied source photograph and remains image-only. It adds no new typography, captions, place names, dates, slogans, labels, filler copy, or decorative text.
+Press-Print v1.0.2 requires a user-supplied source photograph and adds no new typography by default. Existing source text remains in its original language; monolingual source text is never translated or duplicated into a bilingual layout. When the user explicitly supplies text to add, only that exact wording may appear, with no extra captions, place names, dates, slogans, labels, filler copy, or decorative text.
 
 When text already exists in the source, Press-Print treats it as source content rather than permission to invent more typography. Scene-identifying or identity-critical source text may be selectively retained when it contributes to recognition. If exact source text cannot be preserved reliably, it should be cropped, obscured, simplified, or reduced into texture rather than replaced with guessed or hallucinated wording.
 
@@ -53,7 +53,7 @@ Press-Print does not operate a separate image-generation backend. Source photogr
 
 ### Version
 
-`1.0.1`
+`1.0.2`
 
 ### Public URLs
 

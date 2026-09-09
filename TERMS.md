@@ -14,7 +14,7 @@ If you do not agree, do not use Press-Print.
 
 Press-Print is a source-aware visual reconstruction Agent Skill that transforms user-supplied photographs into contemporary print-driven editorial compositions.
 
-Version 1.0 is primarily intended for visual reconstruction of an existing source photograph. It is image-only and is not intended to function as a general-purpose graphic-design system, professional typesetting system, or from-scratch typography-led poster service.
+Version 1.0.2 is primarily intended for visual reconstruction of an existing source photograph. It adds no new text by default and may render only exact wording explicitly supplied by the user. It is not intended to function as a general-purpose graphic-design system, professional typesetting system, or from-scratch typography-led poster service.
 
 ## 3. Publisher status
 

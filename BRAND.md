@@ -24,7 +24,7 @@ Press-Print is a Galok project. Galok is the public creative identity; it is not
 
 **Long listing description**
 
-> Press-Print transforms a source photograph into a contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It identifies key structural anchors in the source and rebuilds the composition through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy. Press-Print v1.0 requires a user-supplied source photograph and is image-only; it does not invent captions, place names, dates, slogans, labels, or decorative text.
+> Press-Print transforms a source photograph into a strongly flattened contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy. Press-Print v1.0.2 adds no new text by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.
 
 **OpenAI category**
 

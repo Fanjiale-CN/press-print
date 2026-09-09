@@ -1,4 +1,4 @@
-# Press-Print v1.0.1 Quality Rubric
+# Press-Print v1.0.2 Quality Rubric
 
 Use this rubric to evaluate generated Press-Print results consistently across models and source categories.
 
@@ -70,21 +70,34 @@ When source text is visible, evaluate it by role:
 
 If exact source text cannot be preserved reliably, obscuring or cropping it is preferable to inventing an approximation.
 
+For high text-density scenes, preserve typographic density rather than typographic completeness. Keep only a small number of identity-bearing source texts clearly readable and reduce most other text into source-derived fragments, halftone, texture, or occlusion.
+
+Unless the user explicitly requests larger treatment of the exact text they supplied, total clearly readable text should usually occupy no more than about 15% of the image area, and any single readable block should usually occupy no more than about 8%.
+
+Source text must remain in its original language. Monolingual source text must not be translated or given a parallel bilingual version. Existing bilingual content may remain only in source-derived form.
+
+If the user explicitly supplies text to add, only that exact wording may appear. No translation, bilingual variant, subtitle, caption, label, or additional copy may be generated unless explicitly requested.
+
 ## Hard failures
 
 Any of the following should trigger rejection or regeneration even if the numeric score is otherwise acceptable:
 
-- newly invented readable text
+- unrequested readable text
 - pseudo-text, filler copy, decorative letters, captions, labels, dates, slogans, or editorial body copy
 - source text translated, rewritten, duplicated, materially respelled, or enlarged into a new headline
+- monolingual source text converted into a bilingual layout or given a second-language equivalent
+- user-requested text altered, expanded, translated, or accompanied by additional copy
+- readable text exceeding the controlled footprint without source necessity or an explicit request to enlarge the user's exact supplied text
 - identity-critical source text replaced with hallucinated or approximate wording
 - generated typography used to create hierarchy that should have been achieved through composition, crop, scale, color, texture, or negative space
 - filter-only transformation
 - source identity is no longer recognizable
 - blanket halftone across nearly the entire image
+- halftone reduced to faint cosmetic noise rather than used as visible structural contrast
 - arbitrary circles, suns, triangles, stripes, or blocks dominate without source justification
 - generic nostalgic poster aesthetic replaces contemporary print logic
 - random scrapbook or sticker collage
+- collage reduced to clean corporate rectangles with no tactile paper-layer logic
 - all major regions receive the same visual treatment
 - source-defining geometry is destroyed without a compelling compositional reason
 

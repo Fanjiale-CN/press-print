@@ -1,7 +1,7 @@
 {
   "name": "press-print",
-  "version": "1.0.1",
-  "description": "Source-aware visual reconstruction for transforming photographs into contemporary print-driven compositions without adding new typography.",
+  "version": "1.0.2",
+  "description": "Source-aware visual reconstruction with flat planar composition, visible halftone, tactile collage, and strict source-text control.",
   "author": {
     "name": "Fan Jiale / Galok",
     "email": "galokview@outlook.com",
@@ -23,7 +23,7 @@
   "interface": {
     "displayName": "Press-Print",
     "shortDescription": "Editorial photo reconstruction",
-    "longDescription": "Press-Print transforms a user-supplied source photograph into a contemporary print-driven visual reconstruction while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0.1 adds no new typography. Existing source text may be selectively retained when it contributes to scene identity; uncertain text should be cropped, obscured, or reduced rather than hallucinated.",
+    "longDescription": "Press-Print transforms a user-supplied source photograph into a strongly flattened contemporary print reconstruction while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0.2 adds no new typography by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.",
     "developerName": "Fan Jiale",
     "category": "Creativity",
     "websiteURL": "https://www.galok.me/press-print/",

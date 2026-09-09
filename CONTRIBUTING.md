@@ -38,13 +38,13 @@ Pay particular attention to these recurring failure modes:
 
 ## v1.0 scope
 
-Press-Print v1.0 is image-only.
+Press-Print v1.0.2 is source-text controlled: it adds zero new text by default and permits only exact wording explicitly supplied by the user.
 
 Please keep typography, inferred place names, captions, slogans, dates, and metadata outside the core v1.0 proposal unless the discussion is explicitly about a future typography extension.
 
 ## Core baseline and platform packaging
 
-Press-Print v1.0.0 is the frozen image-only core baseline.
+Press-Print v1.0.0 is the frozen image-only core baseline. Changes must preserve the v1.0.2 rules against translation, bilingual duplication, approximate source-text reconstruction, and unrequested copy.
 
 The canonical behavioral sources are the root [`SKILL.md`](SKILL.md) and [`prompt/press-print-v1.md`](prompt/press-print-v1.md). The evaluation contract lives in [`eval/quality-rubric.md`](eval/quality-rubric.md).
 

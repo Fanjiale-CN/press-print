@@ -1,6 +1,8 @@
-# Press-Print v1.0.1 — Image-Only Master Prompt
+# Press-Print v1.0.2 — Source-Text-Controlled Master Prompt
 
-Create a sophisticated image using **Press-Print**, a contemporary print-driven visual reconstruction system combining selective photography, graphic reduction, halftone and duotone printing, controlled collage, flat color, and modernist composition.
+Create a sophisticated **Press-Print** image: a source-aware contemporary editorial print reconstruction built from a user-supplied photograph.
+
+The goal is not to apply a filter or turn the source into a generic poster. Disassemble the photograph, preserve its semantic identity, and rebuild it as a bold, highly designed, print-driven 2D composition using selective photography, graphic reduction, visible halftone and duotone printing, tactile torn-paper collage, flat color, and modernist composition.
 
 The final result must feel:
 - bold
@@ -12,6 +14,9 @@ The final result must feel:
 - intelligent
 - publication-quality
 - clearly non-photographic
+- strongly flattened
+- planar
+- tactile
 
 This is not a simple style-transfer task.
 This is a reconstruction task.
@@ -34,11 +39,33 @@ A second rule is equally important:
 
 **Source text is content. New typography is generation.**
 
-Press-Print may selectively retain text that already exists in the source when it contributes to scene identity. It must not invent new typography.
+Press-Print may selectively retain text that already exists in the source when it contributes to scene identity. Unless the user explicitly supplies exact new wording, it must not generate new typography.
+
+## GOVERNING PRINCIPLES
+
+- Preserve semantic identity, not visual completeness.
+- Treat the entire image as a designed 2D surface.
+- Source text is content. New typography is generation.
+- If text appears without an explicit user request, it must come from the source image.
+- Do not translate source text.
+- Do not create parallel bilingual versions.
+- Preserve source text in its original language only.
+- If the user explicitly requests added text, render only the exact requested wording and nothing else.
 
 ## SOURCE TEXT POLICY
 
 Before reconstruction, inspect the source for visible text and classify it by role.
+
+### Default rule
+
+If the user does not explicitly request added text, do not add any text that is not already present in the source image.
+
+If the source contains no detectable text and the user does not explicitly request text, the output must contain zero text.
+
+If the source contains text and the user does not explicitly request new text:
+- only source-derived text may appear
+- source text may be retained, cropped, obscured, fragmented, reduced, or partially suppressed
+- no new words, letters, numbers, captions, labels, slogans, filler copy, editorial side notes, metadata, or pseudo-text may be introduced
 
 ### A. Incidental text
 
@@ -68,6 +95,7 @@ Do not rewrite it.
 Do not duplicate it.
 Do not enlarge it into a headline.
 Do not turn it into a fresh design element.
+Do not add a second-language equivalent.
 
 ### C. Identity-critical text
 
@@ -112,6 +140,50 @@ Never output guessed text, misspelled reconstructions, pseudo-text, invented tra
 **Do not interpret “editorial” as permission to add editorial typography.**
 Press-Print editoriality comes from composition, cropping, hierarchy, image-state contrast, texture, print treatment, and visual rhythm.
 
+### Language rule
+
+- Preserve source text in its original language.
+- No translation.
+- No bilingual duplication.
+- No parallel second-language version.
+- If the source is monolingual, keep it monolingual.
+- If the source is already bilingual, it may remain bilingual only in source-derived form.
+- Do not expand, regularize, relocate, or redesign existing bilingual content.
+
+### High text-density scenes
+
+For text-rich environments such as dense commercial streets, rail stations, convenience stores, supermarkets, signage walls, and urban scenes in places such as Tokyo, Hong Kong, or Seoul:
+
+- preserve typographic density, not typographic completeness
+- keep only a small number of identity-bearing source texts clearly readable
+- reduce most other source text into cropped fragments, partial signage, halftone, texture, or obscured visual material
+- do not translate monolingual signs or make them bilingual
+- dense source text never grants permission to generate more text
+
+### Text footprint rule
+
+Unless the user explicitly requests larger treatment of the exact text they supplied:
+
+- total clearly readable text should usually occupy no more than about 15% of the final image area
+- any single clearly readable text block should usually occupy no more than about 8% of the final image area
+- source text should not become the dominant visual subject unless the source materially requires it and the user wants that outcome
+
+If exact source text cannot be preserved reliably, crop it, obscure it, reduce it, or retain it as partial photographic texture. Never hallucinate approximate replacement text.
+
+### User-requested text exception
+
+If the user explicitly requests added text:
+
+- render only the exact wording explicitly supplied by the user
+- add no extra words, translations, subtitles, labels, dates, captions, or decorative letters
+- do not translate the requested wording unless the user explicitly asks for translation
+- do not create a bilingual variant unless the user explicitly requests that exact bilingual text
+- if the user requests one word or phrase, only that exact word or phrase may be added
+
+Example: if the user requests `地铁`, add only `地铁`. Do not add `Metro`, `Subway`, `地铁 / Metro`, `Urban Metro`, or `地铁系统` unless the user explicitly requests that exact wording.
+
+If the user does not specify placement, size, or hierarchy, keep added text visually controlled and within the same footprint guidance above. Explicitly requested text does not permit unrelated copy or turn Press-Print into a from-scratch typography generator.
+
 ## STRUCTURAL ANCHORS
 
 Before disassembling the image, identify 1 to 3 source-defining visual structures that make the scene recognizable.
@@ -144,8 +216,9 @@ Do not confuse transformation with destruction of the source's most distinctive 
 6. The image must show clear visual hierarchy.
 7. If the result still looks like the original photo with a print filter applied, the transformation has failed.
 8. If the result destroys the source-defining visual anchors, the transformation has failed.
-9. If the result adds new headlines, labels, body copy, pseudo-text, decorative letters, or other typography, the transformation has failed.
-10. If source text is rewritten, translated, duplicated, materially respelled, or promoted into a new typographic element, the transformation has failed.
+9. If the result adds unrequested headlines, labels, body copy, pseudo-text, decorative letters, or other typography, the transformation has failed.
+10. If source text is rewritten, translated, duplicated, materially respelled, given a second-language equivalent, or promoted into a new typographic element, the transformation has failed.
+11. If user-requested text differs from the exact supplied wording or is accompanied by unrequested copy, the transformation has failed.
 
 ## MANDATORY WORKFLOW
 
@@ -272,15 +345,23 @@ Aim for:
 - disciplined collage
 - controlled visual tension
 - modern rather than nostalgic energy
-- no generated typography
+- no unrequested typography
 - no decorative clutter
+- extremely strong planar composition
+- bold silhouette-based reduction
+- interlocking flat color planes
+- tactile paper-layer transitions
 
 Avoid language and design behavior associated with typography-led poster systems.
 The work should feel like a designed image surface, not a page waiting to be filled with headline and body copy.
 
 ## COMPOSITION RULES
 
-Treat the final image as a designed image surface rather than a preserved camera view.
+Treat the entire image as a flat arrangement of shapes on a 2D surface rather than a preserved camera view.
+
+Do not build a conventionally realistic scene with deep space. Do not emphasize three-dimensional form. Flatten foreground, middle ground, and background into interlocking color planes, silhouettes, fragments, halftone regions, and cut-paper structures.
+
+Prefer front-facing, near-flat, or simplified top-down viewpoints. Avoid strong perspective, deep spatial recession, cinematic depth, realistic cast shadows, and volumetric modeling.
 
 Use:
 - asymmetrical balance
@@ -395,15 +476,15 @@ Possible tools:
 - imperfect printed layering
 - ink-density variation
 
-Use texture as structure, not decoration.
+Use texture as structure, not decoration. Halftone dots and paper-layer transitions should be clearly perceptible where selected rather than reduced to faint digital noise.
 
 Do not bury the whole image under grunge.
 Do not make everything distressed.
 Do not simulate fake age everywhere.
 
-## HALFTONE RULE
+## ENHANCED HALFTONE RULE
 
-Halftone is a selective tool, not a blanket effect.
+Halftone must be more visible and intentional than in earlier versions. It is a selective structural tool, not a blanket effect or faint cosmetic grain.
 
 Use halftone to:
 - flatten one region
@@ -414,10 +495,11 @@ Use halftone to:
 
 Do not apply the same halftone treatment to the entire image.
 Do not let every area share the same density or texture logic.
+Vary dot scale, density, direction, and placement deliberately. Use clean flat zones beside printed regions so the halftone reads as structural contrast.
 
-## COLLAGE RULE
+## ENHANCED TORN-PAPER COLLAGE RULE
 
-Collage must behave like visual structure.
+Strengthen the tactile collage character. Collage must behave like visual structure.
 
 Use collage to:
 - isolate fragments
@@ -425,6 +507,9 @@ Use collage to:
 - disrupt continuity
 - introduce modular visual logic
 - create controlled layering
+- introduce visibly torn paper edges
+- create cut-paper overlaps and rough-edged interruptions
+- reveal deliberate paper-layer transitions
 
 Do not make it look like:
 - a scrapbook
@@ -434,15 +519,18 @@ Do not make it look like:
 - childish layout play
 
 Every fragment must have compositional purpose.
+Do not default to clean corporate rectangles. Do not add arbitrary scrapbook decoration. Each tear, overlap, and pasted fragment must support hierarchy, source structure, or spatial compression.
 
 ## SPACE
 
-Flatten space selectively.
+Flatten space strongly.
 
 Compress depth.
 Break continuity.
 Allow background and foreground to merge when useful.
 Turn some spatial regions into planes, bands, blocks, or fields.
+
+Use little to no realistic depth. Avoid deep spatial recession and soft atmospheric perspective.
 
 The final image should function primarily as a designed surface.
 
@@ -563,10 +651,13 @@ This is contemporary print language.
 - the result becomes a generic social-media illustration
 - arbitrary decorative circles, suns, triangles, or stripes dominate the result
 - source-defining geometry is destroyed
-- newly invented text or typography appears anywhere
+- unrequested text or typography appears anywhere
+- unrequested bilingual text or a translated second-language equivalent appears
 - pseudo-text or filler editorial copy appears
 - source text is translated, rewritten, duplicated, enlarged into a headline, or materially respelled
 - identity-critical source text is replaced with hallucinated approximations
+- user-requested text is altered, expanded, translated, or accompanied by additional copy
+- readable text exceeds the controlled footprint without source necessity or an explicit request to enlarge the user's exact supplied text
 
 ## SUCCESS TEST
 
@@ -586,9 +677,18 @@ The image should feel:
 - visually forceful
 - clearly transformed
 
-The final work must feel publishable without relying on newly generated typography.
+The final work must feel publishable without relying on unrequested typography.
 
-**Do not add new text.**
+**FINAL TEXT SAFETY CHECK**
+
+If the user did not explicitly request added text:
+
+**NO NEW TEXT ANYWHERE. NO HEADLINES. NO CAPTIONS. NO LABELS. NO LETTERS. NO WORDS. NO NUMBERS. NO PSEUDO-TEXT. NO TRANSLATION. NO BILINGUAL DUPLICATION.**
+
+Empty areas must remain shape, color, texture, source-derived imagery, or negative space.
+
+If the user explicitly requested added text, render only the exact requested wording and nothing else.
+
 Preserve source text selectively when it materially contributes to semantic identity.
 If exact source text cannot be preserved reliably, obscure or crop it rather than inventing a replacement.
 

@@ -40,21 +40,21 @@ Press-Print is designed around a stricter reconstruction process:
 
 The goal is to keep the source recognizable while making the final image unmistakably reconstructed and non-photographic.
 
-## v1.0 scope
+## v1.0.2 scope
 
-Press-Print v1.0 is intentionally **image-only**.
+Press-Print v1.0.2 is **source-text controlled**.
 
-It does not introduce new typography, captions, place names, dates, slogans, or metadata. Typography support is being kept outside the core system until image reconstruction quality is stable.
+By default, it introduces no new typography, captions, place names, dates, slogans, metadata, translations, or bilingual duplicates. Existing source text may survive selectively in its original language. If the user explicitly supplies exact text to add, only that wording may be rendered and no extra copy may be generated.
 
-### What v1.0 is not
+### What v1.0.2 is not
 
-Press-Print v1.0 is not a general-purpose poster or graphic-design system.
+Press-Print v1.0.2 is not a general-purpose poster or graphic-design system.
 
 It is designed to reconstruct an existing source photograph into a contemporary print-driven image. It is not intended for typography-led poster layouts, event or exhibition posters, headline/date/body-copy compositions, or graphic designs created from scratch.
 
-If a request primarily depends on newly generated typography or editorial copy, it falls outside the v1.0 scope.
+If a request primarily depends on invented typography or editorial copy, it falls outside the v1.0.2 scope. Explicitly requested wording is a controlled exception, not permission to invent surrounding copy.
 
-A future version may explore controlled editorial typography as a separate capability without changing the image-only v1.0 baseline.
+Monolingual source text must not be translated or expanded into a bilingual layout. Existing bilingual source content may remain only in source-derived form.
 
 ## Core principles
 
@@ -168,8 +168,9 @@ Model comparisons, reproducible failure cases, source/result pairs, and prompt r
 
 ## Current status
 
-**Version:** 1.0.0  
-**Edition:** Image-Only  
+**Version:** 1.0.2
+
+**Edition:** Source-Text-Controlled
 **Status:** Public release
 
 ## Author

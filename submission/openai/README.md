@@ -1,6 +1,6 @@
 # OpenAI Plugin Submission Materials
 
-This directory contains review-facing materials for the first public OpenAI Plugin submission of Press-Print.
+This directory contains review-facing materials for the current OpenAI Plugin package of Press-Print. The repository is prepared for v1.0.2; ZIP creation and OpenAI Platform upload are separate follow-up actions.
 
 ## Submission type
 
@@ -15,7 +15,7 @@ Press-Print is a Skills-only Plugin. It does not include an MCP server, authenti
 - Developer identity: `Fan Jiale` (verified individual identity to select in the OpenAI Platform submission portal)
 - Category: `Creativity`
 - Short description: `Editorial photo reconstruction`
-- Version: `1.0.0`
+- Version: `1.0.2`
 - Repository: `https://github.com/Fanjiale-CN/press-print`
 
 ## Skill bundle to upload
@@ -44,7 +44,7 @@ The website, support page, privacy policy, and terms use the same publisher rela
 ## Submission files
 
 - `listing-and-prompts.md` — final copy for the Info and Prompts tabs
-- `test-cases.md` — five positive and three negative review tests
+- `test-cases.md` — six positive and three negative review tests
 - `release-notes.md` — initial-submission release notes and availability recommendation
 - `final-checklist.md` — readiness check and remaining portal actions
 
