@@ -29,6 +29,11 @@ This packaged copy preserves the frozen Press-Print v1.0 reconstruction behavior
 - When an image-generation or image-editing capability is available, use it to produce the transformed image rather than returning only a prose prompt.
 - Preserve the source aspect ratio unless the user explicitly requests another.
 - Do not add newly invented text.
+- Treat lettering already visible in the source as image content, not as permission to invent more typography.
+- Existing source text may remain inside retained source fragments when structurally necessary, but do not enlarge it into a new headline, rewrite it, add parallel captions, or create new labels around it.
+- Do not generate decorative pseudo-text, filler copy, tiny editorial captions, dates, slogans, metadata, standalone letters, or new words/numbers anywhere in the composition.
+- If the layout needs a graphic mass where typography might normally appear, use non-text visual structure instead: source-derived shape, flat field, halftone region, texture, crop, or negative space.
+- Before invoking image generation/editing, carry forward an explicit hard negative constraint: no new text, no pseudo-text, no typographic decoration.
 - Do not expose private chain-of-thought or hidden source analysis. Perform structural analysis internally and return the final result or a concise user-facing explanation when generation cannot proceed.
 
 For the full image-generation prompt, consult `references/press-print-v1.md` when detailed reconstruction guidance is useful.
@@ -266,6 +271,8 @@ The image should function first as a designed surface and second as a record of 
 ## Hard constraints
 
 - No newly invented text.
+- No pseudo-text, filler copy, decorative letters, labels, captions, dates, slogans, or metadata.
+- Source text may survive only as part of retained source imagery; do not promote, rewrite, duplicate, or expand it into new typography.
 - Preserve the original aspect ratio unless the user requests another.
 - Do not leave the source photograph intact.
 - Do not reduce the whole image to one uniform vector treatment.
@@ -285,6 +292,7 @@ The transformation has failed if it looks like:
 - a muddy all-over halftone
 - a composition whose key source identity has been lost
 - an AI poster dominated by arbitrary circles, suns, stripes, or decorative blocks
+- an editorial poster that invents new headlines, captions, labels, filler copy, or pseudo-text
 
 ## Success test
 
