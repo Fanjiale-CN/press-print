@@ -22,7 +22,9 @@
 - public display name: `Press-Print`
 - developer / publisher brand: `Galok`
 - verified individual publisher identity: `Fan Jiale`
-- category: `Design`
+- category: `Creativity`
+- short description: `Editorial photo reconstruction`
+- submission version: `1.0.0`
 - website: `https://www.galok.me/press-print/`
 - privacy: `https://www.galok.me/press-print/privacy/`
 - terms: `https://www.galok.me/press-print/terms/`
