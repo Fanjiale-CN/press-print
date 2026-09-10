@@ -61,6 +61,9 @@ jobs:
           cat /tmp/press-print-mcp.log || true
           exit 1
 
+      - name: Exercise MCP protocol
+        run: npm run smoke:mcp
+
       - name: Stop MCP app
         if: always()
         run: |
