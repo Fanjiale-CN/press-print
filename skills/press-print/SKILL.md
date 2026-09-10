@@ -107,6 +107,10 @@ Even in Generate text mode:
 - do not create unnecessary bilingual duplicates,
 - do not overwhelm the image merely because typography was authorized.
 
+Typography Replace or Generate mode overrides the generic `Preserve source text` advanced toggle for the text being replaced or generated. Do not emit both instructions as if they were simultaneously binding.
+
+Hidden Typography drafts may persist in widget state when the user switches directions, but they must not affect generation unless Typography is currently active.
+
 Typography mode does not convert Press Print into a general-purpose typesetting suite.
 
 #### Restore
@@ -116,10 +120,14 @@ It pulls the result closer to the source by protecting more camera composition, 
 
 It does **not** automatically mean archival photo repair, face restoration, colorization, deblurring, or forensic reconstruction. A generic request such as `Restore this old photograph naturally and faithfully` remains outside Press Print unless the user explicitly invokes Press Print and chooses this source-preserving mode.
 
+Structure remains an explicit user control inside Restore. A high Rebuild setting may still recompose strongly, but Restore should keep identity-critical geometry and use less destructive material intervention than a comparably strong non-Restore direction.
+
 #### Custom
 Custom lets the user describe the visual direction in normal language.
 
 Do not respond by exposing a larger style matrix. Interpret the language through the same Press Print visual grammar and preservation system.
+
+Hidden Custom drafts may persist in widget state, but they must not affect generation unless Custom is currently active.
 
 ## Structure control
 
@@ -199,13 +207,14 @@ First inspect the source image and identify the strongest opportunity. If `rende
 - a short source-safe summary or recommendation reason,
 - one useful recommended direction when appropriate,
 - reasonable Structure and Intensity defaults,
-- any explicit hard locks already stated by the user.
+- any explicit hard locks already stated by the user,
+- `creationKind=new` for a normal first generation.
 
 The fixed direction names are control shorthand, not generic style presets. The actual reconstruction must still derive from the current source.
 
 If the UI tool is unavailable, present the same control model concisely in normal language.
 
-When Generate returns through a widget follow-up, treat it as approval to act on the same active source image. Do not ask for the image again.
+When Generate returns through a widget follow-up, treat it as approval to act on the same active original source image. Do not ask for the image again.
 
 ### 3. Revision request: preserve design state
 
@@ -219,7 +228,8 @@ Preserve unless the user asks otherwise:
 - useful hierarchy,
 - source relationships that already work,
 - successful material decisions,
-- the active version's Direction / Structure / Intensity unless implicated by the new request.
+- the selected version's Direction / Structure / Intensity unless implicated by the new request,
+- active Custom or Typography state when relevant.
 
 Change only the requested axis or diagnosed failure cause.
 
@@ -239,9 +249,25 @@ Refine should remain language-driven rather than revealing a parameter wall.
 
 ## Result and version behavior
 
+There are three different version concepts. Do not collapse them:
+
+- **selected version** — the version currently viewed or acted on in the result card
+- **preferred baseline** — the version marked through Use This
+- **parent version** — lineage used only when a revision is generated from another result
+
+Changing the selected version does not automatically change the preferred baseline. A preferred baseline is not automatically the parent of a future version.
+
 ### Refine
 
-A refinement inherits the active result's successful state and changes only what the user asks to change.
+A refinement uses the selected result as its visual revision baseline and creates a **new child version**.
+
+Rules:
+
+- set the new revision's `parentId` to the version being refined,
+- mark its kind as `revision`,
+- never overwrite the parent result,
+- inherit Direction, Structure, Intensity, active special-mode state, hard locks, successful crop, hierarchy, and identity unless the refinement instruction explicitly changes one of them,
+- store a short refinement instruction in version metadata when result controls are rendered.
 
 Useful natural-language shortcuts include:
 
@@ -254,26 +280,76 @@ These are conversational shortcuts, not fixed presets.
 
 ### Try Another
 
-Create a sibling version from the same source without overwriting the current result.
+Try Another creates an **alternative from the same original source image**.
 
-Return to the remembered Direction / Structure / Intensity state and let the next version diverge from there.
+This distinction is mandatory:
+
+- return to the original source image as the visual input,
+- use the selected version only as a control-state seed,
+- do not transform the selected result image,
+- do not overwrite the selected result,
+- do not set the seed version as `parentId` merely because its controls were reused.
+
+When reopening `render_creation_card`, set `creationKind=alternative`, pass `seedVersionId` when known, and prefill the selected version's Direction, Structure, Intensity, plus active Custom/Typography state. Let the user change those controls before Generate.
+
+The generated result should be marked as kind `alternative`.
 
 ### Use This
 
-Mark the current result as the active baseline for future refinements.
+Use This changes the **preferred baseline pointer only**.
 
-Do not generate another image merely because the user selects Use This.
+Rules:
+
+- mark the selected version as preferred,
+- clear the previous preferred marker when representing the version set,
+- do not generate an image,
+- do not change pixels,
+- do not create a version,
+- future refinement may default to this baseline unless the user explicitly selects another version or returns to the source.
 
 ### Version model
 
 Keep version management lightweight.
 
 - `V1`, `V2`, `V3` are sufficient public labels.
-- Try Another creates a sibling.
-- Refine creates a child revision of the active version.
-- One result is the active baseline at a time.
+- `root` means generated directly from the original source.
+- `alternative` means generated from the original source after Try Another.
+- `revision` means generated from another result and must carry `parentId`.
+- Try Another's `seedVersionId` is temporary control provenance, not parentage.
+- There is at most one preferred baseline.
+
+When calling `render_result_card`, retain when applicable:
+
+- version id and public label,
+- kind,
+- parentId for revisions only,
+- canonical Direction id,
+- Structure,
+- Intensity,
+- Custom direction only when Custom is active,
+- Typography mode and active text/brief only when Typography is active,
+- short refinement instruction,
+- current result id,
+- preferred baseline id.
 
 Do not build or describe a Photoshop-like layer tree or complex node graph.
+
+## UI state precedence
+
+When UI state conflicts, interpret it in this order:
+
+1. explicit current user language and hard locks,
+2. active special-mode semantics,
+3. current Direction / Structure / Intensity controls,
+4. optional advanced toggles,
+5. model recommendation/default values.
+
+Consequences:
+
+- a source-specific recommendation never overrides the direction the user selected,
+- an unchecked optional preserve toggle does not revoke a preservation lock the user explicitly stated in language,
+- Typography Replace/Generate prevents contradictory generic source-text preservation instructions,
+- inactive Custom or Typography drafts remain inert.
 
 ## Hidden art-direction sequence
 
