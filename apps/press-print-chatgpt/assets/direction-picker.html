@@ -5,81 +5,87 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root{color-scheme:light dark;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#141414)}
-    .wrap{padding:4px 0 2px}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.56;margin-bottom:7px}
-    h2{font-size:16px;line-height:1.25;margin:0 0 5px;font-weight:650}.opportunity{font-size:13px;line-height:1.45;opacity:.72;margin:0 0 12px;max-width:720px}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.card{appearance:none;width:100%;text-align:left;border:1px solid var(--pp-border,rgba(0,0,0,.12));background:var(--pp-card,rgba(255,255,255,.72));color:inherit;border-radius:14px;padding:12px;min-height:118px;cursor:pointer;transition:transform .14s ease,border-color .14s ease,background .14s ease}
-    .card:hover{transform:translateY(-1px);border-color:var(--pp-strong,rgba(0,0,0,.34))}.card:active{transform:translateY(0) scale(.99)}
-    .n{font-size:10px;letter-spacing:.13em;opacity:.48;margin-bottom:18px}.title{font-weight:650;font-size:14px;margin-bottom:5px}.summary{font-size:12px;line-height:1.38;opacity:.68}
-    .footer{display:flex;gap:8px;align-items:center;margin-top:9px}.surprise{appearance:none;border:0;background:transparent;color:inherit;padding:7px 2px;font-size:12px;opacity:.68;cursor:pointer}.surprise:hover{opacity:1}
-    .status{font-size:12px;opacity:.55;margin-left:auto}
-    @media(max-width:620px){.grid{grid-template-columns:1fr}.card{min-height:0}.n{margin-bottom:9px}}
-    @media(prefers-color-scheme:dark){body{--pp-text:#f2eee7;--pp-border:rgba(255,255,255,.14);--pp-strong:rgba(255,255,255,.38);--pp-card:rgba(255,255,255,.055)}}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#151515)}
+    .wrap{padding:2px 0 1px;max-width:760px}h2{font-size:16px;line-height:1.3;margin:0 0 5px;font-weight:650}
+    .opportunity{font-size:13px;line-height:1.45;opacity:.72;margin:0 0 11px}.choices{display:grid;gap:7px;margin:0;padding:0;border:0}
+    .option{display:grid;grid-template-columns:18px 1fr;gap:9px;align-items:start;border:1px solid var(--pp-border,rgba(0,0,0,.13));border-radius:12px;padding:10px 11px;cursor:pointer;background:transparent;transition:border-color .14s ease,background .14s ease}
+    .option:hover{border-color:var(--pp-strong,rgba(0,0,0,.36))}.option:has(input:checked){border-color:var(--pp-text,#151515);background:var(--pp-selected,rgba(0,0,0,.035))}
+    input[type=radio]{appearance:none;width:14px;height:14px;margin:2px 0 0;border:1.5px solid currentColor;border-radius:50%;display:grid;place-items:center;opacity:.72}
+    input[type=radio]::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;transform:scale(0);transition:transform .12s ease}input[type=radio]:checked::before{transform:scale(1)}
+    .title{font-size:13px;font-weight:650;line-height:1.35}.summary{font-size:12px;line-height:1.4;opacity:.68;margin-top:2px}.preserve{font-size:11px;line-height:1.35;opacity:.5;margin-top:4px}
+    .actions{display:flex;gap:7px;align-items:center;margin-top:10px}.btn{appearance:none;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer;min-height:34px}
+    .primary{border:1px solid var(--pp-text,#151515);background:var(--pp-text,#151515);color:var(--pp-bg,#fff)}.secondary{border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit}.btn:disabled{opacity:.42;cursor:default}
+    .status{font-size:11px;opacity:.52;margin-top:7px;min-height:15px}
+    @media(prefers-color-scheme:dark){body{--pp-text:#f1eee8;--pp-bg:#151515;--pp-border:rgba(255,255,255,.15);--pp-strong:rgba(255,255,255,.38);--pp-selected:rgba(255,255,255,.055)}}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="eyebrow">PRESS—PRINT / DIRECTION</div>
-    <h2 id="headline">Reading the image…</h2>
+  <main class="wrap" data-press-print-widget="direction-picker">
+    <h2 id="headline">Choose a direction</h2>
     <p id="opportunity" class="opportunity"></p>
-    <div id="grid" class="grid"></div>
-    <div class="footer"><button id="surprise" class="surprise" type="button">Surprise me</button><span id="status" class="status"></span></div>
+    <fieldset id="choices" class="choices" aria-label="Art directions"></fieldset>
+    <div class="actions">
+      <button id="use" class="btn primary" type="button">Use this direction</button>
+      <button id="surprise" class="btn secondary" type="button">Surprise me</button>
+    </div>
+    <div id="status" class="status" aria-live="polite"></div>
   </main>
   <script>
     (()=>{
-      let data = window.openai?.toolOutput || null;
-      const $ = (id)=>document.getElementById(id);
-      const status = $("status");
+      let data=window.openai?.toolOutput||null;
+      let selectedId=null;
+      const $=(id)=>document.getElementById(id);
 
-      function applyTheme(){
-        const t=window.openai?.theme;
-        if(t==="dark") document.documentElement.style.colorScheme="dark";
-        if(t==="light") document.documentElement.style.colorScheme="light";
+      function applyTheme(){const t=window.openai?.theme;if(t==="light"||t==="dark")document.documentElement.style.colorScheme=t}
+      function locale(){return String(window.openai?.locale||navigator.language||"en").toLowerCase()}
+      function labels(){const zh=locale().startsWith("zh");return zh?{use:"使用这个方向",surprise:"交给我选",sending:"正在继续…",sent:"已选择",failed:"发送失败，可直接在聊天中选择。",preserve:"保留"}:{use:"Use this direction",surprise:"Surprise me",sending:"Continuing…",sent:"Selected",failed:"Couldn’t send. Choose in chat.",preserve:"Preserve"}}
+
+      async function storeSelection(d){
+        if(!window.openai?.setWidgetState)return;
+        try{await window.openai.setWidgetState({selectedDirection:d?.id||null,selectedTitle:d?.title||null})}catch(e){console.warn(e)}
       }
 
-      async function send(prompt, state){
-        if(!prompt) return;
-        status.textContent="Sending…";
+      function selectedDirection(){return data?.directions?.find((d)=>d.id===selectedId)||data?.directions?.[0]||null}
+
+      async function send(prompt,state){
+        if(!prompt)return;
+        const l=labels();$("status").textContent=l.sending;$("use").disabled=true;$("surprise").disabled=true;
         try{
-          if(window.openai?.setWidgetState){
-            await window.openai.setWidgetState({selectedDirection:state?.id||null, selectedTitle:state?.title||null});
-          }
-          if(window.openai?.sendFollowUpMessage){
-            await window.openai.sendFollowUpMessage({prompt,scrollToBottom:true});
-          }else{
-            throw new Error("Host messaging is unavailable");
-          }
-          status.textContent="Selected";
-        }catch(e){status.textContent="Couldn’t send. Choose in chat.";console.error(e)}
+          await storeSelection(state);
+          if(!window.openai?.sendFollowUpMessage)throw new Error("Host messaging is unavailable");
+          await window.openai.sendFollowUpMessage({prompt,scrollToBottom:true});
+          $("status").textContent=l.sent;
+        }catch(e){$("status").textContent=l.failed;$("use").disabled=false;$("surprise").disabled=false;console.error(e)}
       }
 
       function render(next){
-        if(!next || !Array.isArray(next.directions)) return;
-        data=next; applyTheme();
-        $("headline").textContent=next.headline||"I found a few strong directions.";
+        if(!next||!Array.isArray(next.directions)||!next.directions.length)return;
+        data=next;applyTheme();const l=labels();
+        $("headline").textContent=next.headline||"Choose a direction";
         $("opportunity").textContent=next.opportunity||next.sourceSummary||"";
-        const grid=$("grid"); grid.innerHTML="";
+        $("use").textContent=l.use;$("surprise").textContent=l.surprise;$("status").textContent="";
+        const box=$("choices");box.innerHTML="";selectedId=next.directions[0].id;
         next.directions.forEach((d,i)=>{
-          const b=document.createElement("button"); b.type="button"; b.className="card";
-          const preserve=Array.isArray(d.preserve)&&d.preserve.length ? ` Preserve: ${d.preserve.join(", ")}.` : "";
-          b.innerHTML=`<div class="n">0${i+1}</div><div class="title"></div><div class="summary"></div>`;
-          b.querySelector(".title").textContent=d.title;
-          b.querySelector(".summary").textContent=d.summary;
-          b.addEventListener("click",()=>send(
-            `Use the Press-Print direction “${d.title}” for the same source image. ${d.instruction}${preserve} Generate the reconstruction now. Preserve semantic identity and all explicit user locks. Do not ask another question unless a critical ambiguity makes generation unsafe or impossible.`, d));
-          grid.appendChild(b);
+          const label=document.createElement("label");label.className="option";
+          const radio=document.createElement("input");radio.type="radio";radio.name="direction";radio.value=d.id;radio.checked=i===0;
+          const copy=document.createElement("span");
+          const title=document.createElement("div");title.className="title";title.textContent=d.title;
+          const summary=document.createElement("div");summary.className="summary";summary.textContent=d.summary;
+          copy.append(title,summary);
+          if(Array.isArray(d.preserve)&&d.preserve.length){const p=document.createElement("div");p.className="preserve";p.textContent=`${l.preserve}: ${d.preserve.join(" · ")}`;copy.appendChild(p)}
+          radio.addEventListener("change",()=>{if(radio.checked){selectedId=d.id;storeSelection(d)}});
+          label.append(radio,copy);box.appendChild(label);
         });
+        $("use").disabled=false;
+        $("use").onclick=()=>{const d=selectedDirection();if(!d)return;const preserve=Array.isArray(d.preserve)&&d.preserve.length?` Preserve: ${d.preserve.join(", ")}.`:"";send(`Use the Press-Print direction “${d.title}” for the same source image. ${d.instruction}${preserve} Generate the reconstruction now. Preserve semantic identity and all explicit user locks. Do not ask another question unless a critical ambiguity makes generation impossible.`,d)};
         $("surprise").style.display=next.directions.length>1?"inline-block":"none";
-        $("surprise").onclick=()=>send(next.surprisePrompt||
-          `Choose the strongest of the displayed Press-Print directions for the same source image and generate it now. Preserve semantic identity and explicit user locks.`, {id:"surprise",title:"Surprise me"});
+        $("surprise").disabled=false;
+        $("surprise").onclick=()=>send(next.surprisePrompt||`Choose the strongest of the displayed directions for the same source image and generate it now. Preserve semantic identity and explicit user locks.`,{id:"surprise",title:"Surprise me"});
+        storeSelection(next.directions[0]);
       }
 
       render(data);
-      window.addEventListener("openai:set_globals",(event)=>{
-        const g=event?.detail?.globals||{};
-        if(g.toolOutput) render(g.toolOutput);
-        if(g.theme) applyTheme();
-      });
+      window.addEventListener("openai:set_globals",(event)=>{const g=event?.detail?.globals||{};if(g.toolOutput)render(g.toolOutput);if(g.theme||g.locale){applyTheme();const l=labels();$("use").textContent=l.use;$("surprise").textContent=l.surprise}});
     })();
   </script>
 </body>
