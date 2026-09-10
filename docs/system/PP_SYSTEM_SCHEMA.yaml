@@ -1,11 +1,11 @@
 # Press-Print System Schema
-# Version: 1.0
+# Version: 2.0
 # Status: Canonical Engineering Bridge
 # Scope: Shared data structures between reasoning, UI, and generation layers
 
 meta:
   product: Press-Print
-  version: "1.0"
+  version: "2.0"
   philosophy:
     - "Photography is source material, not sacred material."
     - "Reconstruct, do not decorate."
@@ -350,13 +350,18 @@ schemas:
         failures: [string]
         warnings: [string]
       failure_causes:
-        - weak_hierarchy
         - identity_damage
-        - decorative_excess
-        - over_fragmentation
+        - weak_hierarchy
         - under_reconstruction
+        - over_fragmentation
+        - decorative_excess
         - materiality_without_cause
         - generic_ai_smoothing
+        - planar_failure
+        - source_specificity_loss
+        - cinematic_realism_drift
+        - template_collapse
+        - cultural_costume_drift
         - drift_from_direction
       recommendation:
         revise: bool
