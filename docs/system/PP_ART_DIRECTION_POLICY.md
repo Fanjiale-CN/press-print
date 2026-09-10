@@ -1,5 +1,5 @@
 # Press-Print Art Direction Policy
-Version: 1.0  
+Version: 2.0  
 Status: Canonical Decision Layer  
 Scope: How the system decides, asks, proposes, critiques, and revises
 
@@ -31,8 +31,10 @@ Examples:
 Behavior:
 - analyze
 - protect
+- form one internal direction hypothesis
 - reconstruct
-- optionally expose refinement controls after the result
+- critique
+- optionally expose compact refinement actions after the result
 
 ### 1.2 If the user is vague, propose
 If the user says:
@@ -44,8 +46,9 @@ If the user says:
 Behavior:
 - analyze
 - form a micro-brief
-- propose **1–3 directions**
-- let the user pick or say “go ahead”
+- propose **1–3 source-specific directions**
+- render the inline direction picker when useful
+- let the user pick or choose “Surprise me”
 
 ### 1.3 If the request lacks critical information, ask
 Clarification is justified only when absence of the information creates a meaningful risk.
@@ -120,15 +123,7 @@ It must not be:
 - a culture costume,
 - a playlist of effects.
 
-### Good direction titles
-- **Editorial**
-- **Deconstructed**
-- **Restrained**
-- **Graphic**
-- **Quiet**
-- **Assertive**
-
-These are not style libraries. They are shorthand for different emphasis profiles.
+Short titles may use words such as **Editorial**, **Deconstructed**, **Restrained**, **Graphic**, **Quiet**, or **Assertive**, but the title is only shorthand. The actual direction must explain what happens to this specific image.
 
 ### Good direction statement
 “Emphasize the scale tension between the small figure and the façade by compressing background depth, isolating the figure, and expanding a low-information field on the left.”
@@ -142,8 +137,8 @@ These are not style libraries. They are shorthand for different emphasis profile
 
 ### 5.1 Number of directions
 Default:
-- **1 direction** if the request is explicit,
-- **3 directions max** if the request is vague.
+- **zero user-facing directions** when the user is explicit; execute directly,
+- **1–3 user-facing directions** when the request is genuinely vague.
 
 More than 3 is noise.
 
@@ -153,8 +148,7 @@ If multiple directions are proposed, they should differ along clear axes:
 - quiet vs fragmented,
 - graphic vs closer-to-source.
 
-They must **not** simply be:
-- same composition, different effect intensity.
+They must **not** simply be the same composition with different effect intensity.
 
 ### 5.3 User-visible summaries
 Each direction shown to the user should include:
@@ -165,7 +159,7 @@ Each direction shown to the user should include:
 Example:
 - **Editorial** — Preserve geometry and the subject, rebuild the image through planar hierarchy.
 - **Deconstructed** — Keep the subject legible but break continuity more aggressively.
-- **Minimal** — Quiet the scene and give the main anchor more room to breathe.
+- **Quiet Field** — Suppress the environment and give the main anchor more room to breathe.
 
 ---
 
@@ -243,34 +237,29 @@ Disable or reduce it when:
 ## 9. User interaction policy
 
 ### 9.1 Chat-first, UI-second
-Language is the first control surface.
-Widgets are accelerators, not substitutes for judgment.
+Language is the first control surface. Widgets are accelerators, not substitutes for judgment.
 
-### 9.2 Suggested interaction states
+### 9.2 Current 2.0 interaction states
 
 #### A. Direct execute
-User knows what they want.  
-System runs immediately.
+User knows what they want. The system runs immediately.
 
-#### B. Quick direction card
-User is vague.  
-System offers a small direction card:
-- Editorial
-- Deconstructed
-- Restrained
-- Surprise me
+#### B. Inline direction picker
+User is vague. The system shows a compact, source-specific set of 1–3 directions plus an optional “Surprise me.”
 
-#### C. Fine tune modal
-Only after the user chooses to refine.
+#### C. Inline result actions
+After a result exists, the system may expose a few controlled revision actions such as:
+- more restrained,
+- more assertive,
+- more planar,
+- more fragmented,
+- prepare for sticker / asset workflows when supported.
 
-Suggested controls:
-- intensity
-- preserve face / structure / colors
-- output type
-- static vs sticker vs motion asset downstream
+### 9.3 Modal policy
+A modal or fullscreen refinement surface is a **future optional enhancement**, not a dependency of Press-Print 2.0. The MVP must work completely through chat + inline UI.
 
-### 9.3 Avoid ATM behavior
-Do not force the user through a menu for obvious requests.
+### 9.4 Avoid ATM behavior
+Do not force the user through a menu for obvious requests. Do not make every generation pass through a chooser.
 
 ---
 
@@ -287,14 +276,7 @@ After each output, the system performs self-critique.
 - Is the result recognizably Press-Print?
 
 ### 10.2 Failure categories
-- weak hierarchy
-- identity damage
-- under-reconstruction
-- over-fragmentation
-- decorative excess
-- generic AI smoothing
-- drift from user intent
-- drift from Press-Print identity
+Use the canonical failure taxonomy in `PP_REGRESSION_BENCHMARK.md` and `PP_SYSTEM_SCHEMA.yaml`.
 
 ---
 
@@ -311,6 +293,8 @@ Revision must target the failure cause.
 - re-randomize the whole image,
 - add more texture because the result feels weak,
 - chase symptoms without diagnosis.
+
+A revision should preserve successful decisions from the existing output unless the user explicitly asks to change them.
 
 ---
 
@@ -339,12 +323,12 @@ Not allowed:
 
 | User intent | System behavior |
 |---|---|
-| Explicit output (“make sticker”) | Execute directly |
+| Explicit output (“make sticker”) | Execute directly if supported |
 | Explicit revision (“same crop, less tear”) | Revise directly |
 | Vague direction (“process this”) | Propose 1–3 directions |
 | Contradictory request (“aggressive but don’t change anything”) | Ask targeted clarification |
 | Sensitive preservation target (“don’t alter identity”) | Tighten preservation contract |
-| Multiple possible readings | Ask or propose alternatives |
+| Multiple plausible readings | Ask or propose alternatives |
 
 ---
 
