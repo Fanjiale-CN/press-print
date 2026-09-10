@@ -43,6 +43,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Build production server
+        run: npm run build
+
       - name: Start MCP app
         run: |
           npm start > /tmp/press-print-mcp.log 2>&1 &
