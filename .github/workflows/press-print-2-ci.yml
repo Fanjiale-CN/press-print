@@ -1,0 +1,70 @@
+name: Press-Print 2.0 CI
+
+on:
+  pull_request:
+    paths:
+      - "apps/press-print-chatgpt/**"
+      - "skills/press-print/**"
+      - ".codex-plugin/plugin.json"
+      - ".github/workflows/press-print-2-ci.yml"
+  push:
+    branches:
+      - press-print-2.0-interactive
+    paths:
+      - "apps/press-print-chatgpt/**"
+      - "skills/press-print/**"
+      - ".codex-plugin/plugin.json"
+      - ".github/workflows/press-print-2-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mcp-app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/press-print-chatgpt
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/press-print-chatgpt/package.json
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Start MCP app
+        run: |
+          npm start > /tmp/press-print-mcp.log 2>&1 &
+          echo $! > /tmp/press-print-mcp.pid
+
+      - name: Wait for health endpoint
+        run: |
+          for i in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8000/health > /tmp/health.json; then
+              cat /tmp/health.json
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server did not become healthy. Logs:"
+          cat /tmp/press-print-mcp.log || true
+          exit 1
+
+      - name: Stop MCP app
+        if: always()
+        run: |
+          if [ -f /tmp/press-print-mcp.pid ]; then
+            kill "$(cat /tmp/press-print-mcp.pid)" || true
+          fi
+          cat /tmp/press-print-mcp.log || true
