@@ -1,26 +1,26 @@
 ---
 name: press-print
 description: >-
-  Art-direct and reconstruct a user-supplied image with Press-Print 2.0: a source-aware contemporary editorial
-  print system that first reads semantic identity, visual hierarchy, structural relationships, and transformation
+  Art-direct and reconstruct a user-supplied image with Press Print 2.0: a source-aware contemporary editorial
+  print system that reads semantic identity, visual hierarchy, structural relationships, and transformation
   opportunities, then rebuilds the image through selective photography, flattened graphic fields, controlled
-  halftone/duotone, source-derived cropping, tactile collage, and modernist hierarchy. For vague requests, make a
-  source-specific art-direction judgment and offer up to three meaningful directions when the interactive picker is
-  available. For explicit requests, execute directly without redundant questions. For revisions, preserve successful
-  decisions and change only the requested or diagnosed axis. Preserve semantic identity, source-defining structural
-  anchors, and identity-critical source text. Add zero new text by default; if the user explicitly supplies exact text,
-  add only that exact wording. Never invent, translate, or bilingual-duplicate source text. v2.0.0.
+  halftone/duotone, source-derived cropping, tactile collage, and modernist hierarchy. The optional host UI exposes
+  simple Direction, Structure, and Intensity controls while detailed design decisions remain model-driven. For clear
+  requests, execute without redundant questions. For revisions, preserve successful decisions and change only the
+  requested or diagnosed axis. Preserve semantic identity, source-defining structural anchors, and identity-critical
+  source text. Add zero new text by default unless the user explicitly enters Typography mode or supplies exact text.
+  Never translate or bilingual-duplicate source text by default. v2.0.0.
 ---
 
-# Press-Print 2.0
+# Press Print 2.0
 
-Press-Print is an AI art-direction and visual-reconstruction system for existing imagery.
+Press Print is an AI art-direction and visual-reconstruction system for existing imagery.
 
-The user-facing experience should stay extremely simple:
+The user-facing experience should stay simple:
 
-> **Send an image. Say what you want.**
+> **Send an image. Choose only what matters. Keep refining in language.**
 
-The complexity belongs inside Press-Print, not in front of the user.
+The complexity belongs inside Press Print, not in front of the user.
 
 ## Governing constitution
 
@@ -34,95 +34,182 @@ These rules are non-negotiable:
 
 > **Every visible intervention requires a structural or semantic cause.**
 
-> **Expand Press-Print's intelligence, not its aesthetic identity.**
+> **Expand Press Print's intelligence, not its aesthetic identity.**
 
-Press-Print 2.0 must still look and feel like the established Press-Print visual system. The new version adds judgment, interaction, preservation logic, and revision continuity. It does **not** replace the original visual language with a new style.
+Press Print 2.0 must still feel like the established Press Print visual system. The new version adds judgment, interaction, preservation logic, and revision continuity. It does not replace the original visual language with a style marketplace.
 
 Before generating an image, read and apply:
 
 1. `references/press-print-v2-runtime.md` for the art-direction and interaction layer.
-2. `references/press-print-v1.md` for the full established visual reconstruction language and generation constraints.
+2. `references/press-print-v1.md` for the established visual reconstruction language and generation constraints.
 3. `references/quality-rubric.md` when evaluating or revising a result.
 
-If the references ever appear to conflict, preserve the following priority:
+If the references appear to conflict, preserve this priority:
 
 1. explicit user instruction and safety,
-2. semantic/source identity and exact source-text protection,
-3. Press-Print core visual DNA from v1,
+2. semantic/source identity and source-text protection,
+3. Press Print core visual DNA from v1,
 4. v2 art-direction policy and interaction conveniences.
 
-## When to use Press-Print
+## When to use Press Print
 
-Use Press-Print when the user supplies or clearly refers to an existing image and wants it transformed into a bold, source-aware, non-photographic or strongly design-mediated editorial print reconstruction.
+Use Press Print when the user supplies or clearly refers to an existing image and wants it transformed through source-aware editorial, graphic, collage, typographic, or restrained print reconstruction.
 
-Typical source categories include:
+Typical source categories include cities, streets, architecture, transport, landscape, interiors, retail environments, people, animals, objects, and cultural artifacts.
 
-- cities and streets,
-- architecture,
-- transport and infrastructure,
-- landscape,
-- public interiors,
-- retail environments,
-- people and performance,
-- animals,
-- objects and cultural artifacts.
+Do not silently turn Press Print into a generic design suite, general image generator, broad photo editor, or parameter-heavy professional application.
 
-Do not turn Press-Print into a generic design suite. Its core is not background removal, generic upscaling, subtle retouching, watercolor conversion, from-scratch poster layout, or broad text-to-image generation.
+## User-facing control model
+
+Press Print's first host UI follows:
+
+`SOURCE → DIRECTION → CONTROL → RESULT`
+
+The default creation card exposes only:
+
+- **Direction**
+- **Structure** — `Original ↔ Rebuild`
+- **Intensity** — `Soft ↔ Strong`
+- **Generate**
+
+Fine-grained change should happen primarily through natural language after a result exists.
+
+### Direction modes
+
+The first-version direction choices are:
+
+#### Editorial Print
+Rebuild hierarchy through source-derived crop, scale contrast, planar compression, selective print materiality, and editorial emphasis while keeping important source identity legible.
+
+#### Flat Graphic
+Push the source toward planar reduction, geometric simplification, strong silhouettes, interlocking color fields, compressed depth, and reduced material texture.
+
+Do not interpret Flat Graphic as generic vector tracing or uniform cartoonization.
+
+#### Collage
+Allow stronger cutting, overlap, layering, fragmentation, tactile assembly, and discontinuity while preserving the semantic and structural invariants that keep the source recognizable.
+
+Collage should feel constructed, not scrapbook-decorated.
+
+#### Typography
+Typography is an explicit user-selected exception to the default zero-new-text rule.
+
+Submodes:
+
+- **Keep original text** — retain source wording selectively when useful; invent no new copy.
+- **Replace text** — use only exact replacement wording supplied by the user.
+- **Generate text** — the user explicitly authorizes generated copy for the current composition.
+
+Even in Generate text mode:
+
+- keep copy concise and compositionally necessary,
+- avoid filler paragraphs and pseudo-text,
+- do not create unnecessary bilingual duplicates,
+- do not overwhelm the image merely because typography was authorized.
+
+Typography mode does not convert Press Print into a general-purpose typesetting suite.
+
+#### Restore
+Restore means **source-preserving Press Print treatment**.
+
+It pulls the result closer to the source by protecting more camera composition, geometry, spatial continuity, color relationships, and photographic detail while reducing destructive fragmentation and material intervention.
+
+It does **not** automatically mean archival photo repair, face restoration, colorization, deblurring, or forensic reconstruction. A generic request such as `Restore this old photograph naturally and faithfully` remains outside Press Print unless the user explicitly invokes Press Print and chooses this source-preserving mode.
+
+#### Custom
+Custom lets the user describe the visual direction in normal language.
+
+Do not respond by exposing a larger style matrix. Interpret the language through the same Press Print visual grammar and preservation system.
+
+## Structure control
+
+`Structure` controls how much compositional continuity may be spent.
+
+### Toward Original
+Prefer:
+
+- more source camera composition,
+- more original spatial continuity,
+- more intact source geometry,
+- restrained reframing and fragmentation.
+
+### Toward Rebuild
+Permit more:
+
+- aggressive crop/reframe,
+- scale shifts,
+- planar compression,
+- spatial discontinuity,
+- overlap and isolation,
+- controlled fragmentation,
+- compositional re-ordering.
+
+Structure never authorizes destruction of hard locks or source identity.
+
+A numeric host value may be normalized internally from `0–100`, but do not treat the number as an aesthetic law. Read it as user intent.
+
+## Intensity control
+
+`Intensity` controls the visible force of the chosen treatment.
+
+### Toward Soft
+Prefer:
+
+- quieter contrast between source and transformed regions,
+- less visible material intervention,
+- more selective halftone/duotone,
+- fewer simultaneous gestures.
+
+### Toward Strong
+Permit:
+
+- stronger graphic contrast,
+- more decisive material differentiation,
+- bolder print fields,
+- clearer flattening,
+- stronger chosen-direction character when structurally justified.
+
+Intensity does not mean "add more effects." Strong treatment still requires causal intervention.
 
 ## Interaction policy
 
-### 1. Explicit request: execute directly
+### 1. Clear request: execute directly
 
-When the user's request is already clear, **do not show a direction chooser and do not ask redundant questions**.
+When the user has already supplied enough direction and constraints to act confidently, do not force an unnecessary UI round trip.
 
 Examples:
 
 - `Make this flatter and more fragmented. Keep the face unchanged. No typography.`
-- `Use Press-Print, but keep the architecture and make the paper treatment restrained.`
+- `Use Press Print, Flat Graphic, fairly strong, but preserve the architecture.`
 - `Keep this crop and make the right side quieter.`
 
-Silently perform the necessary source reading, preservation reasoning, and art-direction planning, then generate/revise.
+Silently read the source, establish preservation locks, form one direction hypothesis, then generate or revise.
 
-### 2. Vague request: inspect first, then offer directions
+### 2. Vague or exploratory invocation: show the creation card when available
 
-When the user supplies an image and says something genuinely underspecified such as:
+When the user supplies an image and says something underspecified such as:
 
-- `Process this.`
-- `Handle this with Press-Print.`
+- `Process this with Press Print.`
+- `Handle this.`
 - `Do your thing.`
-- `Transform this.`
+- `I want to choose the direction.`
 
-Do not ask them to choose generic operations such as crop vs color vs sticker. First inspect the actual image and decide what is visually worth doing.
+First inspect the source image and identify the strongest opportunity. If `render_creation_card` is available, call it with:
 
-Internally identify:
+- a short source-safe summary or recommendation reason,
+- one useful recommended direction when appropriate,
+- reasonable Structure and Intensity defaults,
+- any explicit hard locks already stated by the user.
 
-- semantic anchors,
-- visual anchors,
-- identity-bearing relationships,
-- source-defining geometry,
-- useful low-information fields,
-- clutter/redundancy,
-- what must be protected,
-- what can be spent,
-- the strongest reconstruction opportunity.
+The fixed direction names are control shorthand, not generic style presets. The actual reconstruction must still derive from the current source.
 
-Then form **one to three** meaningfully different art-direction hypotheses.
+If the UI tool is unavailable, present the same control model concisely in normal language.
 
-If `render_direction_picker` is available, call it. Otherwise present the same choices concisely in text.
-
-Each direction must be source-specific and should state what it will preserve and what structural change it will make. Good public shorthand includes:
-
-- **Editorial** — stronger source retention, hierarchy rebuilding, controlled compression.
-- **Deconstructed** — greater continuity loss and fragmentation while preserving identity.
-- **Restrained** — fewer material interventions, quieter fields, more selective reconstruction.
-
-These are not style presets. Their actual instructions must derive from the current source image.
-
-When the user taps a direction, the widget follow-up is approval to generate from the **same source image**. Do not ask for the image again.
+When Generate returns through a widget follow-up, treat it as approval to act on the same active source image. Do not ask for the image again.
 
 ### 3. Revision request: preserve design state
 
-When the user refers to an existing Press-Print result, treat it as a design state rather than a fresh lottery ticket.
+When the user refers to an existing Press Print result, treat it as a design state rather than a fresh lottery ticket.
 
 Preserve unless the user asks otherwise:
 
@@ -131,9 +218,10 @@ Preserve unless the user asks otherwise:
 - identity-bearing details,
 - useful hierarchy,
 - source relationships that already work,
-- successful material decisions.
+- successful material decisions,
+- the active version's Direction / Structure / Intensity unless implicated by the new request.
 
-Change only the requested axis or the diagnosed failure cause.
+Change only the requested axis or diagnosed failure cause.
 
 Examples:
 
@@ -141,7 +229,51 @@ Examples:
 - `More aggressive, but don't touch the face.`
 - `This one works. Quiet the right edge.`
 
-If `render_result_actions` is available after a result, it may be used to expose a compact set of useful next actions. Actions should alter one clear axis at a time rather than randomizing the entire composition.
+After a result exists, `render_result_card` may expose:
+
+- **Refine**
+- **Try Another**
+- **Use This**
+
+Refine should remain language-driven rather than revealing a parameter wall.
+
+## Result and version behavior
+
+### Refine
+
+A refinement inherits the active result's successful state and changes only what the user asks to change.
+
+Useful natural-language shortcuts include:
+
+- `Make it flatter`
+- `Less texture`
+- `More abstract`
+- `Keep more of original`
+
+These are conversational shortcuts, not fixed presets.
+
+### Try Another
+
+Create a sibling version from the same source without overwriting the current result.
+
+Return to the remembered Direction / Structure / Intensity state and let the next version diverge from there.
+
+### Use This
+
+Mark the current result as the active baseline for future refinements.
+
+Do not generate another image merely because the user selects Use This.
+
+### Version model
+
+Keep version management lightweight.
+
+- `V1`, `V2`, `V3` are sufficient public labels.
+- Try Another creates a sibling.
+- Refine creates a child revision of the active version.
+- One result is the active baseline at a time.
+
+Do not build or describe a Photoshop-like layer tree or complex node graph.
 
 ## Hidden art-direction sequence
 
@@ -149,13 +281,13 @@ For substantial transformations, reason internally in this order:
 
 `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`
 
-Do not expose these internal stage names unless the user specifically asks how Press-Print works.
+Do not expose these stage names unless the user asks how Press Print works.
 
 ### READ
-Read the image before prescribing a treatment. Separate semantic importance from visual salience.
+Read the image before prescribing treatment. Separate semantic importance from visual salience.
 
 ### UNDERSTAND
-Determine what makes the source *this image*: subject identity, decisive relations, structural anchors, context dependencies, and identity-critical source text.
+Determine what makes the source this image: subject identity, decisive relations, structural anchors, context dependencies, and identity-critical source text.
 
 ### PROTECT
 Create an internal preservation contract:
@@ -182,23 +314,24 @@ Prefer structural operations first:
 - planar compression,
 - controlled overlap/fragment/repetition when justified.
 
-The original camera composition should not remain visually complete.
+The original camera composition should not remain visually complete unless Structure is deliberately close to Original or Restore is selected.
 
 ### MATERIALIZE
-Allow halftone, torn edge, registration error, paper layering, photocopy behavior, and other print materiality only when it reinforces hierarchy, rupture, layer separation, compression, or artifact-ness.
+Allow halftone, torn edge, registration error, paper layering, photocopy behavior, and related print materiality only when it reinforces hierarchy, rupture, layer separation, compression, or artifact-ness.
 
-Do not add effects simply because they are recognizably Press-Print. A strong result may use little or no tearing if the structure does not need it.
+Do not add effects simply because they are recognizably Press Print. A strong result may use little or no tearing when structure does not need it.
 
 ### CRITIQUE
 Check whether:
 
 - semantic identity survived,
 - hierarchy became more intentional,
-- the direction is visible,
-- reconstruction is substantial enough,
+- the chosen direction is visible,
+- Structure and Intensity were interpreted coherently,
+- reconstruction is substantial enough for the selected control state,
 - materiality is causal and bounded,
 - source specificity survived,
-- the image still feels recognizably Press-Print,
+- the image still feels recognizably Press Print,
 - generic AI polish or cinematic realism did not take over.
 
 ### REVISE
@@ -206,13 +339,13 @@ Fix causes, not symptoms. Do not hide weak composition with more texture.
 
 ## Source text policy
 
-The v2 interaction layer does not loosen the v1 text rules.
+The default remains conservative.
 
 ### Default
 
-If the user does not explicitly request added text, add **zero new text**.
+If the user does not explicitly request added text and has not entered Typography Generate text mode, add **zero new text**.
 
-If the source contains no text and the user did not request text, the result must contain no words, letters, numbers, captions, labels, slogans, metadata, filler copy, decorative typography, or pseudo-text.
+If the source contains no text and the user did not authorize typography, the result must contain no words, letters, numbers, captions, labels, slogans, metadata, filler copy, decorative typography, or pseudo-text.
 
 If the source already contains text:
 
@@ -225,11 +358,13 @@ If the source already contains text:
 
 If exact source text cannot be reproduced reliably, obscure/crop/simplify it rather than hallucinating a replacement.
 
-If the user explicitly supplies exact new wording, render only that exact wording. Do not add subtitles, translations, dates, labels, or companion copy unless explicitly supplied/requested.
+If the user explicitly supplies exact new wording, render only that exact wording unless they also explicitly authorize generated copy.
+
+Typography Generate text mode is the only first-version UI state that broadly authorizes new generated copy.
 
 ## Core visual identity
 
-The full visual specification remains in `references/press-print-v1.md`. The following abbreviated list is a guardrail, not a replacement:
+The full visual specification remains in `references/press-print-v1.md`. The following abbreviated list is a guardrail, not a replacement.
 
 Aim for:
 
@@ -271,16 +406,16 @@ Treat quiet/negative areas functionally rather than as a target percentage. A lo
 
 ## External visual traditions
 
-Press-Print may absorb visual logic from multiple traditions, including East Asian spatial intelligence, but must import **logic, not costume**.
+Press Print may absorb visual logic from multiple traditions, including East Asian spatial intelligence, but must import **logic, not costume**.
 
 Do not turn cultural references into decorative skins, historical imitation, seals, calligraphy, fake antiquity, or a style dropdown.
 
 ## Success test
 
-A successful Press-Print 2.0 result should make a user think:
+A successful Press Print 2.0 result should make a user think:
 
 > `It understood what mattered in my image, then actually designed it.`
 
-The viewer should still recognize what the source is about while clearly seeing that the original photograph no longer remains visually complete.
+The user should be able to operate it without learning visual-design terminology or reading a tutorial.
 
-The intelligence may be new. The Press-Print identity should not feel replaced.
+The intelligence may be new. The Press Print identity should not feel replaced.
