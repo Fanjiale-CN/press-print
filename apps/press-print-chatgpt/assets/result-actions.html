@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{color-scheme:light dark;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#141414)}
+    .wrap{padding:3px 0}.top{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px}.mark{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 63% 60%,#111 0 26%,transparent 27%),radial-gradient(#111 1px,transparent 1.2px);background-size:auto,5px 5px;flex:0 0 auto;margin-top:1px}
+    .copy{min-width:0}.label{font-size:11px;letter-spacing:.14em;opacity:.5;margin-bottom:3px}.summary{font-size:13px;line-height:1.4;opacity:.78}
+    .actions{display:flex;flex-wrap:wrap;gap:7px}.action{appearance:none;border:1px solid var(--pp-border,rgba(0,0,0,.12));background:var(--pp-card,rgba(255,255,255,.74));color:inherit;border-radius:999px;padding:8px 11px;font-size:12px;cursor:pointer}.action.primary{background:var(--pp-text,#141414);color:var(--pp-bg,#fff);border-color:transparent}.action:hover{border-color:var(--pp-strong,rgba(0,0,0,.36))}.status{font-size:11px;opacity:.5;margin-top:8px}
+    @media(prefers-color-scheme:dark){body{--pp-text:#f2eee7;--pp-bg:#141414;--pp-border:rgba(255,255,255,.14);--pp-strong:rgba(255,255,255,.38);--pp-card:rgba(255,255,255,.055)}.mark{background:radial-gradient(circle at 63% 60%,#f2eee7 0 26%,transparent 27%),radial-gradient(#f2eee7 1px,transparent 1.2px);background-size:auto,5px 5px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top"><div class="mark"></div><div class="copy"><div class="label">PRESS—PRINT / NEXT</div><div id="summary" class="summary"></div></div></div>
+    <div id="actions" class="actions"></div><div id="status" class="status"></div>
+  </main>
+  <script>
+    (()=>{
+      let data=window.openai?.toolOutput||null;
+      const $=(id)=>document.getElementById(id);
+      async function send(a){
+        $("status").textContent="Sending…";
+        try{
+          if(window.openai?.setWidgetState){await window.openai.setWidgetState({lastAction:a.id,lastActionLabel:a.label});}
+          if(window.openai?.sendFollowUpMessage){await window.openai.sendFollowUpMessage({prompt:a.prompt,scrollToBottom:true});}
+          else throw new Error("Host messaging unavailable");
+          $("status").textContent="Requested";
+        }catch(e){$("status").textContent="Couldn’t send. Ask in chat.";console.error(e)}
+      }
+      function theme(){const t=window.openai?.theme;if(t)document.documentElement.style.colorScheme=t}
+      function render(next){
+        if(!next||!Array.isArray(next.actions))return; data=next; theme();
+        $("summary").textContent=next.resultSummary||"Keep the decisions that work; change one axis at a time.";
+        const box=$("actions");box.innerHTML="";
+        next.actions.forEach(a=>{const b=document.createElement("button");b.type="button";b.className=`action ${a.emphasis==="primary"?"primary":""}`;b.textContent=a.label;b.onclick=()=>send(a);box.appendChild(b)});
+      }
+      render(data);
+      window.addEventListener("openai:set_globals",(event)=>{const g=event?.detail?.globals||{};if(g.toolOutput)render(g.toolOutput);if(g.theme)theme()});
+    })();
+  </script>
+</body>
+</html>
