@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{color-scheme:light dark;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#141414)}
+    .wrap{padding:4px 0 2px}.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.56;margin-bottom:7px}
+    h2{font-size:16px;line-height:1.25;margin:0 0 5px;font-weight:650}.opportunity{font-size:13px;line-height:1.45;opacity:.72;margin:0 0 12px;max-width:720px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.card{appearance:none;width:100%;text-align:left;border:1px solid var(--pp-border,rgba(0,0,0,.12));background:var(--pp-card,rgba(255,255,255,.72));color:inherit;border-radius:14px;padding:12px;min-height:118px;cursor:pointer;transition:transform .14s ease,border-color .14s ease,background .14s ease}
+    .card:hover{transform:translateY(-1px);border-color:var(--pp-strong,rgba(0,0,0,.34))}.card:active{transform:translateY(0) scale(.99)}
+    .n{font-size:10px;letter-spacing:.13em;opacity:.48;margin-bottom:18px}.title{font-weight:650;font-size:14px;margin-bottom:5px}.summary{font-size:12px;line-height:1.38;opacity:.68}
+    .footer{display:flex;gap:8px;align-items:center;margin-top:9px}.surprise{appearance:none;border:0;background:transparent;color:inherit;padding:7px 2px;font-size:12px;opacity:.68;cursor:pointer}.surprise:hover{opacity:1}
+    .status{font-size:12px;opacity:.55;margin-left:auto}
+    @media(max-width:620px){.grid{grid-template-columns:1fr}.card{min-height:0}.n{margin-bottom:9px}}
+    @media(prefers-color-scheme:dark){body{--pp-text:#f2eee7;--pp-border:rgba(255,255,255,.14);--pp-strong:rgba(255,255,255,.38);--pp-card:rgba(255,255,255,.055)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="eyebrow">PRESS—PRINT / DIRECTION</div>
+    <h2 id="headline">Reading the image…</h2>
+    <p id="opportunity" class="opportunity"></p>
+    <div id="grid" class="grid"></div>
+    <div class="footer"><button id="surprise" class="surprise" type="button">Surprise me</button><span id="status" class="status"></span></div>
+  </main>
+  <script>
+    (()=>{
+      let data = window.openai?.toolOutput || null;
+      const $ = (id)=>document.getElementById(id);
+      const status = $("status");
+
+      function applyTheme(){
+        const t=window.openai?.theme;
+        if(t==="dark") document.documentElement.style.colorScheme="dark";
+        if(t==="light") document.documentElement.style.colorScheme="light";
+      }
+
+      async function send(prompt, state){
+        if(!prompt) return;
+        status.textContent="Sending…";
+        try{
+          if(window.openai?.setWidgetState){
+            await window.openai.setWidgetState({selectedDirection:state?.id||null, selectedTitle:state?.title||null});
+          }
+          if(window.openai?.sendFollowUpMessage){
+            await window.openai.sendFollowUpMessage({prompt,scrollToBottom:true});
+          }else{
+            throw new Error("Host messaging is unavailable");
+          }
+          status.textContent="Selected";
+        }catch(e){status.textContent="Couldn’t send. Choose in chat.";console.error(e)}
+      }
+
+      function render(next){
+        if(!next || !Array.isArray(next.directions)) return;
+        data=next; applyTheme();
+        $("headline").textContent=next.headline||"I found a few strong directions.";
+        $("opportunity").textContent=next.opportunity||next.sourceSummary||"";
+        const grid=$("grid"); grid.innerHTML="";
+        next.directions.forEach((d,i)=>{
+          const b=document.createElement("button"); b.type="button"; b.className="card";
+          const preserve=Array.isArray(d.preserve)&&d.preserve.length ? ` Preserve: ${d.preserve.join(", ")}.` : "";
+          b.innerHTML=`<div class="n">0${i+1}</div><div class="title"></div><div class="summary"></div>`;
+          b.querySelector(".title").textContent=d.title;
+          b.querySelector(".summary").textContent=d.summary;
+          b.addEventListener("click",()=>send(
+            `Use the Press-Print direction “${d.title}” for the same source image. ${d.instruction}${preserve} Generate the reconstruction now. Preserve semantic identity and all explicit user locks. Do not ask another question unless a critical ambiguity makes generation unsafe or impossible.`, d));
+          grid.appendChild(b);
+        });
+        $("surprise").style.display=next.directions.length>1?"inline-block":"none";
+        $("surprise").onclick=()=>send(next.surprisePrompt||
+          `Choose the strongest of the displayed Press-Print directions for the same source image and generate it now. Preserve semantic identity and explicit user locks.`, {id:"surprise",title:"Surprise me"});
+      }
+
+      render(data);
+      window.addEventListener("openai:set_globals",(event)=>{
+        const g=event?.detail?.globals||{};
+        if(g.toolOutput) render(g.toolOutput);
+        if(g.theme) applyTheme();
+      });
+    })();
+  </script>
+</body>
+</html>
