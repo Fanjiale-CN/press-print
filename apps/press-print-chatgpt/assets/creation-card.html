@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{color-scheme:light dark;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#151515)}
+    .wrap{max-width:760px;padding:2px 0}.source{font-size:12px;line-height:1.45;opacity:.66;margin:0 0 12px}.label{font-size:12px;font-weight:650;margin:0 0 7px}.directions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:14px}.direction{appearance:none;border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit;border-radius:11px;padding:9px 10px;text-align:left;cursor:pointer;font-size:12px;min-height:38px}.direction[aria-pressed="true"]{border-color:var(--pp-text,#151515);background:var(--pp-selected,rgba(0,0,0,.035));font-weight:650}.recommended::after{content:" · suggested";font-size:10px;opacity:.48;font-weight:400}.control{margin:0 0 13px}.control-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.ends{display:flex;justify-content:space-between;font-size:10px;opacity:.48;margin-top:3px}.range{width:100%;accent-color:currentColor}.special{border-left:2px solid var(--pp-border,rgba(0,0,0,.12));padding-left:10px;margin:-2px 0 14px}.special[hidden]{display:none}.row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}.choice{font-size:11px;display:flex;gap:5px;align-items:center}.text{width:100%;border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit;border-radius:10px;padding:9px 10px;font:inherit;font-size:12px}.advanced{font-size:11px;margin:3px 0 13px}.advanced summary{cursor:pointer;opacity:.65}.advanced-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:9px}.actions{display:flex;align-items:center;gap:8px}.generate{appearance:none;border:1px solid var(--pp-text,#151515);background:var(--pp-text,#151515);color:var(--pp-bg,#fff);border-radius:999px;padding:9px 14px;min-height:36px;font-size:12px;font-weight:650;cursor:pointer}.generate:disabled{opacity:.42;cursor:default}.status{font-size:11px;opacity:.52}.note{font-size:10px;opacity:.46;margin-top:7px}.validation{font-size:11px;margin-top:6px;min-height:15px}.validation.error{opacity:.78}
+    @media(max-width:620px){.directions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(prefers-color-scheme:dark){body{--pp-text:#f1eee8;--pp-bg:#151515;--pp-border:rgba(255,255,255,.15);--pp-selected:rgba(255,255,255,.055)}}
+  </style>
+</head>
+<body>
+  <main class="wrap" data-press-print-widget="creation-card">
+    <p id="source" class="source"></p>
+
+    <section>
+      <div class="label">Direction</div>
+      <div id="directions" class="directions"></div>
+    </section>
+
+    <section class="control">
+      <div class="control-head"><div class="label">Structure</div><span id="structureValue"></span></div>
+      <input id="structure" class="range" type="range" min="0" max="100" step="1" />
+      <div class="ends"><span>Original</span><span>Rebuild</span></div>
+    </section>
+
+    <section class="control">
+      <div class="control-head"><div class="label">Intensity</div><span id="intensityValue"></span></div>
+      <input id="intensity" class="range" type="range" min="0" max="100" step="1" />
+      <div class="ends"><span>Soft</span><span>Strong</span></div>
+    </section>
+
+    <section id="typography" class="special" hidden>
+      <div class="label">Typography</div>
+      <div class="row" role="radiogroup" aria-label="Typography mode">
+        <label class="choice"><input type="radio" name="textMode" value="keep" checked />Keep original text</label>
+        <label class="choice"><input type="radio" name="textMode" value="replace" />Replace text</label>
+        <label class="choice"><input type="radio" name="textMode" value="generate" />Generate text</label>
+      </div>
+      <input id="headline" class="text" type="text" placeholder="Headline or exact replacement text" />
+      <div id="typeValidation" class="validation"></div>
+    </section>
+
+    <section id="custom" class="special" hidden>
+      <div class="label">Custom direction</div>
+      <input id="customDirection" class="text" type="text" placeholder="Describe the direction…" />
+      <div id="customValidation" class="validation"></div>
+    </section>
+
+    <details class="advanced">
+      <summary>More Controls</summary>
+      <div class="advanced-grid">
+        <label class="choice"><input id="preserveSubject" type="checkbox" />Preserve subject / face</label>
+        <label class="choice"><input id="preserveColors" type="checkbox" />Preserve source colors</label>
+        <label class="choice"><input id="preserveText" type="checkbox" />Preserve source text</label>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button id="generate" class="generate" type="button">Generate</button>
+      <span id="status" class="status" aria-live="polite"></span>
+    </div>
+    <div class="note">You can refine the result in normal language after generation.</div>
+  </main>
+
+  <script>
+    (()=>{
+      const directions=[
+        ["editorial-print","Editorial Print"],
+        ["flat-graphic","Flat Graphic"],
+        ["collage","Collage"],
+        ["typography","Typography"],
+        ["restore","Restore"],
+        ["custom","Custom"],
+      ];
+      let data=window.openai?.toolOutput||{};
+      let state={
+        direction:data.recommendedDirection||data.defaultDirection||"editorial-print",
+        structure:Number.isFinite(data.structureDefault)?data.structureDefault:58,
+        intensity:Number.isFinite(data.intensityDefault)?data.intensityDefault:58,
+      };
+      const $=(id)=>document.getElementById(id);
+
+      function applyTheme(){const t=window.openai?.theme;if(t==="light"||t==="dark")document.documentElement.style.colorScheme=t}
+      function valueLabel(n){if(n<=25)return "Low";if(n<=55)return "Medium";if(n<=80)return "High";return "Max"}
+      function selectedTextMode(){return document.querySelector('input[name="textMode"]:checked')?.value||"keep"}
+      function advanced(){return {preserveSubject:$("preserveSubject").checked,preserveColors:$("preserveColors").checked,preserveText:$("preserveText").checked}}
+
+      async function save(){
+        if(!window.openai?.setWidgetState)return;
+        const next={...state,textMode:selectedTextMode(),headline:$("headline").value.trim(),customDirection:$("customDirection").value.trim(),...advanced()};
+        try{await window.openai.setWidgetState(next)}catch(e){console.warn(e)}
+      }
+
+      function renderDirections(){
+        const box=$("directions");box.innerHTML="";
+        directions.forEach(([id,label])=>{
+          const b=document.createElement("button");b.type="button";b.className="direction";b.textContent=label;b.dataset.id=id;
+          if(data.recommendedDirection===id)b.classList.add("recommended");
+          b.setAttribute("aria-pressed",String(state.direction===id));
+          b.onclick=()=>{state.direction=id;renderDirections();renderSpecial();save()};
+          box.appendChild(b);
+        });
+      }
+
+      function renderSpecial(){
+        $("typography").hidden=state.direction!=="typography";
+        $("custom").hidden=state.direction!=="custom";
+      }
+
+      function renderValues(){
+        $("structure").value=String(state.structure);$("intensity").value=String(state.intensity);
+        $("structureValue").textContent=valueLabel(state.structure);$("intensityValue").textContent=valueLabel(state.intensity);
+      }
+
+      function validate(){
+        $("typeValidation").textContent="";$("customValidation").textContent="";
+        if(state.direction==="custom"&&!$("customDirection").value.trim()){$("customValidation").textContent="Describe the direction first.";return false}
+        if(state.direction==="typography"&&selectedTextMode()==="replace"&&!$("headline").value.trim()){$("typeValidation").textContent="Enter the exact replacement text.";return false}
+        return true;
+      }
+
+      function buildPrompt(){
+        const name=directions.find(([id])=>id===state.direction)?.[1]||state.direction;
+        const extras=[];const a=advanced();
+        if(a.preserveSubject)extras.push("preserve the subject/face");
+        if(a.preserveColors)extras.push("preserve the source colors");
+        if(a.preserveText)extras.push("preserve important source text exactly when feasible");
+        if(Array.isArray(data.hardLocks))extras.push(...data.hardLocks);
+        let special="";
+        if(state.direction==="custom")special=` Custom direction: ${$("customDirection").value.trim()}.`;
+        if(state.direction==="typography"){
+          const tm=selectedTextMode();const text=$("headline").value.trim();
+          if(tm==="keep")special=" Typography mode: keep original source text selectively and do not invent new copy.";
+          if(tm==="replace")special=` Typography mode: replace text using only this exact wording: “${text}”. Do not add companion copy.`;
+          if(tm==="generate")special=` Typography mode: the user explicitly authorizes generated typography.${text?` Use this headline or brief as the starting point: “${text}”.`:""} Keep copy concise and compositionally necessary.`;
+        }
+        if(state.direction==="restore")special=" Restore means source-preserving Press Print treatment: keep more source structure and reduce destructive/material intervention; do not interpret this as archival restoration unless the user explicitly asks for that.";
+        const locks=extras.length?` Preserve/lock: ${[...new Set(extras)].join("; ")}.`:"";
+        return `Generate a Press Print reconstruction of the same active source image. Direction: ${name}. Structure: ${state.structure}/100, where 0 means preserve the original camera composition and 100 means rebuild the composition aggressively. Intensity: ${state.intensity}/100, where 0 means soft treatment and 100 means strong visible treatment.${special}${locks} Use the Press Print visual grammar and preservation logic. Do not ask for the source image again.`;
+      }
+
+      async function generate(){
+        if(!validate())return;
+        $("generate").disabled=true;$("status").textContent="Generating…";await save();
+        try{
+          if(!window.openai?.sendFollowUpMessage)throw new Error("Host messaging unavailable");
+          await window.openai.sendFollowUpMessage({prompt:buildPrompt(),scrollToBottom:true});
+          $("status").textContent="Sent";
+        }catch(e){$("generate").disabled=false;$("status").textContent="Couldn’t continue. Use chat instead.";console.error(e)}
+      }
+
+      function render(next){
+        data=next||{};applyTheme();
+        const sourceText=data.recommendationReason||data.sourceSummary||"Choose a direction, set how much Press Print may rebuild, then generate.";
+        $("source").textContent=sourceText;
+        state.direction=data.recommendedDirection||data.defaultDirection||state.direction;
+        if(Number.isFinite(data.structureDefault))state.structure=data.structureDefault;
+        if(Number.isFinite(data.intensityDefault))state.intensity=data.intensityDefault;
+        renderDirections();renderSpecial();renderValues();
+      }
+
+      $("structure").oninput=(e)=>{state.structure=Number(e.target.value);renderValues();save()};
+      $("intensity").oninput=(e)=>{state.intensity=Number(e.target.value);renderValues();save()};
+      document.querySelectorAll('input[name="textMode"],#headline,#customDirection,#preserveSubject,#preserveColors,#preserveText').forEach((el)=>el.addEventListener("change",save));
+      $("generate").onclick=generate;
+      render(data);
+      window.addEventListener("openai:set_globals",(event)=>{const g=event?.detail?.globals||{};if(g.toolOutput)render(g.toolOutput);if(g.theme)applyTheme()});
+    })();
+  </script>
+</body>
+</html>
