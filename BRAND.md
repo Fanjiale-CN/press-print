@@ -1,8 +1,8 @@
-# Press-Print brand and publisher specification
+# Press Print brand and publisher specification
 
 ## Public identity
 
-- **Product / plugin name:** Press-Print
+- **Product / plugin name:** Press Print
 - **Publisher brand:** Galok
 - **Publisher:** Fan Jiale, an individual developer publishing under the Galok brand
 - **OpenAI listing developer name:** Galok
@@ -10,7 +10,7 @@
 - **Repository:** https://github.com/Fanjiale-CN/press-print
 - **Website:** https://www.galok.me/press-print/
 
-Press-Print is a Galok project, but Press-Print now has its own product mark. Galok remains the publisher identity rather than the plugin icon.
+Press Print is a Galok project, but Press Print has its own product mark. Galok remains the publisher identity rather than the plugin icon.
 
 ## Positioning
 
@@ -24,13 +24,13 @@ Press-Print is a Galok project, but Press-Print now has its own product mark. Ga
 
 **Long listing description**
 
-> Press-Print reads a source photograph, identifies what must survive, proposes a source-specific art direction when useful, and reconstructs the image into a strongly designed contemporary print composition. Its visual language is built from selective cropping, flattened planes, hierarchy, halftone and duotone treatment, graphic reduction, controlled collage, and tactile print logic. Press-Print 2.0 keeps semantic identity and source-defining structure intact while making the interaction much simpler: upload an image, say what you want, choose a direction only when needed, then keep refining the same result without restarting from scratch.
+> Press Print reads a source photograph, identifies what must survive, proposes a source-specific art direction when useful, and reconstructs the image into a strongly designed contemporary print composition. Its visual language is built from selective cropping, flattened planes, hierarchy, halftone and duotone treatment, graphic reduction, controlled collage, and tactile print logic. Press Print 2.0 keeps semantic identity and source-defining structure intact while making the interaction much simpler: upload an image, say what you want, choose a direction only when needed, then keep refining the same result without restarting from scratch.
 
 **OpenAI category**
 
 > Creativity
 
-## Press-Print 2.0 mark
+## Press Print 2.0 mark
 
 The product mark is intentionally non-letterform. It consists of:
 
@@ -73,8 +73,8 @@ The mark should read first as a strong geometric icon and only then reveal its p
 
 ## Brand assets
 
-- `assets/press-print-logo-light.svg` — Press-Print 2.0 mark for light mode
-- `assets/press-print-logo-dark.svg` — Press-Print 2.0 mark for dark mode
+- `assets/press-print-logo-light.svg` — Press Print 2.0 mark for light mode
+- `assets/press-print-logo-dark.svg` — Press Print 2.0 mark for dark mode
 - `assets/press-print-icon.png` — current submission/runtime fallback until the OpenAI listing asset format is finalized
 
-The Galok and Press-Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
+The Galok and Press Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
