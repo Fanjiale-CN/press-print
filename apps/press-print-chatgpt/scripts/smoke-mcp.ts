@@ -64,6 +64,7 @@ async function main() {
       structureDefault: 64,
       intensityDefault: 58,
       hardLocks: ["preserve figure identity", "preserve facade rhythm"],
+      creationKind: "new",
     },
   });
   const creationStructured = creationResult.structuredContent as
@@ -77,30 +78,102 @@ async function main() {
     creationStructured?.recommendedDirection === "editorial-print",
     "creation tool lost the recommended direction",
   );
+  assert(
+    creationStructured?.creationKind === "new",
+    "creation tool lost root creation lineage",
+  );
+
+  const typographyResult = await client.callTool({
+    name: "render_creation_card",
+    arguments: {
+      defaultDirection: "typography",
+      structureDefault: 44,
+      intensityDefault: 62,
+      hardLocks: ["preserve subject identity"],
+      creationKind: "alternative",
+      seedVersionId: "v2",
+      initialTypographyMode: "replace",
+      initialTypographyText: "CITY AFTER DARK",
+    },
+  });
+  const typographyStructured = typographyResult.structuredContent as
+    | Record<string, unknown>
+    | undefined;
+  assert(
+    typographyStructured?.defaultDirection === "typography",
+    "Typography alternative lost its direction",
+  );
+  assert(
+    typographyStructured?.creationKind === "alternative" &&
+      typographyStructured?.seedVersionId === "v2",
+    "Try Another seed lineage was not preserved",
+  );
+  assert(
+    typographyStructured?.initialTypographyMode === "replace" &&
+      typographyStructured?.initialTypographyText === "CITY AFTER DARK",
+    "Typography state was not preserved",
+  );
+
+  const customResult = await client.callTool({
+    name: "render_creation_card",
+    arguments: {
+      defaultDirection: "custom",
+      structureDefault: 72,
+      intensityDefault: 48,
+      creationKind: "alternative",
+      seedVersionId: "v3",
+      initialCustomDirection: "Flatten the buildings but keep the figures photographic.",
+    },
+  });
+  const customStructured = customResult.structuredContent as
+    | Record<string, unknown>
+    | undefined;
+  assert(
+    customStructured?.defaultDirection === "custom" &&
+      customStructured?.initialCustomDirection ===
+        "Flatten the buildings but keep the figures photographic.",
+    "Custom state was not preserved",
+  );
 
   const resultCardResult = await client.callTool({
     name: "render_result_card",
     arguments: {
       resultSummary:
         "The current crop and figure-to-building scale relationship work; refinement should preserve both.",
-      versionId: "v2",
+      versionId: "v3",
+      preferredVersionId: "v2",
       versions: [
         {
           id: "v1",
           label: "V1",
-          direction: "Editorial Print",
+          kind: "root",
+          direction: "editorial-print",
           structure: 58,
           intensity: 52,
         },
         {
           id: "v2",
           label: "V2",
-          parentId: "v1",
-          direction: "Editorial Print",
-          structure: 64,
-          intensity: 58,
-          active: true,
+          kind: "alternative",
+          direction: "typography",
+          structure: 44,
+          intensity: 62,
+          typographyMode: "replace",
+          typographyText: "CITY AFTER DARK",
           preferred: true,
+        },
+        {
+          id: "v3",
+          label: "V3",
+          kind: "revision",
+          parentId: "v2",
+          direction: "typography",
+          structure: 44,
+          intensity: 62,
+          typographyMode: "replace",
+          typographyText: "CITY AFTER DARK",
+          instruction: "Less texture",
+          active: true,
         },
       ],
       quickRefinements: [
@@ -113,11 +186,28 @@ async function main() {
     },
   });
   const resultStructured = resultCardResult.structuredContent as
-    | Record<string, unknown>
+    | Record<string, any>
     | undefined;
   assert(
     resultStructured?.kind === "press-print-result-card",
     "result card tool returned the wrong structuredContent kind",
+  );
+  assert(
+    resultStructured?.versionId === "v3" && resultStructured?.preferredVersionId === "v2",
+    "selected result and preferred baseline were collapsed",
+  );
+  const returnedVersions = Array.isArray(resultStructured?.versions)
+    ? resultStructured.versions
+    : [];
+  const revision = returnedVersions.find((v: any) => v.id === "v3");
+  assert(
+    revision?.kind === "revision" && revision?.parentId === "v2",
+    "revision parent lineage was not preserved",
+  );
+  const alternative = returnedVersions.find((v: any) => v.id === "v2");
+  assert(
+    alternative?.kind === "alternative" && !alternative?.parentId,
+    "alternative version must not acquire a revision parent from its seed",
   );
 
   const expectedMarkers: Record<string, string> = {
@@ -134,6 +224,32 @@ async function main() {
         text.includes(expectedMarkers[uri] ?? "data-press-print-widget"),
       `resource ${uri} did not return the expected widget HTML`,
     );
+
+    if (typeof text === "string" && uri === "ui://press-print/creation-card.html") {
+      assert(
+        text.includes("window.openai?.widgetState") &&
+          text.includes("creationKind===\"alternative\"") &&
+          text.includes("seed version supplies control values only"),
+        "creation widget is missing persisted/alternative-state safeguards",
+      );
+      assert(
+        text.includes('state.textMode!=="keep"') && text.includes("preserveText=false"),
+        "Typography/source-text conflict safeguard is missing",
+      );
+    }
+
+    if (typeof text === "string" && uri === "ui://press-print/result-card.html") {
+      assert(
+        text.includes("preferredVersionId") &&
+          text.includes("parentId") &&
+          text.includes("same original source image"),
+        "result widget is missing version-lineage safeguards",
+      );
+      assert(
+        !text.includes("originalImageUrl") && !text.includes("resultImageUrl"),
+        "result widget must not depend on fabricated comparison image URLs",
+      );
+    }
 
     const meta = asRecord(textual?._meta);
     assert(
@@ -157,6 +273,15 @@ async function main() {
         endpoint: endpoint.toString(),
         tools: [...toolNames],
         resources: [...resourceUris],
+        coveredStates: [
+          "new creation",
+          "typography replace",
+          "custom",
+          "try-another seed",
+          "revision parent",
+          "preferred baseline",
+          "widget persistence markers",
+        ],
       },
       null,
       2,
