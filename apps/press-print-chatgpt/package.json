@@ -1,0 +1,24 @@
+{
+  "name": "press-print-chatgpt-app",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive MCP App layer for Press-Print 2.0 art direction and visual reconstruction.",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.0.1",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.2"
+  }
+}
