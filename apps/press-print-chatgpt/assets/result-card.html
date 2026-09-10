@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{color-scheme:light dark;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:var(--pp-text,#151515)}
+    .wrap{max-width:760px;padding:2px 0}.top{display:flex;justify-content:space-between;gap:12px;align-items:start}.summary{font-size:13px;line-height:1.45;opacity:.82;margin:0}.meta{font-size:11px;opacity:.52;white-space:nowrap}.versions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.version{appearance:none;border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit;border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer}.version[aria-pressed="true"]{border-color:var(--pp-text,#151515);font-weight:650}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0 12px}.pane{border:1px solid var(--pp-border,rgba(0,0,0,.12));border-radius:10px;overflow:hidden}.pane img{display:block;width:100%;height:auto}.pane-label{font-size:10px;padding:6px 8px;opacity:.58}.comparison[hidden]{display:none}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.action{appearance:none;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer}.primary{border:1px solid var(--pp-text,#151515);background:var(--pp-text,#151515);color:var(--pp-bg,#fff)}.secondary{border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit}.preferred{font-size:11px;opacity:.55;margin-top:7px}.refine{margin-top:12px;border-left:2px solid var(--pp-border,rgba(0,0,0,.12));padding-left:10px}.refine[hidden]{display:none}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.chip{appearance:none;border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit;border-radius:999px;padding:6px 9px;font-size:11px;cursor:pointer}.row{display:flex;gap:7px}.text{flex:1;min-width:0;border:1px solid var(--pp-border,rgba(0,0,0,.14));background:transparent;color:inherit;border-radius:10px;padding:9px 10px;font:inherit;font-size:12px}.send{appearance:none;border:1px solid var(--pp-text,#151515);background:var(--pp-text,#151515);color:var(--pp-bg,#fff);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:650;cursor:pointer}.status{font-size:11px;opacity:.52;margin-top:7px;min-height:15px}
+    @media(max-width:620px){.comparison{grid-template-columns:1fr}.top{display:block}.meta{margin-top:4px}}
+    @media(prefers-color-scheme:dark){body{--pp-text:#f1eee8;--pp-bg:#151515;--pp-border:rgba(255,255,255,.15)}}
+  </style>
+</head>
+<body>
+  <main class="wrap" data-press-print-widget="result-card">
+    <div class="top"><p id="summary" class="summary"></p><div id="meta" class="meta"></div></div>
+    <div id="versions" class="versions"></div>
+    <div id="comparison" class="comparison" hidden>
+      <div class="pane"><div class="pane-label">Original</div><img id="original" alt="Original source" /></div>
+      <div class="pane"><div class="pane-label">Result</div><img id="result" alt="Press Print result" /></div>
+    </div>
+    <div class="actions">
+      <button id="refineBtn" class="action primary" type="button">Refine</button>
+      <button id="anotherBtn" class="action secondary" type="button">Try Another</button>
+      <button id="useBtn" class="action secondary" type="button">Use This</button>
+    </div>
+    <div id="preferred" class="preferred"></div>
+    <section id="refine" class="refine" hidden>
+      <div id="chips" class="chips"></div>
+      <div class="row"><input id="instruction" class="text" type="text" placeholder="Tell Press Print what to change…" /><button id="send" class="send" type="button">Apply</button></div>
+    </section>
+    <div id="status" class="status" aria-live="polite"></div>
+  </main>
+
+  <script>
+    (()=>{
+      let data=window.openai?.toolOutput||{};
+      let activeVersion=null;
+      const $=(id)=>document.getElementById(id);
+      const defaultChips=["Make it flatter","Less texture","More abstract","Keep more of original"];
+      function applyTheme(){const t=window.openai?.theme;if(t==="light"||t==="dark")document.documentElement.style.colorScheme=t}
+      function versions(){return Array.isArray(data.versions)?data.versions:[]}
+      function current(){return versions().find(v=>v.id===activeVersion)||versions().find(v=>v.active)||versions()[0]||null}
+      async function save(extra={}){if(!window.openai?.setWidgetState)return;try{await window.openai.setWidgetState({activeVersion,...extra})}catch(e){console.warn(e)}}
+      async function follow(prompt,label){$("status").textContent=label||"Continuing…";try{if(!window.openai?.sendFollowUpMessage)throw new Error("Host messaging unavailable");await window.openai.sendFollowUpMessage({prompt,scrollToBottom:true});$("status").textContent="Sent"}catch(e){$("status").textContent="Couldn’t continue. Use chat instead.";console.error(e)}}
+      function versionContext(v){if(!v)return"the current Press Print result";return `Press Print version ${v.label||v.id}${v.direction?`, direction ${v.direction}`:""}${Number.isFinite(v.structure)?`, Structure ${v.structure}/100`:""}${Number.isFinite(v.intensity)?`, Intensity ${v.intensity}/100`:""}`}
+      function renderVersions(){const box=$("versions");box.innerHTML="";const items=versions();box.style.display=items.length>1?"flex":"none";items.forEach((v,i)=>{const b=document.createElement("button");b.type="button";b.className="version";b.textContent=v.label||`V${i+1}`;b.setAttribute("aria-pressed",String(v.id===activeVersion));b.onclick=()=>{activeVersion=v.id;renderVersions();renderMeta();save()};box.appendChild(b)})}
+      function renderMeta(){const v=current();$("meta").textContent=v?`${v.label||v.id}${v.direction?` · ${v.direction}`:""}`:"";$("preferred").textContent=v?.preferred?"Current baseline":""}
+      function renderComparison(){const c=$("comparison");const original=data.originalImageUrl;const result=current()?.imageUrl||data.resultImageUrl;if(original&&result){$("original").src=original;$("result").src=result;c.hidden=false}else{c.hidden=true}}
+      function renderChips(){const box=$("chips");box.innerHTML="";(Array.isArray(data.quickRefinements)&&data.quickRefinements.length?data.quickRefinements:defaultChips).slice(0,4).forEach(text=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=text;b.onclick=()=>{$("instruction").value=text;$("instruction").focus()};box.appendChild(b)})}
+      function render(next){data=next||{};applyTheme();const items=versions();if(!activeVersion)activeVersion=items.find(v=>v.active)?.id||items[0]?.id||data.versionId||null;$("summary").textContent=data.resultSummary||"Keep what works. Change only what needs changing.";renderVersions();renderMeta();renderComparison();renderChips();$("status").textContent=""}
+      $("refineBtn").onclick=()=>{$("refine").hidden=!$("refine").hidden;if(!$("refine").hidden)$("instruction").focus()};
+      $("send").onclick=async()=>{const text=$("instruction").value.trim();if(!text){$("status").textContent="Describe one change first.";return}const v=current();await save({lastRefine:text});await follow(`Refine ${versionContext(v)}. User instruction: ${text}. Preserve the successful crop, hierarchy, identity, explicit locks, and any other decisions that are not implicated by this request. Change only the requested or clearly necessary axis. Generate the revision now.`)};
+      $("instruction").addEventListener("keydown",e=>{if(e.key==="Enter")$("send").click()});
+      $("anotherBtn").onclick=async()=>{const v=current();await save({action:"try-another"});await follow(`Use the same active source image and open the Press Print creation controls again for a sibling version. Start from ${versionContext(v)} as the remembered control state, but do not overwrite the current result. Let the user change Direction, Structure, or Intensity before generating another version.`)};
+      $("useBtn").onclick=async()=>{const v=current();await save({action:"use-this",preferredVersion:v?.id||activeVersion});await follow(`Mark ${versionContext(v)} as the user's active Press Print baseline. Do not generate a new image yet. Future refinements should build from this version unless the user explicitly switches versions or returns to the original source.`,"Using this version…")};
+      render(data);
+      window.addEventListener("openai:set_globals",event=>{const g=event?.detail?.globals||{};if(g.toolOutput)render(g.toolOutput);if(g.theme)applyTheme()});
+    })();
+  </script>
+</body>
+</html>
