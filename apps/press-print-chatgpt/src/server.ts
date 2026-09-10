@@ -38,6 +38,9 @@ const directionIds = [
 ] as const;
 
 const directionIdSchema = z.enum(directionIds);
+const typographyModeSchema = z.enum(["keep", "replace", "generate"]);
+const creationKindSchema = z.enum(["new", "alternative"]);
+const versionKindSchema = z.enum(["root", "alternative", "revision"]);
 
 function readHtml(name: string): string {
   return fs.readFileSync(path.join(ASSETS_DIR, name), "utf8");
@@ -50,9 +53,14 @@ const versionSchema = z.object({
   id: z.string().min(1).max(64),
   label: z.string().min(1).max(24).optional(),
   parentId: z.string().min(1).max(64).optional(),
-  direction: z.string().min(1).max(48).optional(),
+  kind: versionKindSchema.optional(),
+  direction: directionIdSchema.optional(),
   structure: z.number().int().min(0).max(100).optional(),
   intensity: z.number().int().min(0).max(100).optional(),
+  customDirection: z.string().min(1).max(500).optional(),
+  typographyMode: typographyModeSchema.optional(),
+  typographyText: z.string().max(500).optional(),
+  instruction: z.string().min(1).max(500).optional(),
   active: z.boolean().optional(),
   preferred: z.boolean().optional(),
 });
@@ -66,12 +74,18 @@ const creationOutputShape = {
   structureDefault: z.number().int().min(0).max(100),
   intensityDefault: z.number().int().min(0).max(100),
   hardLocks: z.array(z.string()).max(6),
+  creationKind: creationKindSchema,
+  seedVersionId: z.string().optional(),
+  initialCustomDirection: z.string().optional(),
+  initialTypographyMode: typographyModeSchema.optional(),
+  initialTypographyText: z.string().optional(),
 };
 
 const resultOutputShape = {
   kind: z.literal("press-print-result-card"),
   resultSummary: z.string(),
   versionId: z.string().optional(),
+  preferredVersionId: z.string().optional(),
   versions: z.array(versionSchema).max(8),
   quickRefinements: z.array(z.string()).max(4),
   preserveNotes: z.array(z.string()).max(6),
@@ -98,8 +112,8 @@ function createPressPrintServer(): McpServer {
       title: "Show Press Print creation controls",
       description:
         "Render the compact Press Print creation card for an active source image when the user wants an interactive choice of direction or has not already supplied a complete visual direction. The card exposes six direction choices plus only two primary controls: Structure (Original to Rebuild) and Intensity (Soft to Strong). Typography and Custom reveal their own minimal special fields. " +
-        "Before calling this tool, inspect the source image and choose a source-specific recommended direction when one is useful. Do not expose internal analysis terminology. If the user's visual instruction is already explicit enough to execute immediately, generating directly is usually better than forcing the card. " +
-        "Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these text fields.",
+        "Before calling this tool, inspect the source image and choose a source-specific recommended direction when one is useful. If opening the card from Try Another, set creationKind to alternative and pass seedVersionId plus the previous control values. The seed version supplies controls only: the original source image remains the visual source and the alternative must not transform the previous result image. " +
+        "Do not expose internal analysis terminology. If the user's visual instruction is already explicit enough to execute immediately, generating directly is usually better than forcing the card. Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these text fields.",
       inputSchema: {
         sourceSummary: z.string().min(1).max(260).optional(),
         recommendedDirection: directionIdSchema.optional(),
@@ -108,6 +122,11 @@ function createPressPrintServer(): McpServer {
         structureDefault: z.number().int().min(0).max(100).default(58),
         intensityDefault: z.number().int().min(0).max(100).default(58),
         hardLocks: z.array(z.string().max(100)).max(6).default([]),
+        creationKind: creationKindSchema.default("new"),
+        seedVersionId: z.string().min(1).max(64).optional(),
+        initialCustomDirection: z.string().max(500).optional(),
+        initialTypographyMode: typographyModeSchema.default("keep"),
+        initialTypographyText: z.string().max(500).optional(),
       },
       outputSchema: creationOutputShape,
       annotations: {
@@ -128,7 +147,7 @@ function createPressPrintServer(): McpServer {
         {
           type: "text" as const,
           text:
-            "The Press Print creation card is shown above. Do not duplicate the controls in prose. Wait for the user's Generate action; it will arrive as a follow-up message containing the selected direction, Structure, Intensity, and any special-mode instructions.",
+            "The Press Print creation card is shown above. Do not duplicate the controls in prose. Wait for the user's Generate action; it will arrive as a follow-up message containing the selected direction, Structure, Intensity, lineage intent, and any special-mode instructions.",
         },
       ],
       structuredContent: {
@@ -144,12 +163,13 @@ function createPressPrintServer(): McpServer {
     {
       title: "Show Press Print result controls",
       description:
-        "Render the compact Press Print result card after a generated result or revision exists. The primary actions are Refine, Try Another, and Use This. Refine should remain language-driven. Try Another creates a sibling from the same source without overwriting the current result. Use This marks the current result as the active baseline for future refinements. " +
-        "Pass only lightweight version metadata and short source-safe summaries. Do not invent image comparison URLs. Original/Result comparison is an optional future enhancement when the host exposes usable media references. " +
+        "Render the compact Press Print result card after a generated result or revision exists. The primary actions are Refine, Try Another, and Use This. Refine creates a child revision of the selected version and inherits its successful design state unless the instruction changes it. Try Another returns to the original source image and creates an alternative version while inheriting only the selected version's control state. Use This changes the preferred baseline without generating a new image. " +
+        "Keep active/viewed version separate from preferred baseline. Pass lightweight lineage metadata so version inheritance remains explicit. Do not invent image comparison URLs; Original/Result comparison is an optional future enhancement when the host exposes usable media references. " +
         "Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these fields.",
       inputSchema: {
         resultSummary: z.string().min(1).max(260),
         versionId: z.string().min(1).max(64).optional(),
+        preferredVersionId: z.string().min(1).max(64).optional(),
         versions: z.array(versionSchema).max(8).default([]),
         quickRefinements: z.array(z.string().min(1).max(80)).max(4).default([
           "Make it flatter",
@@ -178,7 +198,7 @@ function createPressPrintServer(): McpServer {
         {
           type: "text" as const,
           text:
-            "The Press Print result card is shown above. Do not replace it with a parameter list. Refine, Try Another, or Use This will arrive as a follow-up instruction. Preserve successful design state across revisions unless the selected action explicitly changes it.",
+            "The Press Print result card is shown above. Do not replace it with a parameter list. Refine, Try Another, or Use This will arrive as a follow-up instruction. Preserve lineage and successful design state across revisions unless the selected action explicitly changes them.",
         },
       ],
       structuredContent: {
@@ -225,7 +245,7 @@ function createPressPrintServer(): McpServer {
           mimeType: RESOURCE_MIME_TYPE,
           text: resultCardHtml,
           _meta: uiResourceMeta(
-            "Lets the user refine the active Press Print result in natural language, try a sibling version, or mark the current version as the baseline.",
+            "Lets the user refine the selected Press Print result in natural language, try an alternative from the original source, or mark a version as the preferred baseline.",
           ),
         },
       ],
