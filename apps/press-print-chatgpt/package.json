@@ -6,7 +6,8 @@
   "description": "Interactive MCP App layer for Press-Print 2.0 art direction and visual reconstruction.",
   "scripts": {
     "start": "tsx src/server.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "smoke:mcp": "tsx scripts/smoke-mcp.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.0.1",
