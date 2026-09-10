@@ -229,7 +229,7 @@ async function main() {
       assert(
         text.includes("window.openai?.widgetState") &&
           text.includes("creationKind===\"alternative\"") &&
-          text.includes("seed version supplies control values only"),
+          text.includes("control-state seed only"),
         "creation widget is missing persisted/alternative-state safeguards",
       );
       assert(
@@ -293,5 +293,5 @@ async function main() {
 
 main().catch((error) => {
   console.error(error);
-  process.exitCode = 1;
+  process.exit(1);
 });
