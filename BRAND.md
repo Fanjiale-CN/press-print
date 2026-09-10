@@ -10,59 +10,71 @@
 - **Repository:** https://github.com/Fanjiale-CN/press-print
 - **Website:** https://www.galok.me/press-print/
 
-Press-Print is a Galok project. Galok is the public creative identity; it is not presented as a separate legal company. Public policy and support pages make the relationship explicit so the product name, website, support contact, privacy policy, terms, and verified individual identity remain consistent during review.
+Press-Print is a Galok project, but Press-Print now has its own product mark. Galok remains the publisher identity rather than the plugin icon.
 
 ## Positioning
 
 **One-line definition**
 
-> A source-aware visual reconstruction system for transforming user-supplied photographs into contemporary print-driven compositions.
+> An AI art-direction and visual-reconstruction system that turns user-supplied photographs into source-aware contemporary print compositions.
 
 **Short listing description**
 
-> Editorial photo reconstruction
+> AI art direction for photo reconstruction
 
 **Long listing description**
 
-> Press-Print transforms a source photograph into a strongly flattened contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy. Press-Print v1.0.2 adds no new text by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.
+> Press-Print reads a source photograph, identifies what must survive, proposes a source-specific art direction when useful, and reconstructs the image into a strongly designed contemporary print composition. Its visual language is built from selective cropping, flattened planes, hierarchy, halftone and duotone treatment, graphic reduction, controlled collage, and tactile print logic. Press-Print 2.0 keeps semantic identity and source-defining structure intact while making the interaction much simpler: upload an image, say what you want, choose a direction only when needed, then keep refining the same result without restarting from scratch.
 
 **OpenAI category**
 
 > Creativity
 
-## Mark and icon system
+## Press-Print 2.0 mark
 
-Press-Print uses the existing Galok mark as its publisher mark rather than inventing a separate symbol.
+The product mark is intentionally non-letterform. It consists of:
 
-### Plugin icon
+- one large halftone circle representing printed information, screening, and the source image as material
+- one larger solid circle placed inside that field, representing selection, intervention, hierarchy, and reconstruction
+- a deliberately offset relationship rather than centered symmetry
 
-- Black field: `#111111`
-- Mark: white `#FFFFFF`
-- Square canvas
-- Mark enlarged for legibility at small directory sizes
-- No text inside the icon
+The mark should read first as a strong geometric icon and only then reveal its print logic.
 
-### Supporting brand palette
+### Core palette
 
-- Ink / black: `#111111`
-- Warm paper: `#F1EEE7`
-- Warm white: `#F8F6F1`
+- Ink / near-black: `#0C0C0C`
+- Warm paper: `#F4EFE7`
+- Supporting ink: `#111111`
+- Supporting warm white: `#F8F6F1`
 - Muted stone: `#716B62`
 - Rule: `#CBC4B8`
-- Galok red: `#C3312A` for site accents only, not for recoloring the mark
+
+### Light mode
+
+- field: warm paper `#F4EFE7`
+- halftone dots: near-black `#0C0C0C`
+- solid circle: near-black `#0C0C0C`
+
+### Dark mode
+
+- field: near-black `#0C0C0C`
+- halftone dots: warm paper `#F4EFE7`
+- solid circle: warm paper `#F4EFE7`
 
 ### Asset rules
 
-- Keep the Galok mark geometry unchanged.
-- Use the dark mark on light surfaces.
-- Use the light mark on dark surfaces.
-- Do not stretch, rotate, outline, add shadows to, or recolor the mark with decorative accents.
-- The plugin icon may place the light mark on a black square field for small-size visibility.
+- Keep the two-circle geometry and offset relationship intact.
+- Do not turn the mark into a letterform.
+- Do not add gradients, glow, 3D effects, drop shadows, or generic AI-color treatments.
+- Do not replace the halftone field with random noise.
+- Do not center the solid circle inside the halftone circle; the offset is part of the identity.
+- Light and dark variants should invert ink and paper while preserving geometry.
+- Small-size exports may simplify dot density, but should preserve the halftone-circle / solid-circle relationship.
 
 ## Brand assets
 
-- `assets/press-print-icon.png` — compact OpenAI directory icon
-- `assets/press-print-mark-dark.svg` — dark mark for light surfaces
-- `assets/press-print-mark-light.svg` — light mark for dark surfaces
+- `assets/press-print-logo-light.svg` — Press-Print 2.0 mark for light mode
+- `assets/press-print-logo-dark.svg` — Press-Print 2.0 mark for dark mode
+- `assets/press-print-icon.png` — current submission/runtime fallback until the OpenAI listing asset format is finalized
 
 The Galok and Press-Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
