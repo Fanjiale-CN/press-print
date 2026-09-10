@@ -19,6 +19,14 @@ const ASSETS_DIR = path.resolve(APP_DIR, "assets");
 
 const DIRECTION_PICKER_URI = "ui://press-print/direction-picker.html";
 const RESULT_ACTIONS_URI = "ui://press-print/result-actions.html";
+const WIDGET_DOMAIN =
+  process.env.PRESS_PRINT_WIDGET_DOMAIN ?? "https://press-print.galok.me";
+
+const NOAUTH_SECURITY = [{ type: "noauth" as const }];
+const WIDGET_CSP = {
+  connectDomains: [] as string[],
+  resourceDomains: [] as string[],
+};
 
 function readHtml(name: string): string {
   return fs.readFileSync(path.join(ASSETS_DIR, name), "utf8");
@@ -33,7 +41,16 @@ const directionSchema = z.object({
   summary: z.string().min(1).max(220),
   preserve: z.array(z.string().max(100)).max(4).default([]),
   instruction: z.string().min(1).max(900),
-  tone: z.enum(["editorial", "deconstructed", "restrained", "graphic", "quiet", "assertive"]).optional(),
+  tone: z
+    .enum([
+      "editorial",
+      "deconstructed",
+      "restrained",
+      "graphic",
+      "quiet",
+      "assertive",
+    ])
+    .optional(),
 });
 
 const actionSchema = z.object({
@@ -42,6 +59,33 @@ const actionSchema = z.object({
   prompt: z.string().min(1).max(900),
   emphasis: z.enum(["primary", "secondary"]).optional(),
 });
+
+const directionOutputShape = {
+  kind: z.literal("press-print-direction-picker"),
+  headline: z.string(),
+  sourceSummary: z.string(),
+  opportunity: z.string(),
+  directions: z.array(directionSchema),
+  surprisePrompt: z.string().optional(),
+};
+
+const resultActionsOutputShape = {
+  kind: z.literal("press-print-result-actions"),
+  resultSummary: z.string(),
+  preserveNotes: z.array(z.string()),
+  actions: z.array(actionSchema),
+};
+
+function uiResourceMeta(description: string) {
+  return {
+    ui: {
+      domain: WIDGET_DOMAIN,
+      prefersBorder: false,
+      csp: WIDGET_CSP,
+    },
+    "openai/widgetDescription": description,
+  } as const;
+}
 
 function createPressPrintServer(): McpServer {
   const server = new McpServer({ name: "press-print", version: SERVER_VERSION });
@@ -52,33 +96,45 @@ function createPressPrintServer(): McpServer {
     {
       title: "Show Press-Print art directions",
       description:
-        "Render an inline Press-Print direction picker after you have inspected a user-supplied image and the user's request is genuinely vague or underspecified. " +
-        "First make a source-specific visual judgment. Pass one to three meaningfully different art-direction hypotheses. Do NOT use this tool when the user already gave a clear direction; execute the Press-Print reconstruction directly instead. " +
-        "Directions must describe what to preserve, amplify, suppress, crop, flatten, or fragment. They must not be generic style labels or effect presets.",
+        "Render an inline Press-Print direction picker only after inspecting the user's supplied image and only when the visual request is genuinely vague or underspecified. " +
+        "First make a source-specific visual judgment, then pass one to three meaningfully different art-direction hypotheses. Do not use this tool when the user already gave a clear direction; reconstruct directly instead. " +
+        "Directions must describe what to preserve, amplify, suppress, crop, flatten, or fragment. Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these text fields. Use minimal non-sensitive visual descriptions.",
       inputSchema: {
-        headline: z.string().min(1).max(100).default("I found a few strong directions."),
+        headline: z
+          .string()
+          .min(1)
+          .max(100)
+          .default("I found a few strong directions."),
         sourceSummary: z.string().min(1).max(260),
         opportunity: z.string().min(1).max(320),
         directions: z.array(directionSchema).min(1).max(3),
         surprisePrompt: z.string().min(1).max(900).optional(),
       },
+      outputSchema: directionOutputShape,
+      securitySchemes: NOAUTH_SECURITY,
       annotations: {
         readOnlyHint: true,
         destructiveHint: false,
         openWorldHint: false,
+        idempotentHint: true,
       },
-      _meta: { ui: { resourceUri: DIRECTION_PICKER_URI } },
+      _meta: {
+        securitySchemes: NOAUTH_SECURITY,
+        ui: { resourceUri: DIRECTION_PICKER_URI },
+        "openai/toolInvocation/invoking": "Preparing art directions…",
+        "openai/toolInvocation/invoked": "Art directions ready",
+      },
     },
     async (args) => ({
       content: [
         {
           type: "text" as const,
           text:
-            "Press-Print direction picker rendered. Do not repeat the full choices in prose unless the widget is unavailable. Wait for the user's selection; a selection will arrive as a follow-up message.",
+            "A compact direction picker is shown above. Do not repeat every option in prose. Wait for the user's selection; the selected direction will arrive as a follow-up message.",
         },
       ],
       structuredContent: {
-        kind: "press-print-direction-picker",
+        kind: "press-print-direction-picker" as const,
         ...args,
       },
     }),
@@ -90,30 +146,38 @@ function createPressPrintServer(): McpServer {
     {
       title: "Show Press-Print result actions",
       description:
-        "Render compact next-step actions for an existing Press-Print result. Use only after a result or revision exists. Actions should preserve successful decisions from the current result and change one clear axis at a time. " +
-        "Prefer useful actions such as refine, more restrained, more assertive, more planar, more fragmented, or prepare as a sticker asset. Do not use this tool as a substitute for generating the image itself.",
+        "Render compact next-step actions only after a Press-Print result or revision exists. Each action should preserve successful decisions from the current result and change one clear axis at a time, such as restraint, planar compression, fragmentation, or hierarchy. " +
+        "Do not use this tool as a substitute for generating the image. Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these text fields. Use minimal non-sensitive revision descriptions.",
       inputSchema: {
         resultSummary: z.string().min(1).max(240),
         preserveNotes: z.array(z.string().max(100)).max(4).default([]),
         actions: z.array(actionSchema).min(1).max(5),
       },
+      outputSchema: resultActionsOutputShape,
+      securitySchemes: NOAUTH_SECURITY,
       annotations: {
         readOnlyHint: true,
         destructiveHint: false,
         openWorldHint: false,
+        idempotentHint: true,
       },
-      _meta: { ui: { resourceUri: RESULT_ACTIONS_URI } },
+      _meta: {
+        securitySchemes: NOAUTH_SECURITY,
+        ui: { resourceUri: RESULT_ACTIONS_URI },
+        "openai/toolInvocation/invoking": "Preparing refinements…",
+        "openai/toolInvocation/invoked": "Refinements ready",
+      },
     },
     async (args) => ({
       content: [
         {
           type: "text" as const,
           text:
-            "Press-Print result actions rendered. A button press will send a follow-up instruction into the conversation. Preserve the existing result's successful decisions unless the selected action explicitly changes them.",
+            "Compact revision actions are shown above. A selection will arrive as a follow-up instruction. Preserve the current result's successful decisions unless that selected action explicitly changes them.",
         },
       ],
       structuredContent: {
-        kind: "press-print-result-actions",
+        kind: "press-print-result-actions" as const,
         ...args,
       },
     }),
@@ -133,6 +197,9 @@ function createPressPrintServer(): McpServer {
           uri: DIRECTION_PICKER_URI,
           mimeType: RESOURCE_MIME_TYPE,
           text: directionPickerHtml,
+          _meta: uiResourceMeta(
+            "Lets the user choose one of up to three source-specific Press-Print art directions without leaving the conversation.",
+          ),
         },
       ],
     }),
@@ -144,7 +211,7 @@ function createPressPrintServer(): McpServer {
     RESULT_ACTIONS_URI,
     {
       mimeType: RESOURCE_MIME_TYPE,
-      description: "Inline revision and asset actions for Press-Print 2.0",
+      description: "Inline revision actions for Press-Print 2.0",
     },
     async () => ({
       contents: [
@@ -152,6 +219,9 @@ function createPressPrintServer(): McpServer {
           uri: RESULT_ACTIONS_URI,
           mimeType: RESOURCE_MIME_TYPE,
           text: resultActionsHtml,
+          _meta: uiResourceMeta(
+            "Offers a small set of controlled follow-up refinements for the current Press-Print result.",
+          ),
         },
       ],
     }),
@@ -161,6 +231,7 @@ function createPressPrintServer(): McpServer {
 }
 
 const app = express();
+app.disable("x-powered-by");
 app.use(
   cors({
     origin: "*",
@@ -168,7 +239,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Mcp-Session-Id"],
   }),
 );
-app.use(express.json({ limit: "2mb" }));
+app.use(express.json({ limit: "256kb" }));
 
 app.get("/health", (_req, res) => {
   res.json({ ok: true, service: "press-print", version: SERVER_VERSION });
@@ -221,6 +292,5 @@ app.get("/mcp", async (req, res) => {
 
 const port = Number(process.env.PORT ?? 8000);
 app.listen(port, () => {
-  console.log(`Press-Print 2.0 MCP App listening on http://localhost:${port}`);
-  console.log(`MCP endpoint: http://localhost:${port}/mcp`);
+  console.log(`Press-Print 2.0 MCP App listening on port ${port}`);
 });
