@@ -111,7 +111,6 @@ function createPressPrintServer(): McpServer {
         surprisePrompt: z.string().min(1).max(900).optional(),
       },
       outputSchema: directionOutputShape,
-      securitySchemes: NOAUTH_SECURITY,
       annotations: {
         readOnlyHint: true,
         destructiveHint: false,
@@ -154,7 +153,6 @@ function createPressPrintServer(): McpServer {
         actions: z.array(actionSchema).min(1).max(2),
       },
       outputSchema: resultActionsOutputShape,
-      securitySchemes: NOAUTH_SECURITY,
       annotations: {
         readOnlyHint: true,
         destructiveHint: false,
