@@ -65,15 +65,15 @@ const directionOutputShape = {
   headline: z.string(),
   sourceSummary: z.string(),
   opportunity: z.string(),
-  directions: z.array(directionSchema),
+  directions: z.array(directionSchema).min(1).max(3),
   surprisePrompt: z.string().optional(),
 };
 
 const resultActionsOutputShape = {
   kind: z.literal("press-print-result-actions"),
   resultSummary: z.string(),
-  preserveNotes: z.array(z.string()),
-  actions: z.array(actionSchema),
+  preserveNotes: z.array(z.string()).max(4),
+  actions: z.array(actionSchema).min(1).max(2),
 };
 
 function uiResourceMeta(description: string) {
@@ -146,12 +146,12 @@ function createPressPrintServer(): McpServer {
     {
       title: "Show Press-Print result actions",
       description:
-        "Render compact next-step actions only after a Press-Print result or revision exists. Each action should preserve successful decisions from the current result and change one clear axis at a time, such as restraint, planar compression, fragmentation, or hierarchy. " +
+        "Render one or two compact next-step actions only after a Press-Print result or revision exists. Each action should use the user's language, preserve successful decisions from the current result, and change one clear axis at a time, such as restraint, planar compression, fragmentation, or hierarchy. " +
         "Do not use this tool as a substitute for generating the image. Do not send the source image, full conversation history, personal names, precise locations, medical information, government identifiers, credentials or API keys, payment information, or other unnecessary sensitive data in these text fields. Use minimal non-sensitive revision descriptions.",
       inputSchema: {
         resultSummary: z.string().min(1).max(240),
         preserveNotes: z.array(z.string().max(100)).max(4).default([]),
-        actions: z.array(actionSchema).min(1).max(5),
+        actions: z.array(actionSchema).min(1).max(2),
       },
       outputSchema: resultActionsOutputShape,
       securitySchemes: NOAUTH_SECURITY,
@@ -220,7 +220,7 @@ function createPressPrintServer(): McpServer {
           mimeType: RESOURCE_MIME_TYPE,
           text: resultActionsHtml,
           _meta: uiResourceMeta(
-            "Offers a small set of controlled follow-up refinements for the current Press-Print result.",
+            "Offers one or two controlled follow-up refinements for the current Press-Print result.",
           ),
         },
       ],
