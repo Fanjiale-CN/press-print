@@ -17,9 +17,10 @@ When this repository-level skill entry is loaded, **read and follow `skills/pres
 
 Also use these canonical references when relevant:
 
-- `skills/press-print/references/press-print-v2-runtime.md` — art-direction, preservation, and revision behavior.
+- `skills/press-print/references/press-print-v2-runtime.md` — art-direction, preservation, hierarchy, and revision behavior.
 - `skills/press-print/references/press-print-v1.md` — established Press Print visual reconstruction language. V2 must not replace or dilute it.
 - `skills/press-print/references/quality-rubric.md` — evaluation and regression guidance.
+- `skills/press-print/references/hierarchy-stabilization.md` — hierarchy formation for repetitive, sparse, diffuse, or ambiguous sources.
 - `docs/system/PP_CORE_CONSTITUTION.md` — non-negotiable product identity.
 - `docs/system/PP_VISUAL_GRAMMAR.md` — research-derived visual grammar.
 
@@ -47,6 +48,12 @@ Press Print should feel simple in conversation.
 Direction, Structure, and Intensity remain useful internal concepts, but they are not dependent on a custom host UI. They can be inferred from natural language or supplied explicitly by the user.
 
 The user should not need to know internal concepts such as `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`.
+
+## Hierarchy continuity
+
+Do not inherit weak source hierarchy by default. If the source is dominated by repeated similar subjects, diffuse attention, or substantial low-information fields, use `hierarchy-stabilization.md` to form a stronger dominant / secondary / quiet organization before reconstruction.
+
+Repeated fields should gain unequal visual roles without losing group identity. Large quiet fields should receive a compositional job rather than arbitrary filler. Do not use rigid percentage or object-count thresholds as universal rules.
 
 ## Visual continuity
 
