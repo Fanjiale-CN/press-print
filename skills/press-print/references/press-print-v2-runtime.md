@@ -1,6 +1,6 @@
 # Press-Print 2.0 Art-Direction Runtime
 
-This reference adds the decision and interaction layer for Press-Print 2.0. It does **not** replace the visual language in `press-print-v1.md`.
+This reference adds the decision, preservation, and revision layer for Press-Print 2.0. It does **not** replace the visual language in `press-print-v1.md`.
 
 ## Product rule
 
@@ -8,7 +8,7 @@ The visible experience should feel like:
 
 > **Send an image. Say what you want.**
 
-The user should not need to know the internal names `analyze_visual`, `propose_direction`, `reconstruct`, `critique`, `vary`, or `decompose`.
+The user should not need to know internal phase names or technical architecture.
 
 ## Core constitution
 
@@ -32,7 +32,6 @@ For substantial image requests, reason internally in this order:
 
 ### READ
 Observe the source before prescribing effects. Identify:
-
 - semantic anchors,
 - visual anchors,
 - figure/ground,
@@ -47,7 +46,6 @@ Semantic importance and visual salience are different. Do not blindly preserve t
 
 ### UNDERSTAND
 Determine what makes the source *this particular image*:
-
 - primary subject,
 - identity invariants,
 - essential subject/context relations,
@@ -57,11 +55,10 @@ Determine what makes the source *this particular image*:
 
 ### PROTECT
 Form an internal preservation contract:
-
-- **must preserve** — identity or meaning collapses if lost,
-- **should preserve** — significant source specificity is lost,
-- **may transform** — can be cropped, flattened, simplified, fragmented, or re-stated,
-- **may remove** — low-value redundancy or clutter.
+- **must preserve**,
+- **should preserve**,
+- **may transform**,
+- **may remove**.
 
 Explicit user locks outrank defaults.
 
@@ -85,7 +82,6 @@ A result may have multiple reading events, but one directional thesis should dom
 
 ### RECONSTRUCT
 Prefer structural operations before decorative ones:
-
 1. crop / reframe,
 2. isolate,
 3. suppress,
@@ -93,16 +89,15 @@ Prefer structural operations before decorative ones:
 5. planar compression,
 6. controlled fragmentation / overlap / repetition when justified.
 
-Do not force tearing, dots, or collage onto every source.
+A successful default Press-Print result should exhibit visibly reconstructed composition. Restraint may reduce material effects, but it must not reduce the result to ordinary photo styling.
 
 ### MATERIALIZE
 Print materiality is causal, not cosmetic. Halftone, torn edges, misregistration, paper, photocopy noise, and ink-like behavior should appear only when they support hierarchy, separation, rupture, compression, or artifact-ness.
 
-A successful Press-Print result may contain little or no torn paper when the source/direction does not need it.
+A strong Press-Print result may use little or no torn paper when the source or direction does not need it.
 
 ### CRITIQUE
-Before accepting a result, ask internally:
-
+Before accepting a result, check internally:
 1. Does the source still remain itself?
 2. Is hierarchy more intentional?
 3. Is the directional thesis visible?
@@ -117,74 +112,61 @@ Revision changes causes, not symptoms. Preserve successful decisions from the cu
 
 Do not treat revision as a fresh random generation.
 
-## Interaction policy
+## Request policy
 
 ### A. Explicit request → execute directly
-
-If the user gives a clear direction, do not show a direction chooser and do not ask a redundant question.
+If the user gives a clear direction, do not ask a redundant question.
 
 Examples:
-
 - `Make it flatter and more fragmented. Keep the face unchanged. No typography.`
 - `Turn this into a restrained Press-Print reconstruction.`
 - `Keep the current crop and reduce the tearing.`
 
-Silently perform the visual reading/preservation reasoning, then generate or revise.
+Silently perform the visual reading and preservation reasoning, then generate or revise.
 
-### B. Vague request → make a judgment, then offer directions
-
+### B. Vague request → inspect, judge, execute
 If the user supplies an image and says only something like:
-
 - `process this`,
 - `handle this`,
 - `do your thing`,
 - `make it Press-Print`,
 
-first inspect the image. Do **not** ask the user to choose generic functions such as crop vs color vs sticker.
+first inspect the image, form the strongest source-specific direction, and execute.
 
-Instead form 1–3 meaningfully different art-direction hypotheses. When the MCP UI tool `render_direction_picker` is available, call it. Otherwise present the same choices concisely in text.
-
-Typical public-facing direction labels may include:
-
-- **Editorial** — source identity remains strong; rebuild hierarchy and depth more carefully.
-- **Deconstructed** — preserve identity but spend more continuity through fragmentation/displacement.
-- **Restrained** — fewer material interventions, quieter fields, controlled reconstruction.
-
-These labels are only UI shorthand. Every direction still needs a source-specific thesis and instruction.
-
-When using `render_direction_picker`, pass:
-
-- a short source summary,
-- the main visual opportunity,
-- 1–3 direction objects,
-- for each direction: title, concise summary, preservation promise, and a concrete instruction that can be sent back into the conversation.
-
-After the user clicks a direction, treat the widget's follow-up instruction as approval to generate from the same source image. Do not ask them to upload the image again.
+Only ask or offer concise alternatives when multiple interpretations are genuinely plausible and would materially change the result. Do not force the user to choose generic functions because the system is indecisive.
 
 ### C. Revision request → preserve state
-
-When the user refers to the current/previous Press-Print result:
-
+When the user refers to the current or previous Press-Print result:
 - preserve the successful crop unless requested otherwise,
 - preserve explicit locks,
 - preserve useful hierarchy and visual relationships,
-- change the named axis or the diagnosed failure cause,
+- preserve successful material decisions,
+- change the named axis or diagnosed failure cause,
 - do not restart from a generic default composition.
 
 Examples:
+- `This one works. Keep the crop, make the right side quieter.`
+- `More aggressive, but don't touch the face.`
+- `Keep everything except reduce the paper tearing.`
 
-`This one works. Keep the crop, make the right side quieter.`
+### D. Alternative request → return to source
+If the user asks for another version or another direction from the same source, use the original source image again unless they explicitly ask to transform the current result.
 
-`More aggressive, but don't touch the face.`
+A prior successful result may guide what to keep or avoid, but it should not silently become the visual input for every alternative.
 
-`Keep everything except reduce the paper tearing.`
+## Natural-language controls
 
-If `render_result_actions` is available after a result, it may show a small set of useful next steps. Those actions should modify one clear axis at a time.
+Direction, Structure, and Intensity remain useful internal abstractions.
+
+- **Direction** describes the dominant reconstruction thesis.
+- **Structure** describes how much original compositional continuity may be spent.
+- **Intensity** describes the visible force of the chosen treatment.
+
+They can be inferred from ordinary language or supplied explicitly by the user. They do not depend on any custom UI.
 
 ## Low-information fields
 
 Do not think about negative space as a target percentage. A quiet field must have a job, such as:
-
 - separation,
 - pause,
 - directional room,
@@ -201,9 +183,9 @@ Do not turn those references into style switches, historical props, cultural sym
 
 ## Text policy remains strict
 
-V2 interaction does not loosen the v1 source-text system.
+V2 reasoning does not loosen the v1 source-text system.
 
-- No new text unless the user explicitly supplies exact wording.
+- No new text unless the user explicitly supplies exact wording or explicitly authorizes generated copy.
 - Preserve identity-critical source text when feasible.
 - Never invent, translate, bilingual-duplicate, or approximately reconstruct uncertain source text.
 - If exact source text cannot be preserved, obscure/crop it rather than hallucinate it.
