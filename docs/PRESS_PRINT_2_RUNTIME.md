@@ -2,13 +2,13 @@
 
 ## Goal
 
-Press-Print 2.0 upgrades the existing source-aware reconstruction skill into an interactive AI art-direction workflow **without replacing its original visual identity**.
+Press-Print 2.0 upgrades the existing source-aware reconstruction skill into a stronger AI art-direction workflow **without replacing its original visual identity**.
 
-The product promise remains simple for ordinary users:
+The product promise remains simple:
 
 > **Send an image. Say what you want.**
 
-Complexity stays behind the interface.
+Complexity stays behind the interaction.
 
 ## User modes
 
@@ -16,27 +16,25 @@ Complexity stays behind the interface.
 
 Example: `@Press-Print process this.`
 
-The model silently reads the source, identifies semantic/visual anchors, determines preservation constraints, and forms up to three art-direction hypotheses. It then calls `render_direction_picker`.
+The model silently reads the source, identifies semantic and visual anchors, determines preservation constraints, forms the strongest source-specific direction, and executes.
 
-The directions are not style presets. They describe different source-specific strategies such as:
-
-- preserve geometry and compress depth,
-- break continuity more aggressively,
-- quiet the scene and enlarge a low-information field.
-
-After the user taps one direction, the widget sends a follow-up message telling Press-Print to generate from the **same source image**.
+If the image has multiple equally plausible readings whose choice would materially change the result, the model may present a small number of concise alternatives in normal language. Otherwise it should make the judgment itself.
 
 ### 2. Explicit request
 
 Example: `Make it flatter and more fragmented. Keep the face unchanged. No typography.`
 
-Do not show the direction picker. Execute directly using the existing Press-Print image language and the explicit locks.
+Execute directly using the existing Press-Print image language and the explicit locks.
 
 ### 3. Revision request
 
 Example: `I like this version. Keep the crop, quiet the right side, and don't touch the face.`
 
 Treat the current result as a design state, not a lottery ticket. Preserve successful decisions and modify only the requested axis or diagnosed failure cause.
+
+### 4. Alternative request
+
+If the user asks for another direction from the same source, return to the original source image unless they explicitly ask to build on the current result.
 
 ## Hidden reasoning model
 
@@ -61,7 +59,7 @@ User locks always override defaults.
 
 A good direction states:
 
-- the central visual opportunity/problem,
+- the central visual opportunity or problem,
 - what to amplify,
 - what to suppress,
 - what to preserve,
@@ -71,27 +69,28 @@ Bad: `Swiss / Song / retro / Y2K`.
 
 Good: `Preserve the cyclist and billboard relation, suppress edge clutter, flatten the shopfront depth, and use the empty left field to isolate the subject.`
 
+## Natural-language control model
+
+Direction, Structure, and Intensity remain useful abstractions inside Press-Print 2.0.
+
+- **Direction** identifies the dominant reconstruction thesis.
+- **Structure** describes how much original compositional continuity may be spent.
+- **Intensity** describes the visible force of the treatment.
+
+The user may state these directly, or the model may infer them from normal language. They are not dependent on a custom host interface.
+
 ## Division of responsibility
 
-### Skill / ChatGPT model
+### Skill / host model
 
 Owns:
 
 - visual analysis,
 - semantic preservation judgment,
 - direction formation,
-- Press-Print prompt/reconstruction behavior,
-- native image generation/editing,
+- Press-Print prompt and reconstruction behavior,
+- image generation or editing when the host supports it,
 - critique and revision reasoning.
-
-### MCP App
-
-Owns:
-
-- inline direction selection,
-- compact result actions,
-- widget state,
-- sending user selections back to the conversation.
 
 ### Future backend tools
 
@@ -100,8 +99,8 @@ May later own deterministic or specialized operations such as:
 - decomposition,
 - transparent asset extraction,
 - sticker packs,
-- GIF/living-print motion,
-- batch/export workflows.
+- GIF or living-print motion,
+- batch and export workflows.
 
 They should be added only when they provide real computation rather than pretending conceptual stages are server tools.
 

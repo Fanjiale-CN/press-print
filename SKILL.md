@@ -2,11 +2,11 @@
 name: press-print
 description: >-
   Press Print 2.0 art-directs and reconstructs user-supplied imagery while preserving the established Press Print
-  visual DNA. It reads semantic identity and visual structure before transformation, exposes a simple Direction +
-  Structure + Intensity host UI when useful, executes clear requests directly, and preserves successful decisions
-  across revisions. Results use source-aware cropping, flattened editorial composition, selective halftone/duotone,
-  graphic fields, controlled tactile collage, and strict source-text protection. Add no new text by default unless the
-  user explicitly selects Typography generated-text behavior or supplies exact wording. v2.0.0.
+  visual DNA. It reads semantic identity and visual structure before transformation, forms a source-specific direction,
+  reconstructs through flattened editorial composition, source-aware cropping, selective halftone/duotone, graphic
+  fields, controlled tactile collage, and strict source-text protection, then preserves successful decisions across
+  revisions. Add no new text by default unless the user explicitly supplies exact wording or explicitly authorizes
+  generated typography. v2.0.0.
 ---
 
 # Press Print 2.0
@@ -17,10 +17,11 @@ When this repository-level skill entry is loaded, **read and follow `skills/pres
 
 Also use these canonical references when relevant:
 
-- `skills/press-print/references/press-print-v2-runtime.md` — art-direction, interaction, preservation, and revision behavior.
+- `skills/press-print/references/press-print-v2-runtime.md` — art-direction, preservation, and revision behavior.
 - `skills/press-print/references/press-print-v1.md` — established Press Print visual reconstruction language. V2 must not replace or dilute it.
 - `skills/press-print/references/quality-rubric.md` — evaluation and regression guidance.
-- `docs/PRESS_PRINT_HOST_UI_V1.md` — canonical first-version ChatGPT host UI and version-state model.
+- `docs/system/PP_CORE_CONSTITUTION.md` — non-negotiable product identity.
+- `docs/system/PP_VISUAL_GRAMMAR.md` — research-derived visual grammar.
 
 ## Non-negotiable identity
 
@@ -36,16 +37,14 @@ Also use these canonical references when relevant:
 
 ## Interaction summary
 
-Press Print should feel simple to ordinary users.
+Press Print should feel simple in conversation.
 
-- **Clear request:** execute directly without forcing an unnecessary control round trip.
-- **Vague or exploratory request:** inspect the actual image and use `render_creation_card` when available. The card exposes Direction, Structure, Intensity, and minimal special fields only.
-- **Revision:** preserve successful crop, locks, hierarchy, identity, active version state, and useful material decisions; change the requested or diagnosed axis instead of re-randomizing everything.
-- **After a result:** `render_result_card` may expose Refine, Try Another, and Use This. Refine remains language-driven.
+- **Clear request:** execute directly.
+- **Vague request:** inspect the actual image, choose the strongest source-specific direction, and execute unless a real ambiguity would materially change the result.
+- **Revision:** preserve successful crop, locks, hierarchy, identity, and useful material decisions; change only the requested or diagnosed axis.
+- **Alternative:** return to the original source image rather than repeatedly transforming a previous result unless the user explicitly asks to build on that result.
 
-The first-version Direction choices are Editorial Print, Flat Graphic, Collage, Typography, Restore, and Custom.
-
-Typography is an explicit exception to the default zero-new-text rule. Restore is a source-preserving Press Print mode, not automatic archival photo restoration.
+Direction, Structure, and Intensity remain useful internal concepts, but they are not dependent on a custom host UI. They can be inferred from natural language or supplied explicitly by the user.
 
 The user should not need to know internal concepts such as `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`.
 
@@ -69,7 +68,7 @@ Do not turn Press Print into a generic photo editor, style marketplace, cinemati
 
 Default behavior remains conservative:
 
-- add zero new text unless the user explicitly supplies exact wording or enters Typography Generate text mode,
+- add zero new text unless the user explicitly supplies exact wording or explicitly authorizes generated copy,
 - preserve identity-critical source text when feasible,
 - never invent approximate source wording,
 - never translate source text by default,

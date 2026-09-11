@@ -1,7 +1,7 @@
 # Press-Print Tool & Capability Specification
 Version: 2.0  
 Status: Canonical Engineering Layer  
-Scope: Capability contracts for ChatGPT, MCP, and future web runtime
+Scope: Capability contracts for the current Skill runtime and future web runtime
 
 ## 0. Architecture rule
 
@@ -14,9 +14,9 @@ Press-Print 2.0 has six canonical **capabilities**:
 5. `vary`
 6. `decompose`
 
-These names describe the product's reasoning and execution contract. They do **not** require six externally exposed MCP endpoints.
+These names describe the product's reasoning and execution contract. They do **not** require six externally exposed tools.
 
-Current ChatGPT architecture deliberately keeps image understanding, reconstruction, critique, and revision inside the model + Press-Print Skill when that is the strongest available runtime. The MCP server exposes UI and workflow tools only where a server-side tool creates real product value.
+The current runtime deliberately keeps image understanding, art-direction reasoning, reconstruction, critique, and revision inside the host model + Press-Print Skill when that is the strongest available environment.
 
 ```text
 analyze_visual
@@ -25,11 +25,6 @@ analyze_visual
       → critique
         → vary / decompose
 ```
-
-### Current external MCP surface
-
-- `render_direction_picker` — renders 1–3 source-specific art-direction choices when the request is genuinely vague.
-- `render_result_actions` — renders compact, controlled next-step actions for an existing result.
 
 Do not create fake server tools merely to mirror internal phase names.
 
@@ -72,23 +67,22 @@ Model-native capability governed by `SKILL.md`, `PP_VISUAL_GRAMMAR.md`, and `PP_
 Convert source understanding into one or more source-specific art-direction hypotheses.
 
 ### Current runtime
-Model-native reasoning + optional `render_direction_picker` MCP UI.
+Model-native reasoning.
 
 ### Required behaviors
 - create structural, source-derived direction theses,
 - create a preservation contract,
-- decide whether a chooser is useful,
-- output concise user-visible summaries,
-- propose no more than three directions.
+- choose one dominant direction by default,
+- produce concise alternatives only when genuine ambiguity warrants them.
 
 ### Direction vocabulary
 Useful shorthand includes:
-- editorial
-- deconstructed
-- restrained
-- graphic
-- quiet
-- assertive
+- editorial,
+- deconstructed,
+- restrained,
+- graphic,
+- quiet,
+- assertive.
 
 These are emphasis profiles, not style presets.
 
@@ -96,7 +90,7 @@ These are emphasis profiles, not style presets.
 - vague style adjectives,
 - effect playlists,
 - too many near-identical directions,
-- forcing a chooser when the user already gave a clear direction.
+- forcing user choice when the system should make a judgment.
 
 ---
 
@@ -113,25 +107,28 @@ The host's native image generation/editing capability, driven by the Press-Print
 - solve structure before surface materiality,
 - preserve identity-bearing relations,
 - transform through reconstruction rather than a uniform filter,
-- retain Press-Print's established visual DNA.
+- retain Press-Print's established visual DNA,
+- show visible compositional intervention in the default case.
 
 ### User-level controls
-- direction
-- intensity
-- preserve face / identity
-- preserve structure
-- preserve original colors
-- output intent when supported
-- typography, off by default unless exact user text is supplied
+These may be expressed in ordinary language:
+- direction,
+- structure,
+- intensity,
+- preserve face / identity,
+- preserve structure,
+- preserve original colors,
+- output intent when supported,
+- typography, off by default unless exact user text or explicit generation permission is supplied.
 
 ### Internal controls
-- crop aggression
-- planar bias
-- scale contrast
-- hierarchy rebuild
-- suppression strength
-- fragmentation strength
-- materiality enable/disable
+- crop aggression,
+- planar bias,
+- scale contrast,
+- hierarchy rebuild,
+- suppression strength,
+- fragmentation strength,
+- materiality enable/disable.
 
 ### Failure modes
 - decorative output with no structural cause,
@@ -151,16 +148,16 @@ Evaluate whether the generated result achieved the intended direction while pres
 Model-native self-critique governed by `PP_REGRESSION_BENCHMARK.md` and the existing quality rubric.
 
 ### Core dimensions
-- semantic preservation
-- Press-Print identity
-- reconstruction strength
-- editorial hierarchy
-- planar coherence
-- material coherence
-- source specificity
-- generic AI penalty
-- decorative noise penalty
-- cinematic realism drift
+- semantic preservation,
+- Press-Print identity,
+- reconstruction strength,
+- editorial hierarchy,
+- planar coherence,
+- material coherence,
+- source specificity,
+- generic AI penalty,
+- decorative noise penalty,
+- cinematic realism drift.
 
 ### Required behavior
 Diagnose a **cause**, not merely describe a symptom.
@@ -173,22 +170,25 @@ Diagnose a **cause**, not merely describe a symptom.
 Generate controlled variations from an existing successful or partially successful result.
 
 ### Current runtime
-Model-native revision using the prior result and explicit keep/change instructions; `render_result_actions` may provide one-tap axes.
+Model-native revision using the prior result and explicit keep/change instructions.
 
 ### Approved variation axes
-- more_restrained
-- more_aggressive
-- more_fragmented
-- more_graphic
-- more_quiet
-- more_photographic
-- more_planar
-- more_material
+- more_restrained,
+- more_aggressive,
+- more_fragmented,
+- more_graphic,
+- more_quiet,
+- more_photographic,
+- more_planar,
+- more_material.
 
 ### Required behaviors
 - change one clear axis or a small compatible set,
 - preserve useful decisions from the base result,
-- avoid random re-roll behavior.
+- avoid random re-roll behavior,
+- distinguish revision-from-result from alternative-from-source.
+
+If the user asks for an alternative from the original source, return to the original source image unless instructed otherwise.
 
 ---
 
@@ -220,43 +220,50 @@ Planned capability. Do not pretend it exists when the host cannot reliably retur
 ### A. Vague request
 User: “Process this.”
 
-1. analyze the source silently
-2. create preservation contract
-3. form 1–3 directions
-4. call `render_direction_picker`
-5. user chooses a direction
-6. reconstruct
-7. critique
-8. optionally call `render_result_actions`
+1. analyze the source silently,
+2. create preservation contract,
+3. form strongest source-specific direction,
+4. reconstruct,
+5. critique,
+6. revise only if needed.
+
+If there are multiple genuinely consequential readings, offer a small number of concise alternatives in normal language before reconstruction.
 
 ### B. Explicit request
 User: “Make this more fragmented and flat. Preserve the face. No text.”
 
-1. analyze
-2. lock face + explicit constraints
-3. form one internal direction hypothesis
-4. reconstruct immediately
-5. critique
-6. expose refinement actions only if useful
+1. analyze,
+2. lock face + explicit constraints,
+3. form one internal direction hypothesis,
+4. reconstruct immediately,
+5. critique.
 
 ### C. Revision
 User: “Keep the crop, reduce the tearing.”
 
-1. treat prior successful crop as a lock
-2. reduce only fragmentation/materiality as requested
-3. reconstruct from the prior state rather than restart
-4. critique the cause-level change
+1. treat prior successful crop as a lock,
+2. reduce only fragmentation/materiality as requested,
+3. reconstruct from the prior state rather than restart,
+4. critique the cause-level change.
+
+### D. Alternative
+User: “Try another direction from the original.”
+
+1. return to the original source image,
+2. preserve only useful semantic lessons or explicit locks,
+3. form a new direction thesis,
+4. reconstruct as an alternative rather than a child revision.
 
 ---
 
 ## 8. Deliberately excluded from the core identity
 
-- generic background remover as a standalone identity
-- generic upscaler
-- generic resize utility
-- generic text-to-image engine
-- unconstrained generative fill
-- full freeform design canvas
+- generic background remover as a standalone identity,
+- generic upscaler,
+- generic resize utility,
+- generic text-to-image engine,
+- unconstrained generative fill,
+- full freeform design canvas.
 
 These may become supporting capabilities in a future studio, but they must not redefine Press-Print.
 
@@ -264,20 +271,16 @@ These may become supporting capabilities in a future studio, but they must not r
 
 ## 9. Integration notes
 
-### ChatGPT
-- chat is the primary control surface,
-- widgets accelerate selection and revision,
+### Current Skill runtime
+- conversation is the primary control surface,
 - direct execution is preferred for explicit requests,
+- vague requests should trigger judgment rather than menu-building,
 - native host image capabilities should be used rather than duplicated without reason.
-
-### MCP / Codex
-- expose only real server-side capabilities,
-- keep tool descriptions precise enough for correct routing,
-- preserve revision lineage and structured state when a backend is introduced.
 
 ### Future Web Studio
 - may implement the six capability contracts as explicit services,
-- should share the same schema, preservation contract, critique taxonomy, and visual grammar.
+- should share the same schema, preservation contract, critique taxonomy, and visual grammar,
+- may expose Direction, Structure, and Intensity as interface controls without changing their semantics.
 
 ---
 
