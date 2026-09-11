@@ -227,9 +227,12 @@ async function main() {
       );
 
       if (typeof text === "string") {
+        const inlineModuleIndex = text.indexOf('<script type="module">');
+        assert(inlineModuleIndex > 0, `resource ${uri} is missing its inline module bundle`);
+        const documentShell = text.slice(0, inlineModuleIndex);
         assert(
-          !/<script\s+[^>]*src=/i.test(text) &&
-            !/<link\s+[^>]*rel=["']?stylesheet/i.test(text),
+          !/<script\s+[^>]*src=/i.test(documentShell) &&
+            !/<link\s+[^>]*rel=["']?stylesheet/i.test(documentShell),
           `resource ${uri} must be self-contained with inline JS and CSS`,
         );
       }
