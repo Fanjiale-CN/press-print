@@ -1,8 +1,8 @@
-# Press-Print brand and publisher specification
+# Press Print brand and publisher specification
 
 ## Public identity
 
-- **Product / plugin name:** Press-Print
+- **Product / plugin name:** Press Print
 - **Publisher brand:** Galok
 - **Publisher:** Fan Jiale, an individual developer publishing under the Galok brand
 - **OpenAI listing developer name:** Galok
@@ -10,59 +10,66 @@
 - **Repository:** https://github.com/Fanjiale-CN/press-print
 - **Website:** https://www.galok.me/press-print/
 
-Press-Print is a Galok project. Galok is the public creative identity; it is not presented as a separate legal company. Public policy and support pages make the relationship explicit so the product name, website, support contact, privacy policy, terms, and verified individual identity remain consistent during review.
+Press Print is a Galok project, but Press Print has its own product mark. Galok remains the publisher identity rather than the plugin icon.
 
 ## Positioning
 
 **One-line definition**
 
-> A source-aware visual reconstruction system for transforming user-supplied photographs into contemporary print-driven compositions.
+> An AI art-direction and visual-reconstruction system that turns user-supplied photographs into source-aware contemporary print compositions.
 
 **Short listing description**
 
-> Editorial photo reconstruction
+> AI art direction for photo reconstruction
 
 **Long listing description**
 
-> Press-Print transforms a source photograph into a strongly flattened contemporary print-driven editorial composition while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy. Press-Print v1.0.2 adds no new text by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.
+> Press Print reads a source photograph, identifies what must survive, proposes a source-specific art direction when useful, and reconstructs the image into a strongly designed contemporary print composition. Its visual language is built from selective cropping, flattened planes, hierarchy, halftone and duotone treatment, graphic reduction, controlled collage, and tactile print logic. Press Print 2.0 keeps semantic identity and source-defining structure intact while making the interaction much simpler: upload an image, say what you want, choose a direction only when needed, then keep refining the same result without restarting from scratch.
 
 **OpenAI category**
 
 > Creativity
 
-## Mark and icon system
+## Press Print logo badge
 
-Press-Print uses the existing Galok mark as its publisher mark rather than inventing a separate symbol.
+The final product badge is a rounded-square icon built around the image of offset printed sheets. The mark contains four defining ideas:
 
-### Plugin icon
+- layered printed sheets, representing source imagery being reworked rather than merely filtered
+- an offset stack, giving the mark visible print-registration tension
+- a folded upper corner, making the sheet read as a physical graphic object
+- a halftone dissolve along the right and lower edge, connecting the mark directly to Press Print's print-driven reconstruction language
 
-- Black field: `#111111`
-- Mark: white `#FFFFFF`
-- Square canvas
-- Mark enlarged for legibility at small directory sizes
-- No text inside the icon
+The badge should read first as a compact image/print symbol and then reveal its material details at larger sizes. It is deliberately non-letterform and should not be converted into a P monogram.
 
-### Supporting brand palette
+### Light mode
 
-- Ink / black: `#111111`
-- Warm paper: `#F1EEE7`
-- Warm white: `#F8F6F1`
-- Muted stone: `#716B62`
-- Rule: `#CBC4B8`
-- Galok red: `#C3312A` for site accents only, not for recoloring the mark
+- badge field: `#F7F4EC`
+- badge rule: `#E7E0D2`
+- mark: `#111111`
+- shadow: black at approximately 8% opacity
+
+### Dark mode
+
+- badge field: `#191816`
+- badge rule: `#34312B`
+- mark: `#F6F3EA`
+- shadow: black at approximately 22% opacity
 
 ### Asset rules
 
-- Keep the Galok mark geometry unchanged.
-- Use the dark mark on light surfaces.
-- Use the light mark on dark surfaces.
-- Do not stretch, rotate, outline, add shadows to, or recolor the mark with decorative accents.
-- The plugin icon may place the light mark on a black square field for small-size visibility.
+- Preserve the offset-sheet silhouette, folded corner, and halftone dissolve together.
+- Do not turn the mark into a letterform or monogram.
+- Do not replace the halftone dissolve with random noise or generic grain.
+- Do not recolor the badge with gradients, neon AI palettes, glow, or 3D effects.
+- Keep the rounded-square badge geometry intact for product/app icon use.
+- Light and dark variants must preserve identical geometry and differ only in the approved tonal treatment.
+- Small-size exports may simplify very fine halftone detail only when necessary for legibility; the layered-sheet silhouette must remain recognizable.
 
 ## Brand assets
 
-- `assets/press-print-icon.png` — compact OpenAI directory icon
-- `assets/press-print-mark-dark.svg` — dark mark for light surfaces
-- `assets/press-print-mark-light.svg` — light mark for dark surfaces
+- `assets/press-print-logo-light.svg` — canonical Press Print badge for light mode
+- `assets/press-print-logo-dark.svg` — canonical Press Print badge for dark mode
 
-The Galok and Press-Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
+The old standalone mark SVGs and raster fallback icon have been retired so there is one canonical product identity in the repository. The plugin manifest now uses the final light badge as its default icon/logo and the dark badge through `logoDark`.
+
+The Galok and Press Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.

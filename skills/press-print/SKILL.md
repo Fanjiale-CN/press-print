@@ -1,414 +1,497 @@
 ---
 name: press-print
 description: >-
-  Transform a user-supplied photograph into a Press-Print image: a source-aware contemporary editorial print
-  reconstruction using selective photography, visible halftone or duotone treatment, strongly flattened graphic
-  fields, tactile torn-paper collage, modernist hierarchy, and print texture. Use when the user asks for
-  Press-Print, editorial print reconstruction, halftone collage, print-modernist image transformation, or wants
-  a photo rebuilt into a bold non-photographic printed composition. Preserve semantic identity, source-defining
-  structural anchors, and source text when it materially contributes to scene identity. By default, add zero new
-  text. If the user explicitly supplies exact text, add only that exact wording. Never translate source text, create
-  bilingual duplicates, or invent replacement text, filler copy, captions, pseudo-text, or typography. v1.0.2.
+  Art-direct and reconstruct a user-supplied image with Press Print 2.0: a source-aware contemporary editorial
+  print system that reads semantic identity, visual hierarchy, structural relationships, and transformation
+  opportunities, then rebuilds the image through selective photography, flattened graphic fields, controlled
+  halftone/duotone, source-derived cropping, tactile collage, and modernist hierarchy. The optional host UI exposes
+  simple Direction, Structure, and Intensity controls while detailed design decisions remain model-driven. For clear
+  requests, execute without redundant questions. For revisions, preserve successful decisions and change only the
+  requested or diagnosed axis. Preserve semantic identity, source-defining structural anchors, and identity-critical
+  source text. Add zero new text by default unless the user explicitly enters Typography mode or supplies exact text.
+  Never translate or bilingual-duplicate source text by default. v2.0.0.
 ---
 
-# Press-Print
+# Press Print 2.0
 
-Press-Print is a source-aware visual reconstruction system for transforming photographs into contemporary print-driven compositions.
+Press Print is an AI art-direction and visual-reconstruction system for existing imagery.
 
-Its governing principle is:
+The user-facing experience should stay simple:
 
-> Preserve semantic identity, not visual completeness.
+> **Send an image. Choose only what matters. Keep refining in language.**
 
-Treat the source photograph as evidence and raw material, not as a finished composition that merely needs a filter.
+The complexity belongs inside Press Print, not in front of the user.
 
-A second governing rule applies whenever text is visible in the source:
+## Governing constitution
 
-> Source text is content. New typography is generation.
+These rules are non-negotiable:
 
-Existing source text may be selectively retained when it contributes to scene identity. Unless the user explicitly supplies exact new wording, generated typography is outside the Press-Print v1.0.2 system.
+> **Photography is source material, not sacred material.**
 
-## OpenAI host behavior
+> **Reconstruct, do not decorate.**
 
-This packaged copy preserves the Press-Print v1.0.2 reconstruction behavior while defining how the workflow should operate in ChatGPT and Codex.
+> **Preserve semantic identity, not visual completeness.**
 
-- Expect a user-supplied source image.
-- If the user asks for Press-Print without supplying an image, ask them to upload or attach one rather than inventing a source.
-- When an image-generation or image-editing capability is available, use it to produce the transformed image rather than returning only a prose prompt.
-- Preserve the source aspect ratio unless the user explicitly requests another.
-- Before invoking image generation/editing, inspect visible source text and carry forward the source-text policy below.
-- By default, add no new text, pseudo-text, captions, labels, metadata, standalone letters, or decorative typography.
-- Treat lettering already visible in the source as image content, not as permission to invent more typography.
-- If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than generating an approximate replacement.
-- If the layout needs a graphic mass where typography might normally appear, use source-derived shape, flat field, halftone region, texture, crop, or negative space instead.
-- If the user explicitly supplies text to add, pass only that exact wording to generation. Do not translate, expand, or supplement it.
-- Do not expose private chain-of-thought or hidden source analysis. Perform structural analysis internally and return the final result or a concise user-facing explanation when generation cannot proceed.
+> **Every visible intervention requires a structural or semantic cause.**
 
-### Scope boundary for explicit invocation
+> **Expand Press Print's intelligence, not its aesthetic identity.**
 
-Explicitly invoking Press-Print does not override the v1.0.2 product boundary.
+Press Print 2.0 must still feel like the established Press Print visual system. The new version adds judgment, interaction, preservation logic, and revision continuity. It does not replace the original visual language with a style marketplace.
 
-If the user asks primarily for any of the following:
+Before generating an image, read and apply:
 
-- a typography-heavy poster
-- an event, exhibition, campaign, or promotional poster
-- a layout centered on a headline, date, body copy, captions, or editorial text
-- a general graphic-design composition where typography is a primary design system
-- a new poster designed from scratch rather than a reconstruction of the supplied photograph
+1. `references/press-print-v2-runtime.md` for the art-direction and interaction layer.
+2. `references/press-print-v1.md` for the established visual reconstruction language and generation constraints.
+3. `references/quality-rubric.md` when evaluating or revising a result.
 
-do not silently turn Press-Print into a general poster-design tool.
+If the references appear to conflict, preserve this priority:
 
-If a source photograph is present, explain briefly that Press-Print can reconstruct the photograph and, if requested, add only the user's exact wording without generating any other copy.
+1. explicit user instruction and safety,
+2. semantic/source identity and source-text protection,
+3. Press Print core visual DNA from v1,
+4. v2 art-direction policy and interaction conveniences.
 
-If no source photograph is present, ask for one.
+## When to use Press Print
 
-Do not generate a generic typography-led poster as a substitute for an out-of-scope Press-Print request.
+Use Press Print when the user supplies or clearly refers to an existing image and wants it transformed through source-aware editorial, graphic, collage, typographic, or restrained print reconstruction.
 
-For the full image-generation prompt, consult `references/press-print-v1.md` when detailed reconstruction guidance is useful.
-For formal output evaluation, consult `references/quality-rubric.md`.
+Typical source categories include cities, streets, architecture, transport, landscape, interiors, retail environments, people, animals, objects, and cultural artifacts.
 
-## Use this skill when
+Do not silently turn Press Print into a generic design suite, general image generator, broad photo editor, or parameter-heavy professional application.
 
-Use Press-Print when the user wants a supplied image transformed into a bold, graphic, layered, printed composition with a clearly non-photographic result.
+## User-facing control model
 
-Typical source categories include:
+Press Print's first host UI follows:
 
-- cities and streets
-- architecture
-- transport and infrastructure
-- landscape
-- public interiors
-- retail environments
-- people and performance
-- objects and cultural artifacts
+`SOURCE → DIRECTION → CONTROL → RESULT`
 
-## Do not use this skill when
+The default creation card exposes only:
 
-Do not use Press-Print when the user's primary goal is:
+- **Direction**
+- **Structure** — `Original ↔ Rebuild`
+- **Intensity** — `Soft ↔ Strong`
+- **Generate**
 
-- photorealistic enhancement
-- faithful restoration
-- subtle color grading
-- watercolor or painterly conversion
-- generic vector illustration
-- typography-led poster design
-- event, exhibition, campaign, or promotional poster design
-- headline/date/body-copy driven editorial layout
-- general graphic design from scratch
-- historical or antique imitation
+Fine-grained change should happen primarily through natural language after a result exists.
 
-When Press-Print is explicitly invoked for an out-of-scope typography-led task, do not ignore the mismatch and proceed anyway. If a source photograph is present, offer the supported alternative: reconstruct the photograph and, if requested, add only the user's exact wording without generating any other copy.
+### Direction modes
 
-## Source text policy
+The first-version direction choices are:
 
-Before generating, inspect the source for visible text and classify it by role.
+#### Editorial Print
+Rebuild hierarchy through source-derived crop, scale contrast, planar compression, selective print materiality, and editorial emphasis while keeping important source identity legible.
 
-### Default rule
+#### Flat Graphic
+Push the source toward planar reduction, geometric simplification, strong silhouettes, interlocking color fields, compressed depth, and reduced material texture.
 
-If the user does not explicitly request added text, do not add any text that is not already present in the source image.
+Do not interpret Flat Graphic as generic vector tracing or uniform cartoonization.
 
-If the source contains no detectable text and the user does not explicitly request text, the output must contain zero text.
+#### Collage
+Allow stronger cutting, overlap, layering, fragmentation, tactile assembly, and discontinuity while preserving the semantic and structural invariants that keep the source recognizable.
 
-If the source contains text and the user does not explicitly request new text, only source-derived text may appear. It may be retained, cropped, obscured, fragmented, reduced, or partially suppressed. Do not introduce new words, letters, numbers, captions, labels, slogans, filler copy, editorial side notes, metadata, or pseudo-text.
+Collage should feel constructed, not scrapbook-decorated.
 
-### A. Incidental text
+#### Typography
+Typography is an explicit user-selected exception to the default zero-new-text rule.
 
-Examples include distant advertising, tiny labels, background copy, or text that is not important to scene identity.
+Submodes:
 
-It may be cropped, obscured, simplified, reduced into texture, or left partially unreadable inside a retained photographic fragment. Exact preservation is not required.
+- **Keep original text** — retain source wording selectively when useful; invent no new copy.
+- **Replace text** — use only exact replacement wording supplied by the user.
+- **Generate text** — the user explicitly authorizes generated copy for the current composition.
 
-### B. Scene-identifying text
+Even in Generate text mode:
 
-Examples include station signage, road signs, storefront names, directional labels, entrance signs, or location markers that help identify the scene.
+- keep copy concise and compositionally necessary,
+- avoid filler paragraphs and pseudo-text,
+- do not create unnecessary bilingual duplicates,
+- do not overwhelm the image merely because typography was authorized.
 
-Prefer to retain this text as part of source imagery when feasible.
+Typography Replace or Generate mode overrides the generic `Preserve source text` advanced toggle for the text being replaced or generated. Do not emit both instructions as if they were simultaneously binding.
 
-Do not translate, rewrite, duplicate, enlarge, promote it into a new design element, or add a second-language equivalent.
+Hidden Typography drafts may persist in widget state when the user switches directions, but they must not affect generation unless Typography is currently active.
 
-### C. Identity-critical text
+Typography mode does not convert Press Print into a general-purpose typesetting suite.
 
-Examples include a primary station name, brand name, book title, artwork title, major wayfinding label, or other wording whose exact identity materially matters.
+#### Restore
+Restore means **source-preserving Press Print treatment**.
 
-Preserve its original language, wording, spelling, and semantic role whenever feasible.
+It pulls the result closer to the source by protecting more camera composition, geometry, spatial continuity, color relationships, and photographic detail while reducing destructive fragmentation and material intervention.
 
-Treat it as protected image content, not editable typography.
+It does **not** automatically mean archival photo repair, face restoration, colorization, deblurring, or forensic reconstruction. A generic request such as `Restore this old photograph naturally and faithfully` remains outside Press Print unless the user explicitly invokes Press Print and chooses this source-preserving mode.
 
-### D. Text-dominant source
+Structure remains an explicit user control inside Restore. A high Rebuild setting may still recompose strongly, but Restore should keep identity-critical geometry and use less destructive material intervention than a comparably strong non-Restore direction.
 
-Examples include posters, menus, magazine covers, packaging fronts, book covers, or signage where typography occupies a large part of the source.
+#### Custom
+Custom lets the user describe the visual direction in normal language.
 
-Press-Print may crop, partially obscure, layer, or retain the original text as source imagery, but must not redesign the source into a new typography system.
+Do not respond by exposing a larger style matrix. Interpret the language through the same Press Print visual grammar and preservation system.
 
-Do not newly typeset, translate, rewrite, duplicate, invent, or relocate source text as a fresh headline, caption, label, or body-copy system.
+Hidden Custom drafts may persist in widget state, but they must not affect generation unless Custom is currently active.
 
-### Text preservation fallback
+## Structure control
 
-If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than inventing approximate replacement text.
+`Structure` controls how much compositional continuity may be spent.
 
-Never replace uncertain source text with guessed wording, misspelled reconstructions, pseudo-text, or invented translations.
+### Toward Original
+Prefer:
 
-Do not interpret the word "editorial" as permission to add editorial typography. Press-Print editoriality comes from composition, cropping, hierarchy, image-state contrast, texture, and print treatment.
+- more source camera composition,
+- more original spatial continuity,
+- more intact source geometry,
+- restrained reframing and fragmentation.
 
-### Language rule
+### Toward Rebuild
+Permit more:
 
-Preserve source text in its original language. Do not translate it, create bilingual duplication, or add a parallel second-language version. Monolingual source text stays monolingual. Existing bilingual content may remain bilingual only in source-derived form; do not expand, regularize, relocate, or redesign it.
+- aggressive crop/reframe,
+- scale shifts,
+- planar compression,
+- spatial discontinuity,
+- overlap and isolation,
+- controlled fragmentation,
+- compositional re-ordering.
 
-### High text-density scenes
+Structure never authorizes destruction of hard locks or source identity.
 
-For dense commercial streets, rail stations, convenience stores, supermarkets, signage walls, and other text-rich environments, preserve typographic density rather than typographic completeness. Keep only a small number of identity-bearing source texts clearly readable. Reduce most other source text into cropped fragments, partial signage, halftone, texture, or obscured visual material. Dense source text never grants permission to generate more text.
+A numeric host value may be normalized internally from `0–100`, but do not treat the number as an aesthetic law. Read it as user intent.
 
-### Text footprint
+## Intensity control
 
-Unless the user explicitly requests larger treatment of the exact text they supplied, total clearly readable text should usually occupy no more than about 15% of the final image area, and any single readable block should usually occupy no more than about 8%. Source text should not become dominant unless the source materially requires it and the user wants that outcome.
+`Intensity` controls the visible force of the chosen treatment.
 
-### User-requested text exception
+### Toward Soft
+Prefer:
 
-If the user explicitly requests added text, render only the exact wording supplied. Add no translations, subtitles, labels, dates, captions, decorative letters, or other copy. Do not translate or make it bilingual unless the user explicitly requests that exact form. If placement, size, or hierarchy is unspecified, keep it visually controlled within the footprint guidance.
+- quieter contrast between source and transformed regions,
+- less visible material intervention,
+- more selective halftone/duotone,
+- fewer simultaneous gestures.
 
-Example: if the user requests `地铁`, add only `地铁`, not `Metro`, `Subway`, `地铁 / Metro`, `Urban Metro`, or `地铁系统`.
+### Toward Strong
+Permit:
 
-This exception does not permit unrelated copy or turn Press-Print into a from-scratch typography generator.
+- stronger graphic contrast,
+- more decisive material differentiation,
+- bolder print fields,
+- clearer flattening,
+- stronger chosen-direction character when structurally justified.
 
-## Core procedure
+Intensity does not mean "add more effects." Strong treatment still requires causal intervention.
 
-Before generating, analyze the source silently and perform these five operations.
+## Interaction policy
 
-### 1. Identify structural anchors
+### 1. Clear request: execute directly
 
-Identify 1 to 3 source-defining structures that make the scene recognizable.
+When the user has already supplied enough direction and constraints to act confidently, do not force an unnecessary UI round trip.
 
 Examples:
 
-- coastline curve
-- distinctive tower silhouette
-- crossing pattern
-- roofline
-- window grid
-- railway direction
-- tree canopy
-- figure pose
-- row of lanterns
-- shelf rhythm
-- identity-critical source signage
+- `Make this flatter and more fragmented. Keep the face unchanged. No typography.`
+- `Use Press Print, Flat Graphic, fairly strong, but preserve the architecture.`
+- `Keep this crop and make the right side quieter.`
 
-Preserve these clearly enough to retain the source identity.
+Silently read the source, establish preservation locks, form one direction hypothesis, then generate or revise.
 
-Do not confuse transformation with destruction of the source's most distinctive geometry or identity-bearing text.
+### 2. Vague or exploratory invocation: show the creation card when available
 
-### 2. Disassemble
+When the user supplies an image and says something underspecified such as:
 
-Break the source into meaningful visual components rather than processing it as one intact image.
+- `Process this with Press Print.`
+- `Handle this.`
+- `Do your thing.`
+- `I want to choose the direction.`
 
-Possible components include:
+First inspect the source image and identify the strongest opportunity. If `render_creation_card` is available, call it with:
 
-- main subject
-- background structure
-- skyline
-- architecture
-- people
-- vegetation
-- water
-- roads
-- windows
-- source signage
-- repeated patterns
-- light and shadow masses
+- a short source-safe summary or recommendation reason,
+- one useful recommended direction when appropriate,
+- reasonable Structure and Intensity defaults,
+- any explicit hard locks already stated by the user,
+- `creationKind=new` for a normal first generation.
 
-Complex images will usually support 3 to 7 components. Simpler sources may use fewer. Do not force fragmentation without compositional purpose.
+The fixed direction names are control shorthand, not generic style presets. The actual reconstruction must still derive from the current source.
 
-### 3. Recompose
+If the UI tool is unavailable, present the same control model concisely in normal language.
 
-Rebuild the components into a new hierarchy.
+When Generate returns through a widget follow-up, treat it as approval to act on the same active original source image. Do not ask for the image again.
 
-Possible operations:
+### 3. Revision request: preserve design state
 
-- aggressive crop
-- scale shift
-- partial isolation
-- overlap
-- displacement
-- interrupted continuity
-- selective repetition
-- compressed depth
-- enlarged structural fragment
-- quiet negative-space field
+When the user refers to an existing Press Print result, treat it as a design state rather than a fresh lottery ticket.
 
-The original camera composition must not remain fully intact.
+Preserve unless the user asks otherwise:
 
-Do not turn retained source text into a new headline or typographic focal point merely to make the composition feel designed.
+- successful crop/framing,
+- explicit locks,
+- identity-bearing details,
+- useful hierarchy,
+- source relationships that already work,
+- successful material decisions,
+- the selected version's Direction / Structure / Intensity unless implicated by the new request,
+- active Custom or Typography state when relevant.
 
-### 4. Reassign visual states
+Change only the requested axis or diagnosed failure cause.
 
-Assign different parts of the image to different visual states.
+Examples:
 
-**PHOTOGRAPHIC**  
-Retain limited recognizable detail where it is valuable, especially when exact source text or identity-bearing detail needs protection.
+- `Keep the crop. Reduce the tearing.`
+- `More aggressive, but don't touch the face.`
+- `This one works. Quiet the right edge.`
 
-**PRINTED**  
-Convert selected regions into halftone, duotone, high-contrast, or offset-print-like treatment.
+After a result exists, `render_result_card` may expose:
 
-**GRAPHIC**  
-Convert selected regions into flat fields, silhouettes, simplified geometry, or abstracted structural forms.
+- **Refine**
+- **Try Another**
+- **Use This**
 
-**COLLAGED**  
-Use cut, layered, torn, shifted, or interrupted fragments when they strengthen hierarchy.
+Refine should remain language-driven rather than revealing a parameter wall.
 
-Do not apply one uniform treatment to the whole image.
+## Result and version behavior
 
-### 5. Reduce and hierarchize
+There are three different version concepts. Do not collapse them:
 
-Remove, flatten, group, or silence secondary information.
+- **selected version** — the version currently viewed or acted on in the result card
+- **preferred baseline** — the version marked through Use This
+- **parent version** — lineage used only when a revision is generated from another result
 
-The final image should have:
+Changing the selected version does not automatically change the preferred baseline. A preferred baseline is not automatically the parent of a future version.
 
-- dominant zones
-- secondary zones
-- quiet zones
+### Refine
 
-Do not preserve every object, every surface, every edge, or every tonal transition.
+A refinement uses the selected result as its visual revision baseline and creates a **new child version**.
 
-## Source-derived graphics rule
+Rules:
 
-Graphic intervention should emerge from structures already present in the source whenever possible.
+- set the new revision's `parentId` to the version being refined,
+- mark its kind as `revision`,
+- never overwrite the parent result,
+- inherit Direction, Structure, Intensity, active special-mode state, hard locks, successful crop, hierarchy, and identity unless the refinement instruction explicitly changes one of them,
+- store a short refinement instruction in version metadata when result controls are rendered.
 
-Derive shapes from:
+Useful natural-language shortcuts include:
 
-- architecture
-- coastlines
-- roads
-- windows
-- shadows
-- vegetation
-- railings
-- signs
-- repeated structures
-- clothing or figure silhouettes
+- `Make it flatter`
+- `Less texture`
+- `More abstract`
+- `Keep more of original`
 
-Do not invent arbitrary circles, suns, triangles, stripes, or decorative blocks merely to make the image feel designed.
+These are conversational shortcuts, not fixed presets.
 
-## Visual language
+### Try Another
+
+Try Another creates an **alternative from the same original source image**.
+
+This distinction is mandatory:
+
+- return to the original source image as the visual input,
+- use the selected version only as a control-state seed,
+- do not transform the selected result image,
+- do not overwrite the selected result,
+- do not set the seed version as `parentId` merely because its controls were reused.
+
+When reopening `render_creation_card`, set `creationKind=alternative`, pass `seedVersionId` when known, and prefill the selected version's Direction, Structure, Intensity, plus active Custom/Typography state. Let the user change those controls before Generate.
+
+The generated result should be marked as kind `alternative`.
+
+### Use This
+
+Use This changes the **preferred baseline pointer only**.
+
+Rules:
+
+- mark the selected version as preferred,
+- clear the previous preferred marker when representing the version set,
+- do not generate an image,
+- do not change pixels,
+- do not create a version,
+- future refinement may default to this baseline unless the user explicitly selects another version or returns to the source.
+
+### Version model
+
+Keep version management lightweight.
+
+- `V1`, `V2`, `V3` are sufficient public labels.
+- `root` means generated directly from the original source.
+- `alternative` means generated from the original source after Try Another.
+- `revision` means generated from another result and must carry `parentId`.
+- Try Another's `seedVersionId` is temporary control provenance, not parentage.
+- There is at most one preferred baseline.
+
+When calling `render_result_card`, retain when applicable:
+
+- version id and public label,
+- kind,
+- parentId for revisions only,
+- canonical Direction id,
+- Structure,
+- Intensity,
+- Custom direction only when Custom is active,
+- Typography mode and active text/brief only when Typography is active,
+- short refinement instruction,
+- current result id,
+- preferred baseline id.
+
+Do not build or describe a Photoshop-like layer tree or complex node graph.
+
+## UI state precedence
+
+When UI state conflicts, interpret it in this order:
+
+1. explicit current user language and hard locks,
+2. active special-mode semantics,
+3. current Direction / Structure / Intensity controls,
+4. optional advanced toggles,
+5. model recommendation/default values.
+
+Consequences:
+
+- a source-specific recommendation never overrides the direction the user selected,
+- an unchecked optional preserve toggle does not revoke a preservation lock the user explicitly stated in language,
+- Typography Replace/Generate prevents contradictory generic source-text preservation instructions,
+- inactive Custom or Typography drafts remain inert.
+
+## Hidden art-direction sequence
+
+For substantial transformations, reason internally in this order:
+
+`READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`
+
+Do not expose these stage names unless the user asks how Press Print works.
+
+### READ
+Read the image before prescribing treatment. Separate semantic importance from visual salience.
+
+### UNDERSTAND
+Determine what makes the source this image: subject identity, decisive relations, structural anchors, context dependencies, and identity-critical source text.
+
+### PROTECT
+Create an internal preservation contract:
+
+- **must preserve**
+- **should preserve**
+- **may transform**
+- **may remove**
+
+Spend peripheral clutter and redundancy before spending identity-bearing specificity.
+
+### DIRECT
+Form one dominant source-specific thesis about what to amplify, suppress, reframe, flatten, isolate, or fragment.
+
+Direction is not a moodboard label. Do not reduce art direction to `Swiss`, `Song`, `Japanese`, `retro`, `Y2K`, or similar costume-style switches.
+
+### RECONSTRUCT
+Prefer structural operations first:
+
+- crop/reframe,
+- isolate,
+- suppress,
+- scale contrast,
+- planar compression,
+- controlled overlap/fragment/repetition when justified.
+
+The original camera composition should not remain visually complete unless Structure is deliberately close to Original or Restore is selected.
+
+### MATERIALIZE
+Allow halftone, torn edge, registration error, paper layering, photocopy behavior, and related print materiality only when it reinforces hierarchy, rupture, layer separation, compression, or artifact-ness.
+
+Do not add effects simply because they are recognizably Press Print. A strong result may use little or no tearing when structure does not need it.
+
+### CRITIQUE
+Check whether:
+
+- semantic identity survived,
+- hierarchy became more intentional,
+- the chosen direction is visible,
+- Structure and Intensity were interpreted coherently,
+- reconstruction is substantial enough for the selected control state,
+- materiality is causal and bounded,
+- source specificity survived,
+- the image still feels recognizably Press Print,
+- generic AI polish or cinematic realism did not take over.
+
+### REVISE
+Fix causes, not symptoms. Do not hide weak composition with more texture.
+
+## Source text policy
+
+The default remains conservative.
+
+### Default
+
+If the user does not explicitly request added text and has not entered Typography Generate text mode, add **zero new text**.
+
+If the source contains no text and the user did not authorize typography, the result must contain no words, letters, numbers, captions, labels, slogans, metadata, filler copy, decorative typography, or pseudo-text.
+
+If the source already contains text:
+
+- it may be retained, cropped, obscured, fragmented, reduced, or partially suppressed as source imagery,
+- identity-critical wording should be preserved faithfully when feasible,
+- never invent approximate replacement wording,
+- never translate it by default,
+- never create bilingual duplicates,
+- never promote source signage into a freshly typeset headline merely to make the image feel editorial.
+
+If exact source text cannot be reproduced reliably, obscure/crop/simplify it rather than hallucinating a replacement.
+
+If the user explicitly supplies exact new wording, render only that exact wording unless they also explicitly authorize generated copy.
+
+Typography Generate text mode is the only first-version UI state that broadly authorizes new generated copy.
+
+## Core visual identity
+
+The full visual specification remains in `references/press-print-v1.md`. The following abbreviated list is a guardrail, not a replacement.
 
 Aim for:
 
-- contemporary editorial print sensibility without unrequested typography
-- an extremely flat arrangement of shapes on a 2D surface
-- strongly compressed space with little to no perspective
-- interlocking foreground, middle-ground, and background planes
-- minimal volumetric modeling and no realistic cast shadows
-- bold asymmetry
-- strong cropping
-- limited color families
-- halftone and duotone contrast
-- matte printed texture
-- controlled collage
-- flat color fields
-- clearly visible, intentionally varied halftone regions
-- tactile torn-paper edges and cut-paper overlaps
-- rough-edged interruptions and visible paper-layer transitions
-- high-contrast hierarchy
-- compressed or interrupted depth
-- active negative space
-- modern rather than nostalgic visual energy
+- extremely flat, surface-first composition,
+- compressed or interrupted depth,
+- strong editorial hierarchy,
+- source-derived crop and scale shifts,
+- interlocking graphic planes,
+- selective photographic retention,
+- visible but selective halftone/duotone,
+- limited color families,
+- bold silhouette and shape logic,
+- controlled tactile cut/torn collage,
+- active low-information/negative-space fields,
+- contemporary rather than nostalgic print energy.
 
-## Color
+Avoid:
 
-Use roughly 3 to 6 major color families.
+- the intact photo plus a filter,
+- blanket halftone,
+- uniform vectorization,
+- cinematic 3D realism,
+- generic premium-ad polish,
+- arbitrary decorative circles/stripes/triangles,
+- scrapbook collage,
+- fake antique paper or nostalgia for its own sake,
+- destruction of source-defining structural anchors,
+- unrequested typography.
 
-Prefer a system containing:
+## Source-derived graphics rule
 
-- one structural dark
-- one light paper-like base
-- one or two strong accents
-- one supporting hue if needed
+Whenever possible, graphic intervention should emerge from structures already present in the source: architecture, roads, coastlines, windows, shadows, vegetation, railings, signs, repeated structures, clothing, silhouettes, and other meaningful geometry.
 
-Useful families include deep navy, cobalt, off-white, charcoal, black, vermilion, orange-red, muted turquoise, mustard, muted green, and coral.
+Do not invent decorative geometry merely to make the result look designed.
 
-Reduce the source's photographic color complexity substantially.
+## Low-information fields
 
-## Halftone
+Treat quiet/negative areas functionally rather than as a target percentage. A low-information field should contribute separation, pause, directional room, scale buffering, atmospheric release, semantic isolation, continuation, or framing.
 
-Halftone must be clearly perceptible and intentional. It is a selective structural tool, not a blanket effect or faint cosmetic noise.
+## External visual traditions
 
-Use it to flatten selected photographic regions, separate layers, convert realism into printed information, and create contrast against clean flat zones.
+Press Print may absorb visual logic from multiple traditions, including East Asian spatial intelligence, but must import **logic, not costume**.
 
-Never coat the entire image in the same dot pattern or density.
-Vary dot scale, density, direction, and placement deliberately. Contrast printed regions with clean flat zones.
-
-## Collage
-
-Collage must have a stronger tactile torn-paper character while behaving as editorial structure.
-
-Every fragment must have a compositional job.
-
-Avoid scrapbook layouts, random stickers, decorative fragments with no structural purpose, clean corporate rectangles used as generic layout blocks, and mood-board aesthetics.
-
-Favor visible torn edges, cut-paper overlaps, rough-edged interruptions, pasted-fragment logic, and deliberate paper-layer transitions. Every tear and fragment must support hierarchy, source structure, or spatial compression.
-
-## Detail hierarchy
-
-**Primary zones** may retain the clearest recognition and strongest contrast.
-
-**Secondary zones** should be grouped, simplified, or partially abstracted.
-
-**Tertiary zones** may be flattened, cropped, converted to texture, or removed.
-
-Do not distribute attention evenly.
-
-## Lighting and space
-
-Treat the entire image as a designed 2D surface. Flatten foreground, middle ground, and background into interlocking planes, silhouettes, fragments, halftone regions, and cut-paper structures.
-
-Replace ordinary photographic realism with graphic tonal organization. Prefer front-facing, near-flat, or simplified top-down viewpoints.
-
-Prefer silhouette, tonal blocks, print density, flat light-dark separation, selective highlights, compressed depth, and layered planes.
-
-Avoid strong realistic perspective, deep spatial recession, cinematic depth, volumetric modeling, soft atmospheric depth, realistic lighting, and realistic cast shadows.
-
-The image should function first as a designed surface and second as a record of physical space.
-
-## Hard constraints
-
-- If the user does not explicitly request added text, generate no new text or typography.
-- No pseudo-text, filler copy, decorative letters, labels, captions, dates, slogans, metadata, or new words/numbers.
-- Preserve source text selectively when it materially contributes to scene identity.
-- Never translate, rewrite, duplicate, enlarge, restyle, add a second-language equivalent to, or promote source text into a new headline or editorial element.
-- Preserve monolingual source text as monolingual; existing bilingual content may remain only in source-derived form.
-- If the user explicitly requests text, render only the exact requested wording and nothing else.
-- Keep readable text within the 15% total / 8% per-block guidance unless the user explicitly requests larger treatment of their exact supplied text.
-- If source text cannot be reproduced reliably, obscure or crop it rather than hallucinating a replacement.
-- Preserve the original aspect ratio unless the user requests another.
-- Do not leave the source photograph intact.
-- Do not reduce the whole image to one uniform vector treatment.
-- Do not use blanket halftone.
-- Do not fake antique paper, sepia history, or nostalgia for its own sake.
-- Do not introduce arbitrary decorative geometry without a source-derived reason.
-- Do not destroy source-defining structural anchors.
-
-## Failure test
-
-The transformation has failed if it looks like:
-
-- the original photograph plus a print filter
-- generic retro poster art
-- a clean corporate vector illustration
-- a scrapbook collage
-- a muddy all-over halftone
-- a composition whose key source identity has been lost
-- an AI poster dominated by arbitrary circles, suns, stripes, or decorative blocks
-- a composition containing unrequested headlines, captions, labels, filler copy, pseudo-text, or decorative typography
-- source text rewritten, translated, duplicated, enlarged into a headline, or replaced with hallucinated approximations
-- a monolingual source made bilingual or given a translated parallel version
-- user-requested text altered, expanded, translated, or accompanied by additional copy
-- readable text exceeding the controlled footprint without source necessity or an explicit request to enlarge the user's exact supplied text
+Do not turn cultural references into decorative skins, historical imitation, seals, calligraphy, fake antiquity, or a style dropdown.
 
 ## Success test
 
-A successful Press-Print result should feel as though a designer disassembled the photograph, retained its most meaningful visual identity, then rebuilt it into a publishable contemporary print-driven image.
+A successful Press Print 2.0 result should make a user think:
 
-The viewer should recognize what the image is about while clearly seeing that the original photograph no longer remains visually complete.
+> `It understood what mattered in my image, then actually designed it.`
 
-Important source text should either remain faithfully embedded in source imagery or be deliberately reduced/obscured rather than regenerated incorrectly.
+The user should be able to operate it without learning visual-design terminology or reading a tutorial.
 
-Before invoking image generation, apply this final check: if the user did not explicitly request added text, allow no new text anywhere—no headlines, captions, labels, letters, words, numbers, pseudo-text, translations, or bilingual duplicates. Empty areas must remain shape, color, texture, source-derived imagery, or negative space. If the user did request text, send only the exact requested wording.
-
-For the full generation prompt, read `references/press-print-v1.md`.
-For evaluation, read `references/quality-rubric.md`.
+The intelligence may be new. The Press Print identity should not feel replaced.

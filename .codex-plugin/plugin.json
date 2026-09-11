@@ -1,7 +1,7 @@
 {
   "name": "press-print",
-  "version": "1.0.2",
-  "description": "Source-aware visual reconstruction with flat planar composition, visible halftone, tactile collage, and strict source-text control.",
+  "version": "2.0.0",
+  "description": "AI art direction and source-aware visual reconstruction with interactive direction selection, flat editorial composition, selective halftone, tactile collage, and strict source-text control.",
   "author": {
     "name": "Fan Jiale / Galok",
     "email": "galokview@outlook.com",
@@ -12,18 +12,20 @@
   "license": "MIT",
   "keywords": [
     "image-generation",
+    "art-direction",
     "editorial-design",
     "print-design",
     "halftone",
     "duotone",
     "collage",
-    "visual-reconstruction"
+    "visual-reconstruction",
+    "interactive"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Press-Print",
-    "shortDescription": "Editorial photo reconstruction",
-    "longDescription": "Press-Print transforms a user-supplied source photograph into a strongly flattened contemporary print reconstruction while preserving the structures that make the scene recognizable. It rebuilds the source through selective cropping, interlocking planes, visible halftone and duotone treatment, flat graphic fields, tactile torn-paper collage, graphic reduction, and modernist hierarchy rather than applying a uniform filter. Press-Print v1.0.2 adds no new typography by default, never translates or creates bilingual duplicates of source text, and permits only exact wording explicitly supplied by the user.",
+    "displayName": "Press Print",
+    "shortDescription": "AI art direction for existing imagery",
+    "longDescription": "Press Print 2.0 reads a user-supplied image before reconstructing it. For vague requests, it can identify the source's strongest visual opportunity and present a small set of source-specific art-direction choices; for explicit requests, it executes directly without unnecessary setup. The established Press Print visual language remains intact: strongly flattened editorial composition, source-derived cropping and scale shifts, selective photographic retention, visible halftone and duotone, graphic fields, controlled tactile collage, and modernist hierarchy. Revisions preserve successful decisions rather than restarting from a random composition. Press Print adds no new typography by default, never invents or translates source text, and permits only exact wording explicitly supplied by the user.",
     "developerName": "Fan Jiale",
     "category": "Creativity",
     "capabilities": [
@@ -34,12 +36,13 @@
     "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
     "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
     "defaultPrompt": [
-      "Transform this photograph with Press-Print. Do not add new text or typography.",
-      "Rebuild this city photo with Press-Print. Preserve defining structures and do not add new text.",
-      "Reconstruct this portrait with Press-Print. Preserve source text only if it already exists; add no new typography."
+      "Process this image with Press Print.",
+      "Reconstruct this image with Press Print. Preserve what makes the source identifiable and do not add new text.",
+      "Make this more graphic and fragmented with Press Print, but preserve the subject and add no typography."
     ],
     "brandColor": "#111111",
-    "composerIcon": "./assets/press-print-icon.png",
-    "logo": "./assets/press-print-icon.png"
+    "composerIcon": "./assets/press-print-logo-light.svg",
+    "logo": "./assets/press-print-logo-light.svg",
+    "logoDark": "./assets/press-print-logo-dark.svg"
   }
 }

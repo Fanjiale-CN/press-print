@@ -1,0 +1,413 @@
+# Press-Print System Schema
+# Version: 2.0
+# Status: Canonical Engineering Bridge
+# Scope: Shared data structures between reasoning, UI, and generation layers
+
+meta:
+  product: Press-Print
+  version: "2.0"
+  philosophy:
+    - "Photography is source material, not sacred material."
+    - "Reconstruct, do not decorate."
+    - "Preserve semantic identity, not visual completeness."
+    - "Every visible intervention requires a structural or semantic cause."
+
+enums:
+  source_type:
+    - portrait
+    - architecture
+    - street
+    - object
+    - food
+    - animal
+    - landscape
+    - interior
+    - graphic
+    - mixed
+
+  preservation_level:
+    - must_preserve
+    - should_preserve
+    - may_transform
+    - may_remove
+
+  anchor_role:
+    - primary_subject
+    - secondary_subject
+    - contextual_anchor
+    - color_anchor
+    - structural_anchor
+    - symbolic_anchor
+
+  field_role:
+    - separation
+    - directional_room
+    - pause
+    - scale_buffer
+    - atmospheric_depth
+    - semantic_isolation
+    - continuation
+    - framing
+
+  edge_type:
+    - clean_cut
+    - torn_edge
+    - soft_suppression
+    - overlap_occlusion
+
+  direction_mode:
+    - editorial
+    - deconstructed
+    - restrained
+    - graphic
+    - quiet
+    - assertive
+
+  variation_axis:
+    - more_restrained
+    - more_aggressive
+    - more_fragmented
+    - more_graphic
+    - more_quiet
+    - more_photographic
+    - more_planar
+    - more_material
+
+  critique_status:
+    - pass
+    - warning
+    - fail
+
+schemas:
+  HybridVisualState:
+    description: >
+      Unified image reading state combining semantic, structural, and perceptual observations.
+      This is the output of analyze_visual() and the input to downstream decision steps.
+    fields:
+      image_id: string
+      source_type: source_type
+      source_summary: string
+      semantic_anchors:
+        type: list
+        item:
+          id: string
+          label: string
+          role: anchor_role
+          confidence: float
+          rationale: string
+          bbox_hint: string
+      visual_anchors:
+        type: list
+        item:
+          id: string
+          label: string
+          salience_reason:
+            - size
+            - contrast
+            - isolation
+            - orientation
+            - position
+            - semantic_bias
+          strength: float
+          bbox_hint: string
+      structural_relations:
+        type: list
+        item:
+          id: string
+          relation: string
+          participants: [string]
+          importance: float
+          rationale: string
+      identity_invariants:
+        type: list
+        item:
+          id: string
+          description: string
+          protected_by:
+            - shape
+            - color
+            - relation
+            - gesture
+            - proportion
+            - context
+          importance: float
+      low_information_fields:
+        type: list
+        item:
+          id: string
+          role: field_role
+          location_hint: string
+          strength: float
+          rationale: string
+      directional_forces:
+        type: list
+        item:
+          id: string
+          source: string
+          direction: string
+          strength: float
+          rationale: string
+      clutter_regions:
+        type: list
+        item:
+          id: string
+          location_hint: string
+          reason: string
+          severity: float
+      flattening_risk:
+        description: >
+          Risk that further planar compression would damage legibility or useful spatial intelligence.
+        type: float
+      fragmentation_tolerance:
+        description: >
+          Estimated transformation budget for fragmentation without identity collapse.
+        type: float
+      transformable_regions:
+        type: list
+        item:
+          region_id: string
+          reason: string
+          recommended_actions: [string]
+      notes:
+        type: list
+        item: string
+
+  PreservationContract:
+    description: >
+      Source-specific protection and spend map.
+    fields:
+      image_id: string
+      must_preserve:
+        type: list
+        item:
+          target_id: string
+          target_type:
+            - anchor
+            - relation
+            - invariant
+            - color
+            - gesture
+            - silhouette
+          rationale: string
+      should_preserve:
+        type: list
+        item:
+          target_id: string
+          rationale: string
+      may_transform:
+        type: list
+        item:
+          target_id: string
+          allowed_actions: [string]
+          caution: string
+      may_remove:
+        type: list
+        item:
+          target_id: string
+          reason: string
+      hard_locks:
+        type: list
+        item: string
+      transformation_budget:
+        type: map
+        keys:
+          crop_aggression: float
+          flattening: float
+          fragmentation: float
+          suppression: float
+          materiality: float
+
+  DirectionHypothesis:
+    description: >
+      Press-Print's proposed art-direction thesis for a given image.
+    fields:
+      image_id: string
+      title: string
+      mode: direction_mode
+      central_problem: string
+      directional_thesis: string
+      amplify:
+        type: list
+        item: string
+      suppress:
+        type: list
+        item: string
+      preserve:
+        type: list
+        item: string
+      compositional_strategy:
+        type:
+          crop_aggression: float
+          planar_bias: float
+          scale_contrast: float
+          asymmetry: float
+          hierarchy_rebuild: float
+          quiet_field_expansion: float
+      material_strategy:
+        type:
+          enable_materiality: bool
+          preferred_edge_type: edge_type
+          halftone_strength: float
+          registration_offset: float
+          texture_presence: float
+          rationale: string
+      user_visible_summary: string
+      internal_rationale: string
+
+  VisualRecipe:
+    description: >
+      Executable reconstruction recipe derived from direction + preservation + core constraints.
+    fields:
+      image_id: string
+      recipe_id: string
+      source_recipe_id: string
+      version: string
+      core_constraints:
+        reconstruct_not_decorate: true
+        preserve_semantic_identity: true
+        causal_intervention_only: true
+        planar_bias: float
+      targets:
+        preserve_targets: [string]
+        transform_targets: [string]
+        remove_targets: [string]
+      operations:
+        crop:
+          enabled: bool
+          aggression: float
+          focus_targets: [string]
+          rationale: string
+        flatten:
+          enabled: bool
+          strength: float
+          protected_depth_cues: [string]
+          rationale: string
+        isolate:
+          enabled: bool
+          targets: [string]
+          method: string
+          rationale: string
+        scale:
+          enabled: bool
+          target: string
+          strength: float
+          rationale: string
+        suppress:
+          enabled: bool
+          targets: [string]
+          strength: float
+          rationale: string
+        fragment:
+          enabled: bool
+          targets: [string]
+          count_hint: integer
+          strength: float
+          rationale: string
+        repeat:
+          enabled: bool
+          targets: [string]
+          rationale: string
+        overlap:
+          enabled: bool
+          edge_type: edge_type
+          rationale: string
+      materiality:
+        enabled: bool
+        edge_logic:
+          primary_edge_type: edge_type
+          secondary_edge_type: edge_type
+        halftone_strength: float
+        texture_presence: float
+        registration_offset: float
+        photocopy_noise: float
+        bounded_regions: [string]
+        rationale: string
+      output_constraints:
+        no_generic_ai_polish: true
+        no_cinematic_realism_drift: true
+        no_unmotivated_texture: true
+
+  CritiqueResult:
+    description: >
+      Structured evaluation of a generated output.
+    fields:
+      image_id: string
+      output_id: string
+      status: critique_status
+      scores:
+        semantic_preservation: float
+        press_print_identity: float
+        reconstruction_strength: float
+        editorial_hierarchy: float
+        planar_coherence: float
+        material_coherence: float
+        source_specificity: float
+        generic_ai_penalty: float
+        decorative_noise_penalty: float
+        cinematic_realism_drift: float
+      findings:
+        strengths: [string]
+        failures: [string]
+        warnings: [string]
+      failure_causes:
+        - identity_damage
+        - weak_hierarchy
+        - under_reconstruction
+        - over_fragmentation
+        - decorative_excess
+        - materiality_without_cause
+        - generic_ai_smoothing
+        - planar_failure
+        - source_specificity_loss
+        - cinematic_realism_drift
+        - template_collapse
+        - cultural_costume_drift
+        - drift_from_direction
+      recommendation:
+        revise: bool
+        major_cause: string
+        proposed_fix: string
+
+  RevisionPlan:
+    description: >
+      Cause-level plan for the next iteration.
+    fields:
+      image_id: string
+      prior_output_id: string
+      critique_ref: string
+      revision_axis:
+        - hierarchy
+        - preservation
+        - crop
+        - planar_bias
+        - fragmentation
+        - materiality
+        - quiet_fields
+        - suppression
+      keep:
+        type: list
+        item: string
+      change:
+        type: list
+        item:
+          parameter: string
+          direction:
+            - increase
+            - decrease
+            - replace
+            - remove
+          rationale: string
+      user_visible_summary: string
+
+  DecomposedAssets:
+    description: >
+      Asset decomposition for downstream sticker, motion, and export workflows.
+    fields:
+      project_id: string
+      master_output_id: string
+      hero_subject_asset: string
+      fragment_assets: [string]
+      background_plane_assets: [string]
+      texture_assets: [string]
+      sticker_asset: string
+      notes: [string]
