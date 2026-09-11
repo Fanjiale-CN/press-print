@@ -1,0 +1,39 @@
+name: Press Print Research CI
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "skills/press-print/**"
+      - ".github/workflows/press-print-2-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "skills/press-print/**"
+      - ".github/workflows/press-print-2-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mcp-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate research-only state
+        shell: bash
+        run: |
+          test -f docs/PRESS_PRINT_2_RUNTIME.md
+          test -f docs/system/PP_ART_DIRECTION_POLICY.md
+          test -f docs/system/PP_CORE_CONSTITUTION.md
+          test -f docs/system/PP_REGRESSION_BENCHMARK.md
+          test -f docs/system/PP_SYSTEM_SCHEMA.yaml
+          test -f docs/system/PP_TOOL_SPEC.md
+          test -f docs/system/PP_VISUAL_GRAMMAR.md
+          test ! -d apps/press-print-chatgpt
+          test ! -f docs/PRESS_PRINT_HOST_UI_V1.md
+          test ! -f docs/PRESS_PRINT_HOST_UI_VISUAL_V1.md
