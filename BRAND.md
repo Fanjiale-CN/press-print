@@ -30,51 +30,47 @@ Press Print is a Galok project, but Press Print has its own product mark. Galok 
 
 > Creativity
 
-## Press Print 2.0 mark
+## Press Print logo badge
 
-The product mark is intentionally non-letterform. It consists of:
+The final product badge is a rounded-square icon built around the image of offset printed sheets. The mark contains four defining ideas:
 
-- one large halftone circle representing printed information, screening, and the source image as material
-- one larger solid circle placed inside that field, representing selection, intervention, hierarchy, and reconstruction
-- a deliberately offset relationship rather than centered symmetry
+- layered printed sheets, representing source imagery being reworked rather than merely filtered
+- an offset stack, giving the mark visible print-registration tension
+- a folded upper corner, making the sheet read as a physical graphic object
+- a halftone dissolve along the right and lower edge, connecting the mark directly to Press Print's print-driven reconstruction language
 
-The mark should read first as a strong geometric icon and only then reveal its print logic.
-
-### Core palette
-
-- Ink / near-black: `#0C0C0C`
-- Warm paper: `#F4EFE7`
-- Supporting ink: `#111111`
-- Supporting warm white: `#F8F6F1`
-- Muted stone: `#716B62`
-- Rule: `#CBC4B8`
+The badge should read first as a compact image/print symbol and then reveal its material details at larger sizes. It is deliberately non-letterform and should not be converted into a P monogram.
 
 ### Light mode
 
-- field: warm paper `#F4EFE7`
-- halftone dots: near-black `#0C0C0C`
-- solid circle: near-black `#0C0C0C`
+- badge field: `#F7F4EC`
+- badge rule: `#E7E0D2`
+- mark: `#111111`
+- shadow: black at approximately 8% opacity
 
 ### Dark mode
 
-- field: near-black `#0C0C0C`
-- halftone dots: warm paper `#F4EFE7`
-- solid circle: warm paper `#F4EFE7`
+- badge field: `#191816`
+- badge rule: `#34312B`
+- mark: `#F6F3EA`
+- shadow: black at approximately 22% opacity
 
 ### Asset rules
 
-- Keep the two-circle geometry and offset relationship intact.
-- Do not turn the mark into a letterform.
-- Do not add gradients, glow, 3D effects, drop shadows, or generic AI-color treatments.
-- Do not replace the halftone field with random noise.
-- Do not center the solid circle inside the halftone circle; the offset is part of the identity.
-- Light and dark variants should invert ink and paper while preserving geometry.
-- Small-size exports may simplify dot density, but should preserve the halftone-circle / solid-circle relationship.
+- Preserve the offset-sheet silhouette, folded corner, and halftone dissolve together.
+- Do not turn the mark into a letterform or monogram.
+- Do not replace the halftone dissolve with random noise or generic grain.
+- Do not recolor the badge with gradients, neon AI palettes, glow, or 3D effects.
+- Keep the rounded-square badge geometry intact for product/app icon use.
+- Light and dark variants must preserve identical geometry and differ only in the approved tonal treatment.
+- Small-size exports may simplify very fine halftone detail only when necessary for legibility; the layered-sheet silhouette must remain recognizable.
 
 ## Brand assets
 
-- `assets/press-print-logo-light.svg` — Press Print 2.0 mark for light mode
-- `assets/press-print-logo-dark.svg` — Press Print 2.0 mark for dark mode
-- `assets/press-print-icon.png` — current submission/runtime fallback until the OpenAI listing asset format is finalized
+- `assets/press-print-logo-light.svg` — canonical Press Print badge for light mode
+- `assets/press-print-logo-dark.svg` — canonical Press Print badge for dark mode
+- `assets/press-print-icon.png` — legacy submission/runtime raster fallback; refresh from the final badge before the next public listing/export pass
+
+The old standalone mark SVGs have been retired so there is one canonical product identity in the repository.
 
 The Galok and Press Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
