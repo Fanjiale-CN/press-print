@@ -23,9 +23,9 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Press-Print",
+    "displayName": "Press Print",
     "shortDescription": "AI art direction for existing imagery",
-    "longDescription": "Press-Print 2.0 reads a user-supplied image before reconstructing it. For vague requests, it can identify the source's strongest visual opportunity and present a small set of source-specific art-direction choices; for explicit requests, it executes directly without unnecessary setup. The established Press-Print visual language remains intact: strongly flattened editorial composition, source-derived cropping and scale shifts, selective photographic retention, visible halftone and duotone, graphic fields, controlled tactile collage, and modernist hierarchy. Revisions preserve successful decisions rather than restarting from a random composition. Press-Print adds no new typography by default, never invents or translates source text, and permits only exact wording explicitly supplied by the user.",
+    "longDescription": "Press Print 2.0 reads a user-supplied image before reconstructing it. For vague requests, it can identify the source's strongest visual opportunity and present a small set of source-specific art-direction choices; for explicit requests, it executes directly without unnecessary setup. The established Press Print visual language remains intact: strongly flattened editorial composition, source-derived cropping and scale shifts, selective photographic retention, visible halftone and duotone, graphic fields, controlled tactile collage, and modernist hierarchy. Revisions preserve successful decisions rather than restarting from a random composition. Press Print adds no new typography by default, never invents or translates source text, and permits only exact wording explicitly supplied by the user.",
     "developerName": "Fan Jiale",
     "category": "Creativity",
     "capabilities": [
@@ -36,13 +36,13 @@
     "privacyPolicyURL": "https://www.galok.me/press-print/privacy/",
     "termsOfServiceURL": "https://www.galok.me/press-print/terms/",
     "defaultPrompt": [
-      "Process this image with Press-Print.",
-      "Reconstruct this image with Press-Print. Preserve what makes the source identifiable and do not add new text.",
-      "Make this more graphic and fragmented with Press-Print, but preserve the subject and add no typography.",
-      "Keep the current Press-Print composition, but make it more restrained. Preserve the existing crop and subject identity."
+      "Process this image with Press Print.",
+      "Reconstruct this image with Press Print. Preserve what makes the source identifiable and do not add new text.",
+      "Make this more graphic and fragmented with Press Print, but preserve the subject and add no typography."
     ],
     "brandColor": "#111111",
-    "composerIcon": "./assets/press-print-icon.png",
-    "logo": "./assets/press-print-icon.png"
+    "composerIcon": "./assets/press-print-logo-light.svg",
+    "logo": "./assets/press-print-logo-light.svg",
+    "logoDark": "./assets/press-print-logo-dark.svg"
   }
 }
