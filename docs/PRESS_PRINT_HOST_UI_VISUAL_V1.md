@@ -4,19 +4,61 @@ Status: Canonical visual treatment for the first ChatGPT host UI
 
 ## Intent
 
-Press Print should feel like a compact editorial instrument living naturally inside ChatGPT.
+Press Print should feel like a compact editorial instrument that belongs inside ChatGPT rather than a separate branded product embedded inside it.
 
-The UI must remain recognizably part of the ChatGPT host while carrying a restrained Press Print identity through hierarchy, spacing, selection treatment, and a small amount of ink/paper accent.
+The implementation principle is:
 
-Do not turn the widget into a miniature branded website, poster, or Photoshop-style control panel.
+> **OpenAI provides the interface language. Apple HIG informs interaction discipline. Press Print provides the art-direction intelligence.**
+
+The UI should therefore look native to the ChatGPT host first. Press Print identity is expressed through hierarchy, language, art-direction choices, source-aware recommendations, and revision behavior rather than ornamental chrome.
+
+Do not turn the widget into a miniature branded website, poster, iOS settings screen, or Photoshop-style control panel.
+
+## Canonical component layer
+
+The first production host UI uses the official `@openai/apps-sdk-ui` component library with React and Tailwind CSS 4.
+
+Prefer official components for common interaction surfaces:
+
+- `Button` for Direction, actions, version chips, and refinement chips
+- `Slider` for Structure and Intensity
+- `SegmentedControl` for Typography Keep / Replace / Generate
+- `Input` for Typography, Custom, and Refine text
+- `Checkbox` for collapsed preservation controls
+- OpenAI semantic tokens and host theme behavior for typography, colors, borders, focus, disabled, loading, and dark mode
+
+Custom CSS should be limited to layout glue that the component library does not encode, such as the responsive Direction grid and lightweight disclosure layout.
+
+Do not redraw an OpenAI component in custom CSS when the official component already expresses the same job.
+
+## Apple HIG influence
+
+Apple's design language is an interaction reference, not the rendering system.
+
+Borrow:
+
+- progressive disclosure for advanced controls
+- grouped mutually exclusive choice for Typography
+- direct continuous manipulation for Structure and Intensity
+- generous touch targets and clear selection states
+- content-first hierarchy where controls retreat when they are no longer relevant
+
+Do not imitate:
+
+- native iOS chrome for its own sake
+- Liquid Glass across the whole widget
+- SF Symbols as a dependency
+- Apple-specific navigation structures
+- platform-specific styling that makes the component look foreign inside ChatGPT
 
 ## Platform constraints
 
 Follow the current OpenAI host UI guidance:
 
+- use the official OpenAI component system where practical
 - inherit the platform system font stack
 - use host/system colors for text, icons, dividers, and structural UI
-- use partner brand color only as an accent, especially for primary actions and small selected-state details
+- use partner brand color only when it provides a meaningful accent
 - do not use custom fonts
 - avoid gradients and decorative background patterns
 - respect host-like spacing and corner radii
@@ -33,18 +75,17 @@ Use:
 
 - strong but economical hierarchy
 - slightly editorial spacing between sections
-- thin rules and low-contrast separators
+- thin, host-native separators
 - compact direction selectors
-- clear selected-state weight rather than saturated fills
+- clear selected-state weight
 - broad whitespace around the two primary controls
-- restrained ink/paper accent on the decisive action
 - asymmetry only where it improves hierarchy, never as decoration
 
 Avoid:
 
 - warm-paper full-card backgrounds
 - halftone background textures
-- decorative dots that imitate the product mark
+- decorative dots or fragments that imitate the product mark
 - shadows used as branding
 - gradients
 - oversized product name or logo lockups
@@ -55,34 +96,29 @@ The artwork should carry the expressive print language. The control surface shou
 
 ## Palette use
 
-The existing Press Print palette remains:
-
-- Ink: `#0C0C0C`
-- Warm paper: `#F4EFE7`
-- Supporting ink: `#111111`
-- Supporting warm white: `#F8F6F1`
-- Muted stone: `#716B62`
-- Rule: `#CBC4B8`
+The Press Print badge has its own approved light/dark tones, but host controls should not reproduce the badge palette as a second UI theme.
 
 Inside ChatGPT:
 
 ### Light host
 
-- normal text/background/dividers: inherit system treatment
-- primary CTA: Ink `#0C0C0C` when it meets host contrast requirements
-- selected-state accent: Muted stone or Ink as a small border/indicator, not a full background field
-- warm paper: may appear only as a very small content accent if necessary; do not recolor text areas or the whole card
+- normal text/background/dividers: use OpenAI semantic treatment
+- primary CTA: OpenAI primary action treatment
+- selected states: OpenAI selected/pressed treatment
+- Press Print warm tones should not become large UI surfaces
 
 ### Dark host
 
-- normal text/background/dividers: inherit system treatment
-- primary CTA: Warm paper `#F4EFE7` with Ink text
-- selected-state accent: Warm paper at reduced visual area
-- do not make the whole widget warm-paper colored
+- normal text/background/dividers: use OpenAI semantic treatment
+- primary CTA: OpenAI dark-host primary treatment
+- selected states: OpenAI selected/pressed treatment
+- do not recolor the widget around the logo's dark badge palette
+
+The badge remains a product identity asset supplied by the host/listing, not a widget skin.
 
 ## Typography
 
-Use only the host/system font stack.
+Use only the host/system font stack and OpenAI typography tokens/classes.
 
 Hierarchy:
 
@@ -96,14 +132,14 @@ Avoid introducing display typography. Press Print's typographic personality belo
 
 ## Geometry
 
-Preferred radii:
+Let official components define their own radii, paddings, focus rings, pressed states, loading states, and disabled treatment.
 
-- direction controls: medium host-like rounded rectangle
-- text fields: medium host-like rounded rectangle
-- primary and compact actions: capsule/pill only where the host pattern supports it
-- outer widget: no artificial card-within-card frame unless ChatGPT provides one
+Custom layout rules:
 
-Borders should remain thin and low contrast. Selected state may strengthen the border rather than adding a large color fill.
+- Direction controls form a responsive grid, not six promotional cards
+- conditional sections may receive a quiet separator or host-native border
+- outer widget has no artificial branded card-within-card frame unless ChatGPT provides one
+- borders remain low contrast and structural
 
 ## Creation card hierarchy
 
@@ -119,9 +155,20 @@ Visual order:
 
 Direction selectors should feel like one compact choice field rather than six promotional cards.
 
-Structure and Intensity should carry more whitespace than the direction selector because they are the two continuous controls users will manipulate.
+Structure and Intensity use the official OpenAI Slider. Their conceptual endpoints remain:
 
-Do not display raw numeric values by default. Use semantic labels such as Low / Medium / High only when useful.
+- Structure: Original ↔ Rebuild
+- Intensity: Soft ↔ Strong
+
+Do not surface raw engineering values as the primary UI language. Semantic labels such as Low / Medium / High may supplement the slider state.
+
+Typography uses the official SegmentedControl with exactly three modes:
+
+- Keep
+- Replace
+- Generate
+
+Replace requires exact text. Generate authorizes concise generated typography. Keep remains source-preserving.
 
 ## Result card hierarchy
 
@@ -132,15 +179,15 @@ Visual order:
 3. immediate result decision actions
 4. Refine field only after Refine is chosen
 
-Because the host inline-card guidance favors at most two immediate actions, do not show Refine, Try Another, and Use This as three equally weighted buttons at once.
+Do not show Refine, Try Another, and Use This as three equally weighted creation CTAs.
 
-Recommended first-version behavior:
+Recommended behavior:
 
 - primary action: **Refine**
 - secondary action: **Try Another**
-- **Use This** becomes a lightweight baseline action associated with the current version, visually separated from the two generation-changing actions
+- **Use This** remains a lightweight baseline action associated with the selected version
 
-Use This is state selection, not a creation CTA, and should not compete with Refine.
+Use This is state selection, not image generation, and should not compete with Refine.
 
 ## States
 
@@ -150,30 +197,30 @@ Calm, low contrast. Only one selected direction receives strong emphasis.
 
 ### Hover / focus
 
-Increase border/outline clarity without changing layout.
+Use the official component behavior. Do not override focus treatment with decorative branding.
 
 ### Selected
 
-Use stronger border weight/contrast and modest font-weight increase. Avoid filled brand blocks for every selected control.
+Use official selected/pressed states whenever available.
 
 ### Generating
 
-Disable mutable controls and dim them consistently. Keep the submitted state visible so the user understands what is running.
+Use official loading/disabled states. Keep the submitted control state visible so the user understands what is running.
 
 ### Error
 
-Use host-appropriate error text and focus. Do not introduce branded red palettes.
+Use host-appropriate invalid/error treatment. Do not introduce a branded error palette.
 
 ### Preferred baseline
 
-Mark the preferred version with a small text/badge cue such as `Baseline`, not a bright success color.
+Mark the preferred version with a small `Baseline` state, not a bright success color.
 
-## Mobile
+## Mobile and narrow layouts
 
-Design mobile-first.
+Design responsive-first even though true custom MCP App host testing is currently performed in ChatGPT Web.
 
 - direction controls: two columns when space permits, otherwise one column
-- avoid tiny tap targets
+- preserve comfortable touch targets
 - sliders span the available width
 - result actions wrap only as a last resort
 - no internal scrolling
@@ -181,10 +228,10 @@ Design mobile-first.
 
 ## Brand recognition rule
 
-The host already supplies the Press Print name and product mark. Therefore the widget's job is not to repeat branding.
+The host already supplies the Press Print name and product badge. The widget must not repeat the badge internally.
 
 Recognition should come from a consistent interaction signature:
 
 `compact direction choice + two continuous controls + language-first refinement`
 
-That repeated behavior is more valuable than painting the widget in brand colors.
+That behavior, plus Press Print's judgment, is the brand inside the host.
