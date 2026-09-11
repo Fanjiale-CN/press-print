@@ -69,8 +69,7 @@ The badge should read first as a compact image/print symbol and then reveal its 
 
 - `assets/press-print-logo-light.svg` — canonical Press Print badge for light mode
 - `assets/press-print-logo-dark.svg` — canonical Press Print badge for dark mode
-- `assets/press-print-icon.png` — legacy submission/runtime raster fallback; refresh from the final badge before the next public listing/export pass
 
-The old standalone mark SVGs have been retired so there is one canonical product identity in the repository.
+The old standalone mark SVGs and raster fallback icon have been retired so there is one canonical product identity in the repository. The plugin manifest now uses the final light badge as its default icon/logo and the dark badge through `logoDark`.
 
 The Galok and Press Print names and marks remain branding identifiers. The repository's MIT License does not grant trademark rights or a general right to imply endorsement by the publisher.
