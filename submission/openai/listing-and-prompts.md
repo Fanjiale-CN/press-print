@@ -1,45 +1,45 @@
-# Listing Copy and Starter Prompts
+# Listing Copy and Starter Prompts — Press Print 2.0
 
-## Info tab
+## Info
 
 ### Plugin name
 
-`Press-Print`
+`Press Print`
 
 ### Short description
 
-`Editorial photo reconstruction`
+`AI art direction for existing imagery`
 
 ### Long description
 
-Press-Print transforms a user-supplied source photograph into a contemporary print-driven visual reconstruction while preserving the structures that make the scene recognizable.
+Press Print 2.0 turns a user-supplied image into a source-aware contemporary print reconstruction by combining art-direction judgment with the established Press Print visual language.
 
-It identifies key structural anchors in the source and rebuilds the composition through selective cropping, layered planes, halftone and duotone treatment, flat graphic fields, controlled collage, graphic reduction, and modernist hierarchy. The result is intended to feel reconstructed rather than uniformly filtered.
+It reads the source before transforming it: identifying semantic anchors, visual hierarchy, structural relations, identity invariants, low-information fields, clutter, and transformation opportunities. It then decides what must be preserved, what may be transformed or removed, and forms one dominant source-specific direction thesis.
 
+The reconstruction prioritizes structural operations such as crop, isolation, suppression, scale contrast, planar compression, controlled fragmentation, and overlap before material effects. Halftone, duotone, torn or cut edges, paper layering, registration shifts, and photocopy-like behavior are used selectively when they reinforce hierarchy, separation, rupture, compression, or artifact-ness.
+
+> **Photography is source material, not sacred material.**
+>
+> **Reconstruct, do not decorate.**
+>
 > **Preserve semantic identity, not visual completeness.**
 
-Press-Print v1.0.2 requires a user-supplied source photograph and adds no new typography by default. Existing source text remains in its original language; monolingual source text is never translated or duplicated into a bilingual layout. When the user explicitly supplies text to add, only that exact wording may appear, with no extra captions, place names, dates, slogans, labels, filler copy, or decorative text.
+Clear requests execute directly. For vague requests, Press Print inspects the source and chooses the strongest source-specific direction by default. It asks for clarification or offers alternatives only when multiple plausible readings would materially change the result.
 
-When text already exists in the source, Press-Print treats it as source content rather than permission to invent more typography. Scene-identifying or identity-critical source text may be selectively retained when it contributes to recognition. If exact source text cannot be preserved reliably, it should be cropped, obscured, simplified, or reduced into texture rather than replaced with guessed or hallucinated wording.
+Revisions preserve successful crop, hierarchy, explicit locks, identity-bearing details, and useful material decisions rather than restarting from a random composition. If the user asks for a new alternative from the original source, Press Print returns to that original source unless instructed otherwise.
 
-Press-Print is not intended to function as a general-purpose graphic-design system or a from-scratch typography-led poster generator.
+Press Print 2.0 adds zero new text by default. Existing source text remains in its original language and may be preserved selectively when it matters to identity. It is not translated or duplicated into a bilingual layout by default. If exact source text cannot be reproduced reliably, it should be obscured, cropped, simplified, or treated as source texture rather than replaced with hallucinated wording. New wording is used only when the user supplies it exactly or explicitly authorizes generated copy.
 
-Typical source categories include:
+Press Print is designed for existing imagery. It is not a generic style marketplace, broad photo editor, cinematic realism engine, or from-scratch design suite.
 
-- cities, architecture, and infrastructure
-- landscapes and interiors
-- portraits and performance
-- objects and cultural artifacts
+Typical sources include:
 
-The reconstruction process follows five stages:
+- cities, streets, architecture, transport, and infrastructure
+- landscapes, interiors, and public spaces
+- portraits, people, and animals
+- food, objects, retail environments, and cultural artifacts
 
-1. **Disassemble** — break the source into meaningful visual components
-2. **Recompose** — rebuild visual hierarchy and spatial relationships
-3. **Reassign** — selectively use photographic, printed, graphic, or collaged states
-4. **Reduce** — remove or quiet secondary information
-5. **Hierarchize** — establish dominant, secondary, and quiet zones
-
-Press-Print does not operate a separate image-generation backend. Source photographs, prompts, conversations, and generated images are processed by the host platform under that platform's own policies. When image generation or editing is available in the host, that host performs the generation or editing step.
+Press Print does not operate a separate image-generation backend or require an MCP service. Image understanding and generation/editing are performed by the host platform when available.
 
 ### Category
 
@@ -49,11 +49,11 @@ Press-Print does not operate a separate image-generation backend. Source photogr
 
 - Public publisher brand: `Galok`
 - Developer: `Fan Jiale`, an individual developer publishing under the Galok brand
-- Verified developer identity to select in the portal: `Fan Jiale`
+- Verified developer identity: `Fan Jiale`
 
 ### Version
 
-`1.0.2`
+`2.0.0`
 
 ### Public URLs
 
@@ -64,16 +64,12 @@ Press-Print does not operate a separate image-generation backend. Source photogr
 
 ## Starter prompts
 
-Use these three prompts in the Prompts tab.
-
-1. `Transform this photograph with Press-Print. Do not add new text or typography.`
-2. `Rebuild this city photo with Press-Print. Preserve defining structures and do not add new text.`
-3. `Reconstruct this portrait with Press-Print. Preserve source text only if it already exists; add no new typography.`
+1. `Process this image with Press Print. Preserve what makes the source identifiable and do not add new text.`
+2. `Make this image flatter and more graphic with Press Print. Preserve the main subject and defining structure.`
+3. `Reconstruct this portrait with Press Print. Keep the identity intact, simplify the background, and add no new typography.`
 
 ## Prompt intent
 
-The starter prompts demonstrate general, city/architecture, and portrait use while making the no-new-typography boundary explicit.
+The three prompts test autonomous default judgment, stronger graphic reconstruction, and portrait preservation.
 
-The phrase "do not add new text" does not require deletion of text already present in the source. Existing source text may be selectively retained under the source-text policy when it contributes to semantic identity.
-
-All starter prompts assume that the user attaches a source photograph. Press-Print uses host image generation or editing when that capability is available; it does not operate a separate image-generation backend.
+All starter prompts assume that the user attaches a source image. Press Print uses host image understanding and image generation/editing when those capabilities are available; it does not operate a separate image-generation backend or custom host UI.
