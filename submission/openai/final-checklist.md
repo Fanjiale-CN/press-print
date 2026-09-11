@@ -1,44 +1,80 @@
-# Final Submission Readiness Checklist
+# Final Submission Readiness Checklist — Press Print 2.0
 
-This checklist follows the current OpenAI public Plugin submission flow for a Skills-only Plugin.
+This checklist covers the UI-independent Skills-only Press Print 2.0 package.
 
-## Ready
+## Repository readiness
 
-- [x] Submission type is `Skills only`.
-- [x] Final packaged skill tree is available at `skills/press-print/`.
-- [x] Packaged `SKILL.md` contains trigger conditions, task instructions, missing-image handling, and OpenAI host behavior.
-- [x] Referenced prompt and quality rubric are bundled with the Skill.
-- [x] Public listing metadata is finalized: `Press-Print`, category `Creativity`, short description `Editorial photo reconstruction`, and version `1.0.2`.
-- [x] Final long description and three starter prompts are prepared.
-- [x] Production-ready logo / icon assets are present in the repository.
-- [x] Public website, privacy, terms, and support URLs are prepared and aligned to the same publisher identity.
-- [x] Privacy and terms copy are synchronized between the repository and the public `galok.me` routes.
-- [x] Six positive review test cases are prepared.
-- [x] Three negative review test cases are prepared.
-- [x] Initial-submission release notes are prepared.
-- [x] Availability recommendation is prepared.
-- [ ] Re-test the v1.0.2 local Plugin package in ChatGPT Desktop.
-- [ ] Verify direct image generation against the v1.0.2 text and visual regression checks.
-- [x] Chinese invocation, indirect invocation, missing-image behavior, multiple source categories, and negative routing were exercised.
-- [x] Codex can discover and read the installed Press-Print Skill.
-- [x] MCP server fields are not applicable.
-- [x] MCP authentication, tool annotations, CSP, domain verification, and reviewer credentials are not applicable to this Skills-only submission.
-- [x] Individual developer identity for `Fan Jiale` is verified in OpenAI Platform.
+- [x] Public product name is `Press Print`.
+- [x] Package version is `2.0.0`.
+- [x] Plugin manifest is present at `.codex-plugin/plugin.json`.
+- [x] Packaged Skill is present at `skills/press-print/`.
+- [x] Packaged references include `press-print-v1.md`, `press-print-v2-runtime.md`, and `quality-rubric.md`.
+- [x] The seven canonical 2.0 research/system outputs are retained.
+- [x] ChatGPT host UI source code has been removed from the active product architecture.
+- [x] Host-UI specification documents have been removed from the active product architecture.
+- [x] The Skill no longer depends on creation/result cards, widgets, or MCP UI tools.
+- [x] Direction / Structure / Intensity remain available as natural-language product semantics.
+- [x] Revision continuity remains part of the 2.0 behavior.
+- [x] Source-text protection remains strict.
+- [x] Light and dark Press Print logo assets are present.
+- [x] Privacy and Terms describe a Skills-only architecture with no separate Press Print MCP service.
 
-## Remaining portal actions
+## Behavior checks
 
-- [ ] Confirm the submitter has `Apps Management: Write` permission in the same OpenAI Platform organization used for submission. Organization owners already have this permission according to OpenAI's current submission documentation.
-- [ ] Open the Plugin submission portal and create a new draft with submission type `Skills only`.
-- [ ] Select the verified `Fan Jiale` developer identity and confirm it matches the public Galok publisher relationship shown on the website, support page, privacy policy, and terms.
-- [ ] Upload the exact `skills/press-print/` bundle tested locally.
-- [ ] Copy the finalized listing details and three starter prompts into the portal.
-- [ ] Add the six positive tests and three negative tests from `test-cases.md`.
-- [ ] Choose country / region availability only where the publisher, support process, legal pages, and relevant OpenAI capabilities are ready.
-- [ ] Add the initial-submission release notes.
-- [ ] Review and personally confirm all policy attestations before selecting `Submit for Review`.
+- [ ] Re-test default vague invocation with representative source images.
+- [ ] Confirm vague requests produce autonomous source-specific judgment rather than a menu or generic preset list.
+- [ ] Confirm explicit requests execute directly.
+- [ ] Confirm a revision preserves successful crop, identity, hierarchy, locks, and useful material decisions.
+- [ ] Confirm an alternative-from-source returns to the original source image unless the user requests otherwise.
+- [ ] Confirm default results are visibly reconstructed rather than ordinary photo styling.
+- [ ] Confirm material effects remain selective and causally justified.
+- [ ] Confirm zero new text is added by default.
+- [ ] Confirm uncertain source text is obscured/cropped rather than hallucinated.
+- [ ] Confirm source text is not translated or bilingual-duplicated by default.
+- [ ] Run representative cases from `docs/system/PP_REGRESSION_BENCHMARK.md`.
+
+## Submission package
+
+The final ZIP should preserve this relevant structure:
+
+```text
+.codex-plugin/
+└── plugin.json
+
+skills/
+└── press-print/
+    ├── SKILL.md
+    └── references/
+        ├── press-print-v1.md
+        ├── press-print-v2-runtime.md
+        └── quality-rubric.md
+
+assets/
+├── press-print-logo-light.svg
+└── press-print-logo-dark.svg
+```
+
+Do not include the retired `apps/press-print-chatgpt/` implementation as an active runtime dependency.
+
+## Review materials
+
+- [x] 2.0 listing copy prepared.
+- [x] Three 2.0 starter prompts prepared.
+- [x] Positive and negative review-test framework prepared.
+- [x] 2.0 release notes prepared.
+- [x] Public website, support, privacy, and terms URLs are listed.
+- [x] Developer / publisher relationship remains `Fan Jiale` / `Galok`.
+
+## Portal actions
+
+- [ ] Build the final Plugin ZIP from the reviewed repository state.
+- [ ] Upload that exact ZIP to the OpenAI submission flow.
+- [ ] Confirm the portal parses `.codex-plugin/plugin.json` successfully.
+- [ ] Copy the finalized listing details and starter prompts.
+- [ ] Add the positive and negative tests from `test-cases.md`.
+- [ ] Confirm country / region availability at submission time.
+- [ ] Review all policy attestations before submission.
 
 ## Go / no-go status
 
-**Status: GITHUB v1.0.2 CONTENT READY; PLATFORM PACKAGE TESTING AND UPLOAD PENDING.**
-
-The v1.0.2 repository content is prepared for GitHub. Before an OpenAI Platform submission, re-test the local package, confirm `Apps Management: Write` in the target organization, create the required ZIP, and complete the portal steps above.
+**Status: 2.0 UI-FREE REPOSITORY STRUCTURE READY; VISUAL REGRESSION RETEST + FINAL ZIP BUILD PENDING.**
