@@ -2,40 +2,47 @@
 
 ## Release notes
 
-### Press-Print v1.0.2 — Planar reconstruction and source-text control
+### Press Print 2.0.0 — Research-integrated art direction, no custom host UI
 
-Press-Print v1.0.2 strengthens the visual system around flat 2D composition, interlocking color planes, visible structural halftone, and tactile torn-paper collage.
+Press Print 2.0 upgrades the project from a strong source-aware reconstruction prompt into a research-backed AI art-direction system for existing imagery.
 
-It also formalizes source-text handling: zero new text by default; no translation or bilingual duplication; controlled readable-text footprint; special handling for dense signage environments; and an exception that permits only exact wording explicitly supplied by the user.
+The release adds:
 
-This GitHub version does not represent an OpenAI Platform ZIP upload. Platform packaging and submission remain separate follow-up actions.
+- a staged reasoning model: `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`;
+- semantic anchors, visual anchors, structural relations, identity invariants, low-information fields, and transformation budgets;
+- source-specific preservation contracts;
+- autonomous art-direction judgment for vague requests;
+- revision continuity that preserves successful decisions;
+- distinction between revising an existing result and trying an alternative from the original source;
+- a regression benchmark for protecting both quality and Press Print identity;
+- stronger anti-drift rules against generic AI polish, cinematic realism, decorative texture, arbitrary fragmentation, and cultural-costume styling.
 
-### Press-Print v1.0.0 — Initial public submission
+The established Press Print v1 visual language remains authoritative. Version 2.0 extends the intelligence around that language rather than replacing it.
 
-Press-Print v1.0.0 is the initial public submission of a Skills-only OpenAI Plugin for source-aware visual reconstruction of user-supplied photographs.
+The architecture is deliberately **Skills-only and UI-independent**. Press Print 2.0 does not require an MCP server, custom ChatGPT widget, external account, authentication flow, or separate image-generation backend. The host platform performs image understanding and generation/editing when supported.
 
-The Plugin packages the tested Press-Print workflow for ChatGPT and Codex. It preserves source-defining structural anchors, disassembles and recomposes the source image, and selectively combines photographic, printed, graphic, and collaged visual states to produce a contemporary print-driven composition.
+Source-text control remains strict: zero new text by default, no automatic translation, no bilingual duplication, and no approximate hallucinated replacement of uncertain source text.
 
-This submission:
+### Press Print 1.0.2 — Planar reconstruction and source-text control
 
-- is Skills-only
-- includes no MCP server
-- requires no authentication or external account
-- uses no separate Press-Print backend or database
-- expects a user-supplied source photograph for supported transformations
-- directly uses host image generation/editing when that capability is available
-- was locally tested through the OpenAI Plugin marketplace flow in ChatGPT Desktop and Codex
+Version 1.0.2 strengthened flat 2D composition, interlocking planes, structural halftone, tactile collage, and source-text handling. It remains the visual baseline that 2.0 builds upon.
 
-Reviewer setup: attach any non-sensitive photograph to positive image-transformation tests. No demo credentials, MFA, SMS, email confirmation, private-network access, or test account are required.
+### Press Print 1.0.0 — Initial public release
+
+The initial Skills-only release established source-aware reconstruction, structural-anchor preservation, selective photographic / printed / graphic / collaged states, and the first quality rubric.
+
+## Reviewer setup
+
+Attach any non-sensitive source image the reviewer has permission to use. No demo credentials, MFA, SMS, email confirmation, private-network access, test account, or Press Print API key are required.
 
 ## Availability recommendation
 
-**Target:** all countries and regions selectable in the OpenAI Plugin submission portal where the relevant ChatGPT / Codex Plugin and image-generation capabilities are available.
+**Target:** countries and regions selectable in the OpenAI Plugin submission portal where the relevant host image capabilities are available and where the publisher is comfortable supporting the Plugin.
 
 Rationale:
 
-- Press-Print has no region-specific backend or infrastructure.
-- It does not require a regional account system, payment provider, or external data service.
-- Public support, privacy, terms, and product pages are provided under `galok.me`.
+- Press Print has no region-specific backend or infrastructure;
+- it does not require a regional account system, payment provider, or external data service;
+- public support, privacy, terms, and product pages are provided under `galok.me`.
 
-During submission, select only countries or regions that the portal makes available and where the publisher is comfortable supporting the Plugin. OpenAI product availability and policy restrictions remain authoritative.
+Portal availability and OpenAI policy remain authoritative at submission time.
