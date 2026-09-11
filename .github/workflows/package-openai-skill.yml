@@ -1,0 +1,37 @@
+name: Package OpenAI Skill
+
+on:
+  push:
+    branches:
+      - openai-submission-v2.0.0
+    paths:
+      - "skills/press-print/**"
+      - ".github/workflows/package-openai-skill.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build exact skill ZIP
+        run: |
+          set -euo pipefail
+          mkdir -p dist/openai-skill/references
+          cp skills/press-print/SKILL.md dist/openai-skill/SKILL.md
+          cp skills/press-print/references/press-print-v1.md dist/openai-skill/references/press-print-v1.md
+          cp skills/press-print/references/press-print-v2-runtime.md dist/openai-skill/references/press-print-v2-runtime.md
+          cp skills/press-print/references/quality-rubric.md dist/openai-skill/references/quality-rubric.md
+          cd dist/openai-skill
+          zip -r ../press-print-openai-skill-v2.0.0.zip .
+
+      - name: Upload skill ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: press-print-openai-skill-v2.0.0
+          path: dist/press-print-openai-skill-v2.0.0.zip
+          if-no-files-found: error
