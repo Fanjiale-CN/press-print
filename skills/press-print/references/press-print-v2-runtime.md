@@ -53,6 +53,25 @@ Determine what makes the source *this particular image*:
 - identity-bearing source text,
 - redundant detail that can be spent.
 
+### HIERARCHY STABILIZATION
+Do not inherit weak source hierarchy by default.
+
+When the source hierarchy is diffuse, repetitive, sparse, or ambiguous, form a stronger hierarchy from existing source content and relationships before reconstruction. Apply `hierarchy-stabilization.md` as the detailed rule.
+
+For repeated or highly similar subjects:
+- select one dominant anchor or dominant cluster when that improves the reading,
+- optionally retain a small number of supporting anchors or clusters,
+- reinterpret the remaining repetition as rhythm, field, mass, texture, or context,
+- preserve group identity when repetition itself is identity-bearing,
+- do not force a single-object hero when the repeated group is the meaningful subject.
+
+For substantial low-information fields:
+- assign a compositional job such as separation, pause, directional room, scale buffer, atmospheric release, semantic isolation, continuation, framing, or graphic mass,
+- do not fill a quiet region merely because it is quiet,
+- if the region is genuinely redundant rather than functional, crop, compress, suppress, or reduce it.
+
+Do not use rigid percentage, object-count, or coverage thresholds as universal triggers. Resolve structural ambiguity before stylization.
+
 ### PROTECT
 Form an internal preservation contract:
 - **must preserve**,
@@ -80,6 +99,8 @@ Bad direction:
 
 A result may have multiple reading events, but one directional thesis should dominate.
 
+When hierarchy stabilization is required, the direction must also establish what becomes dominant, what supports it, what becomes field/rhythm/context, and what role major quiet regions perform.
+
 ### RECONSTRUCT
 Prefer structural operations before decorative ones:
 1. crop / reframe,
@@ -90,6 +111,8 @@ Prefer structural operations before decorative ones:
 6. controlled fragmentation / overlap / repetition when justified.
 
 A successful default Press-Print result should exhibit visibly reconstructed composition. Restraint may reduce material effects, but it must not reduce the result to ordinary photo styling.
+
+When the source hierarchy was unstable, establish a readable dominant / secondary / quiet organization without damaging identity-bearing group relations.
 
 ### MATERIALIZE
 Print materiality is causal, not cosmetic. Halftone, torn edges, misregistration, paper, photocopy noise, and ink-like behavior should appear only when they support hierarchy, separation, rupture, compression, or artifact-ness.
@@ -106,11 +129,16 @@ Before accepting a result, check internally:
 6. Is materiality bounded and coherent?
 7. Does it still look recognizably Press-Print rather than generic AI polish?
 8. Did cinematic realism or excessive 3D depth creep back in?
+9. If repeated similar subjects were present, are they still competing at equal visual weight, or were they organized into dominant/supporting/field roles?
+10. If a substantial low-information field was present, does it have a compositional job, or was it passively ignored or arbitrarily filled?
+11. Was unrelated visual content introduced merely to occupy quiet space?
 
 ### REVISE
 Revision changes causes, not symptoms. Preserve successful decisions from the current version unless the user asks to change them.
 
 Do not treat revision as a fresh random generation.
+
+If hierarchy remains weak, revise the hierarchy cause first: reselect or regroup anchors, strengthen role differentiation, reassign a quiet-field function, or alter crop / scale / suppression before adding more material effects.
 
 ## Request policy
 
@@ -173,7 +201,11 @@ Do not think about negative space as a target percentage. A quiet field must hav
 - scale buffer,
 - atmospheric release,
 - semantic isolation,
-- framing.
+- continuation,
+- framing,
+- graphic mass.
+
+A large quiet field is not automatically a defect. Preserve it when it carries structure; transform or compress it only when the direction benefits. Never use invented content as a default filler strategy.
 
 ## External visual traditions
 

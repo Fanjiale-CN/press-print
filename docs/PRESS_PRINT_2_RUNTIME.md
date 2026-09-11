@@ -16,7 +16,7 @@ Complexity stays behind the interaction.
 
 Example: `@Press-Print process this.`
 
-The model silently reads the source, identifies semantic and visual anchors, determines preservation constraints, forms the strongest source-specific direction, and executes.
+The model silently reads the source, identifies semantic and visual anchors, determines preservation constraints, stabilizes hierarchy when the source is diffuse / repetitive / sparse / ambiguous, forms the strongest source-specific direction, and executes.
 
 If the image has multiple equally plausible readings whose choice would materially change the result, the model may present a small number of concise alternatives in normal language. Otherwise it should make the judgment itself.
 
@@ -44,6 +44,29 @@ The conceptual pipeline is:
 
 These are system concepts, not labels the ordinary user needs to see.
 
+## Hierarchy stabilization
+
+Before the final direction is formed, test whether the source provides a sufficiently useful hierarchy.
+
+Do **not** inherit weak source hierarchy by default.
+
+When many similar subjects compete at comparable visual weight:
+
+- choose one dominant anchor or dominant cluster when appropriate,
+- keep a small supporting set when useful,
+- treat the remaining repetition as rhythm, field, mass, texture, or context,
+- preserve group identity when the repeated group itself is semantically important.
+
+When a substantial low-information field shapes the composition:
+
+- assign it a role such as separation, pause, directional room, scale buffer, atmospheric release, semantic isolation, continuation, framing, or graphic mass,
+- do not fill the region simply because it is quiet,
+- crop, compress, suppress, or reduce it only when it is genuinely redundant.
+
+No universal blank-area percentage or object-count threshold should trigger these behaviors. The question is whether the source hierarchy can carry the intended reconstruction.
+
+The runtime implementation is detailed in `skills/press-print/references/hierarchy-stabilization.md`.
+
 ## Preservation contract
 
 Before a substantial reconstruction, classify important source information into:
@@ -64,6 +87,8 @@ A good direction states:
 - what to suppress,
 - what to preserve,
 - which structural operations solve it.
+
+If hierarchy stabilization was required, the direction should also establish what is dominant, what supports it, what becomes field/rhythm/context, and what job major quiet regions perform.
 
 Bad: `Swiss / Song / retro / Y2K`.
 
@@ -87,6 +112,7 @@ Owns:
 
 - visual analysis,
 - semantic preservation judgment,
+- hierarchy stabilization,
 - direction formation,
 - Press-Print prompt and reconstruction behavior,
 - image generation or editing when the host supports it,
@@ -98,6 +124,7 @@ May later own deterministic or specialized operations such as:
 
 - decomposition,
 - transparent asset extraction,
+- salience / segmentation assistance when it materially improves difficult hierarchy cases,
 - sticker packs,
 - GIF or living-print motion,
 - batch and export workflows.

@@ -28,10 +28,28 @@ Has the photograph genuinely been rebuilt rather than filtered?
 
 Does the image have clear dominant, secondary, and quiet zones without relying on newly generated typography?
 
-- 18–20: strong hierarchy, rhythm, and controlled negative space
-- 14–17: readable hierarchy with minor crowding or imbalance
-- 8–13: too even, too dense, or compositionally indecisive
-- 0–7: no meaningful hierarchy
+- 18–20: strong hierarchy, rhythm, and controlled negative space; repeated elements have intentionally differentiated roles; large quiet fields clearly contribute to composition
+- 14–17: readable hierarchy with minor crowding, imbalance, weak grouping, or underused quiet space
+- 8–13: too even, too dense, compositionally indecisive, or dependent on source hierarchy that was not strong enough for the reconstruction
+- 0–7: no meaningful hierarchy; repeated subjects remain equal competitors, or large low-information fields are passively ignored or arbitrarily filled
+
+#### Hierarchy stabilization checks
+
+When the source hierarchy is diffuse, repetitive, sparse, or ambiguous, evaluate whether Press-Print actively formed a stronger hierarchy rather than inheriting the weakness.
+
+For repeated or highly similar subjects:
+- one dominant anchor or dominant cluster should usually emerge,
+- a small number of supporting anchors or clusters may remain,
+- the remaining repetition should read as rhythm, field, mass, texture, or context rather than a set of equally weighted subjects,
+- the group identity of the source should remain recognizable.
+
+For substantial low-information fields:
+- the field should have an intentional compositional role such as separation, pause, directional room, scale buffer, atmospheric release, semantic isolation, continuation, framing, or graphic mass,
+- meaningful quiet space should not be filled merely to make the image look busier,
+- genuinely redundant empty space may be cropped, compressed, or reduced,
+- invented objects or scenery must not be introduced solely to occupy blank space.
+
+Do not score by rigid object-count or blank-area thresholds. Judge whether the source hierarchy needed intervention and whether the result resolved it.
 
 ### 4. Treatment Diversity — 15 points
 
@@ -48,8 +66,8 @@ Do graphic interventions grow from the source rather than from generic poster ha
 
 - 13–15: source-derived, controlled, mature, purposeful; important source text is faithfully retained or deliberately reduced
 - 10–12: mostly disciplined with minor decorative excess or minor text-handling weakness
-- 6–9: visible template habits, arbitrary geometry, or questionable source-text reconstruction
-- 0–5: generic poster tropes dominate, new typography is invented, or source text is materially hallucinated
+- 6–9: visible template habits, arbitrary geometry, questionable source-text reconstruction, or invented filler content in quiet regions
+- 0–5: generic poster tropes dominate, new typography is invented, source text is materially hallucinated, or substantial new visual content is added without structural or semantic cause
 
 ## Interpretation
 
@@ -100,6 +118,11 @@ Any of the following should trigger rejection or regeneration even if the numeri
 - collage reduced to clean corporate rectangles with no tactile paper-layer logic
 - all major regions receive the same visual treatment
 - source-defining geometry is destroyed without a compelling compositional reason
+- many similar subjects remain equally detailed and equally salient when the source needed a stronger hierarchy
+- a repeated group is destroyed merely to manufacture a hero subject when the group relation is identity-bearing
+- a substantial low-information field is left compositionally passive when it materially shapes the frame
+- a meaningful quiet field is filled with invented objects, clouds, scenery, symbols, or decoration merely because it is empty
+- rigid percentage or object-count heuristics override the actual visual and semantic structure of the source
 
 ## Model-comparison protocol
 
@@ -111,4 +134,5 @@ When comparing multiple image models:
 4. Score each output independently before comparing them side by side.
 5. For sources containing text, record whether the model retained, obscured, hallucinated, translated, duplicated, or promoted source text.
 6. Record recurring model-specific failure patterns.
-7. Do not change the prompt after every isolated bad generation. Revise only when a failure pattern repeats across multiple source categories.
+7. Include stress cases with repeated similar subjects and substantial low-information fields when evaluating hierarchy changes.
+8. Do not change the prompt after every isolated bad generation. Revise only when a failure pattern repeats across multiple source categories.

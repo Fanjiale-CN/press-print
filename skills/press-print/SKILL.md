@@ -37,9 +37,10 @@ These rules are non-negotiable:
 
 Before generating an image, apply:
 
-1. `references/press-print-v2-runtime.md` for art-direction, preservation, and revision behavior.
+1. `references/press-print-v2-runtime.md` for art-direction, preservation, hierarchy, and revision behavior.
 2. `references/press-print-v1.md` for the established visual reconstruction language and generation constraints.
 3. `references/quality-rubric.md` when evaluating or revising a result.
+4. `references/hierarchy-stabilization.md` whenever source hierarchy is diffuse, repetitive, sparse, or ambiguous.
 
 If references conflict, preserve this priority:
 
@@ -87,6 +88,19 @@ Determine what makes the source this image:
 - identity-critical source text,
 - redundant detail that can be spent.
 
+### HIERARCHY STABILIZATION
+If the source does not provide a sufficiently useful hierarchy, do not passively inherit that weakness. Apply `references/hierarchy-stabilization.md` before forming the final direction.
+
+In particular:
+- repeated similar subjects should be assigned unequal visual roles rather than treated as equal competitors,
+- one dominant anchor or dominant cluster should emerge when appropriate, with supporting elements and a preserved repeated field,
+- a repeated group may itself remain the dominant subject when the group relation is identity-bearing,
+- substantial low-information fields must be assigned a compositional job rather than filled merely because they are quiet,
+- genuinely redundant empty space may be cropped, compressed, suppressed, or reduced,
+- do not use rigid blank-area percentages or object-count thresholds as universal triggers.
+
+Resolve structure before stylization.
+
 ### PROTECT
 Create an internal preservation contract:
 - **must preserve**,
@@ -101,6 +115,8 @@ Form one dominant source-specific thesis about what to amplify, suppress, refram
 
 Direction is not a moodboard label. Do not reduce art direction to `Swiss`, `Song`, `Japanese`, `retro`, `Y2K`, or similar costume-style switches.
 
+When hierarchy stabilization was required, the direction should make clear what becomes dominant, what supports it, what becomes field/rhythm/context, and what role major quiet regions perform.
+
 ### RECONSTRUCT
 Prefer structural operations first:
 - crop/reframe,
@@ -111,6 +127,8 @@ Prefer structural operations first:
 - controlled overlap/fragment/repetition when justified.
 
 A successful default Press Print result should exhibit visibly reconstructed composition. Restraint may reduce material effects, but it must not collapse into ordinary photo styling.
+
+When the source hierarchy was unstable, establish a readable dominant / secondary / quiet organization without destroying identity-bearing group relations.
 
 ### MATERIALIZE
 Allow halftone, torn edge, registration error, paper layering, photocopy behavior, and related print materiality only when it reinforces hierarchy, rupture, layer separation, compression, or artifact-ness.
@@ -126,10 +144,15 @@ Check whether:
 - materiality is causal and bounded,
 - source specificity survived,
 - the image still feels recognizably Press Print,
-- generic AI polish or cinematic realism did not take over.
+- generic AI polish or cinematic realism did not take over,
+- repeated similar elements were organized into useful hierarchy when needed,
+- substantial low-information fields have compositional jobs rather than passive emptiness or arbitrary filler,
+- no unrelated visual content was added merely to occupy quiet space.
 
 ### REVISE
 Fix causes, not symptoms. Do not hide weak composition with more texture.
+
+If hierarchy is still weak, revise anchor selection/grouping, role differentiation, quiet-field function, crop, scale, or suppression before increasing material effects.
 
 ## Natural-language control model
 
