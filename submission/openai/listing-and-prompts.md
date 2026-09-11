@@ -1,22 +1,22 @@
-# Listing Copy and Starter Prompts — Press-Print 2.0
+# Listing Copy and Starter Prompts — Press Print 2.0
 
-## Info tab
+## Info
 
 ### Plugin name
 
-`Press-Print`
+`Press Print`
 
 ### Short description
 
-`AI art direction for photo reconstruction`
+`AI art direction for existing imagery`
 
 ### Long description
 
-Press-Print turns a user-supplied photograph into a source-aware contemporary print reconstruction while preserving the structures and relationships that make the image recognizable.
+Press Print 2.0 turns a user-supplied image into a source-aware contemporary print reconstruction by combining art-direction judgment with the established Press Print visual language.
 
-Press-Print 2.0 adds an art-direction layer before generation. It reads the source, identifies what should be protected and what may be transformed, and forms a clear reconstruction thesis. When a request is genuinely vague, Press-Print can offer one to three source-specific directions through a compact interactive chooser. When the user already knows what they want, it skips the chooser and executes directly.
+It reads the source before transforming it: identifying semantic anchors, visual hierarchy, structural relations, identity invariants, low-information fields, clutter, and transformation opportunities. It then decides what must be preserved, what may be transformed or removed, and forms one dominant source-specific direction thesis.
 
-After generation, Press-Print treats revisions as continuation rather than a fresh roll. A request such as “keep this crop, make the right side quieter, and reduce the tearing” should preserve the successful decisions from the current result while changing the requested axis.
+The reconstruction prioritizes structural operations such as crop, isolation, suppression, scale contrast, planar compression, controlled fragmentation, and overlap before material effects. Halftone, duotone, torn or cut edges, paper layering, registration shifts, and photocopy-like behavior are used selectively when they reinforce hierarchy, separation, rupture, compression, or artifact-ness.
 
 > **Photography is source material, not sacred material.**
 >
@@ -24,30 +24,22 @@ After generation, Press-Print treats revisions as continuation rather than a fre
 >
 > **Preserve semantic identity, not visual completeness.**
 
-The visual system remains Press-Print: selective cropping, flattened planes, hierarchy, halftone and duotone treatment, graphic reduction, controlled collage, negative space, and tactile print logic. These elements are used as structural tools rather than a uniform filter or mandatory effect stack.
+Clear requests execute directly. For vague requests, Press Print inspects the source and chooses the strongest source-specific direction by default. It asks for clarification or offers alternatives only when multiple plausible readings would materially change the result.
 
-Press-Print adds no new typography by default. Existing source text remains in its original language; monolingual source text is not translated or duplicated into a bilingual layout. When the user explicitly supplies text to add, only that exact wording may appear, with no invented captions, place names, dates, slogans, labels, filler copy, or decorative pseudo-text.
+Revisions preserve successful crop, hierarchy, explicit locks, identity-bearing details, and useful material decisions rather than restarting from a random composition. If the user asks for a new alternative from the original source, Press Print returns to that original source unless instructed otherwise.
 
-Press-Print is not a general-purpose poster generator, restoration tool, watercolor filter, or generic design canvas.
+Press Print 2.0 adds zero new text by default. Existing source text remains in its original language and may be preserved selectively when it matters to identity. It is not translated or duplicated into a bilingual layout by default. If exact source text cannot be reproduced reliably, it should be obscured, cropped, simplified, or treated as source texture rather than replaced with hallucinated wording. New wording is used only when the user supplies it exactly or explicitly authorizes generated copy.
 
-Typical source categories include:
+Press Print is designed for existing imagery. It is not a generic style marketplace, broad photo editor, cinematic realism engine, or from-scratch design suite.
 
-- cities, streets, architecture, and infrastructure
-- landscapes and interiors
-- portraits and performance
-- objects, food, animals, and cultural artifacts
+Typical sources include:
 
-The internal reasoning flow is:
+- cities, streets, architecture, transport, and infrastructure
+- landscapes, interiors, and public spaces
+- portraits, people, and animals
+- food, objects, retail environments, and cultural artifacts
 
-1. **Read** — identify semantic and visual anchors
-2. **Understand** — determine the source's important relationships
-3. **Protect** — form a preservation contract
-4. **Direct** — decide what to amplify, suppress, crop, flatten, or fragment
-5. **Reconstruct** — rebuild the image through the established Press-Print visual language
-6. **Critique** — check identity, hierarchy, material coherence, and direction
-7. **Revise** — change causes and requested axes without discarding successful decisions
-
-Press-Print does not operate a separate image-generation model. Source-image generation or editing is performed by the compatible host platform when that capability is available. Press-Print 2.0 does use a small publisher-operated MCP service for optional direction and revision controls. The current MCP tool schema does not accept source-image files; it receives structured interaction fields used to render those controls.
+Press Print does not operate a separate image-generation backend or require an MCP service. Image understanding and generation/editing are performed by the host platform when available.
 
 ### Category
 
@@ -57,7 +49,7 @@ Press-Print does not operate a separate image-generation model. Source-image gen
 
 - Public publisher brand: `Galok`
 - Developer: `Fan Jiale`, an individual developer publishing under the Galok brand
-- Verified developer identity to select in the portal: `Fan Jiale`
+- Verified developer identity: `Fan Jiale`
 
 ### Version
 
@@ -72,17 +64,12 @@ Press-Print does not operate a separate image-generation model. Source-image gen
 
 ## Starter prompts
 
-Use these three prompts in the Prompts tab.
-
-1. `Process this photograph with Press-Print. If more than one strong art direction is useful, let me choose. Do not add new text.`
-2. `Make this photo flatter and more fragmented with Press-Print. Preserve the main subject and defining structure. Add no typography.`
-3. `Reconstruct this portrait with Press-Print. Keep the person's identity and pose recognizable, simplify the background, and add no new text.`
+1. `Process this image with Press Print. Preserve what makes the source identifiable and do not add new text.`
+2. `Make this image flatter and more graphic with Press Print. Preserve the main subject and defining structure.`
+3. `Reconstruct this portrait with Press Print. Keep the identity intact, simplify the background, and add no new typography.`
 
 ## Prompt intent
 
-The starter prompts deliberately demonstrate two different 2.0 behaviors:
+The three prompts test autonomous default judgment, stronger graphic reconstruction, and portrait preservation.
 
-- Prompt 1 is intentionally open enough to demonstrate autonomous visual reading and, when justified, the interactive direction chooser.
-- Prompts 2 and 3 are explicit enough that Press-Print should normally execute directly rather than forcing a chooser.
-
-All starter prompts assume that the user attaches a source photograph. Press-Print uses host image generation or editing when that capability is available; it does not operate a separate image-generation model.
+All starter prompts assume that the user attaches a source image. Press Print uses host image understanding and image generation/editing when those capabilities are available; it does not operate a separate image-generation backend or custom host UI.

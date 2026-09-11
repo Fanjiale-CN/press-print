@@ -1,4 +1,4 @@
-# Press-Print Terms of Use
+# Press Print Terms of Use
 
 **Effective date: September 11, 2026**  
 **Publisher: Galok / Fan Jiale**  
@@ -6,31 +6,29 @@
 
 ## 1. Acceptance of terms
 
-By using Press-Print, you agree to these Terms of Use.
+By using Press Print, you agree to these Terms of Use.
 
-If you do not agree, do not use Press-Print.
+If you do not agree, do not use Press Print.
 
-## 2. What Press-Print is
+## 2. What Press Print is
 
-Press-Print is an AI art-direction and source-aware visual-reconstruction system for user-supplied photographs.
+Press Print is a source-aware AI art-direction and visual-reconstruction Agent Skill for transforming user-supplied images into contemporary print-driven compositions.
 
-Press-Print 2.0 combines a visual-reconstruction Skill with optional interactive MCP controls. It may inspect the source through the host platform, form preservation and art-direction decisions, offer source-specific direction choices when a request is vague, and use the host's image generation or editing capabilities to create the reconstruction.
+Version 2.0.0 reads source identity and structure before reconstruction, forms source-specific art-direction decisions, and supports controlled revision while retaining the established Press Print visual language. It adds no new text by default and does not require a custom ChatGPT host UI, MCP server, external account, or separate Press Print image-generation backend.
 
-Press-Print adds no new typography by default and may render only exact wording explicitly supplied by the user. It is not intended to function as a general-purpose graphic-design system, professional typesetting system, or from-scratch typography-led poster service.
+Press Print is not intended to function as a general-purpose graphic-design suite, professional typesetting system, generic image generator, or unrestricted photo editor.
 
 ## 3. Publisher status
 
-Press-Print is published by **Fan Jiale**, an individual developer, under the **Galok** brand. Galok is a personal publishing brand and not a separate legal entity.
+Press Print is published by **Fan Jiale**, an individual developer, under the **Galok** brand. Galok is a personal publishing brand and not a separate legal entity.
 
-## 4. Host platforms and interactive service
+## 4. Host platforms and policies
 
-Press-Print normally operates within ChatGPT, Codex, or another compatible host environment.
+Press Print normally operates within ChatGPT, Codex, or another compatible host environment.
 
 Your use of those host platforms is also governed by their own terms of service, usage policies, privacy policies, and content rules.
 
-Press-Print 2.0 may use a publisher-operated MCP service for optional direction and revision controls. The current MCP service does not provide a separate image-generation model and does not accept source-image files through its tool schema. Image generation or editing remains a host-platform capability when available.
-
-You must comply with the host platform's usage policies and may not use Press-Print to evade or circumvent those policies.
+You must comply with the host platform's usage policies and may not use Press Print to evade or circumvent those policies.
 
 ## 5. User-provided content
 
@@ -45,36 +43,33 @@ You are responsible for having the rights needed to use photographs that depict 
 
 The publisher is not responsible for publicity, privacy, trademark, copyright, or similar claims arising from source materials you supply or from outputs derived from them.
 
-## 6. Generated results and art-direction suggestions
+## 6. Generated results
 
-Press-Print uses AI-assisted analysis, art direction, and image generation or editing through the host environment. Outputs and suggestions may contain:
+Press Print uses AI-assisted image understanding, generation, or editing through the host environment when those capabilities are available. Outputs may contain:
 
 - visual inaccuracies;
 - text or symbol errors;
 - structural changes;
-- color or composition differences;
-- imperfect preservation of source details; or
+- color or composition differences; or
 - results that do not fully match user expectations.
 
-Art-direction suggestions are generated design decisions, not guarantees of professional suitability for a particular campaign, publication, legal, printing, accessibility, or commercial requirement.
-
-Press-Print does not guarantee identical results across runs and does not guarantee that outputs are suitable for a particular commercial, printing, legal, or professional purpose.
+Press Print does not guarantee identical results across runs and does not guarantee that outputs are suitable for a particular commercial, printing, legal, or professional purpose.
 
 You should review outputs before publishing, printing, distributing, or using them commercially.
 
 ## 7. Intellectual property
 
-Skill text, prompt systems, code, or documentation in the Press-Print project that are expressly released under the MIT License may be used under the terms of that license.
+Skill text, prompt systems, code, or documentation in the Press Print project that are expressly released under the MIT License may be used under the terms of that license.
 
-**The MIT License does not automatically grant rights to use the Press-Print or Galok names, logos, brand identity, or trademark-like identifiers.**
+**The MIT License does not automatically grant rights to use the Press Print or Galok names, logos, brand identity, or trademark-like identifiers.**
 
-You may not use Press-Print or Galok branding in a way that falsely suggests official authorization, partnership, endorsement, or an official version without permission.
+You may not use Press Print or Galok branding in a way that falsely suggests official authorization, partnership, endorsement, or an official version without permission.
 
 Example images, showcase materials, third-party materials, and other non-code assets may be subject to their original rights and licenses.
 
 ## 8. Rights in user content and outputs
 
-The publisher does not obtain ownership of your original photographs merely because you use Press-Print.
+The publisher does not obtain ownership of your original photographs or images merely because you use Press Print.
 
 Rights in generated outputs and permitted uses may also depend on:
 
@@ -85,7 +80,7 @@ Rights in generated outputs and permitted uses may also depend on:
 
 ## 9. Prohibited use
 
-You may not use Press-Print for:
+You may not use Press Print for:
 
 - unlawful activity;
 - infringement, impersonation, or fraud;
@@ -96,52 +91,52 @@ You may not use Press-Print for:
 
 ## 10. Children's use
 
-Press-Print is not directed specifically to children.
+Press Print is not directed specifically to children.
 
 Users must comply with the host platform's age requirements and applicable law.
 
 ## 11. Availability and service changes
 
-Availability may vary by host platform, account type, surface, model capability, MCP availability, hosting availability, and region.
+Availability may vary by host platform, account type, surface, model capability, and region.
 
-The publisher does not guarantee that Press-Print will remain available in every country, on every host surface, or with every model capability.
+The publisher does not guarantee that Press Print will remain available in every country, on every host surface, or with every model capability.
 
-Press-Print may be updated, changed, suspended, or discontinued in whole or in part. Interactive controls may temporarily be unavailable while the core Skill remains usable, depending on host and service availability.
+Press Print may be updated, changed, suspended, or discontinued in whole or in part.
 
 ## 12. Disclaimer
 
-Press-Print is provided on an "as is" and "as available" basis.
+Press Print is provided on an "as is" and "as available" basis.
 
 To the maximum extent permitted by applicable law, the publisher makes no express or implied warranty regarding:
 
 - error-free operation;
 - uninterrupted availability;
 - continued compatibility with any specific model or platform;
-- accuracy or completeness of outputs or art-direction suggestions;
+- accuracy or completeness of outputs;
 - merchantability; or
 - fitness for a particular purpose.
 
 ## 13. Limitation of liability
 
-To the maximum extent permitted by applicable law, the publisher will not be liable for indirect, incidental, special, consequential, or punitive damages arising from the use of or inability to use Press-Print.
+To the maximum extent permitted by applicable law, the publisher will not be liable for indirect, incidental, special, consequential, or punitive damages arising from the use of or inability to use Press Print.
 
 Some jurisdictions do not allow certain limitations of liability, so parts of this section may not apply to every user.
 
 ## 14. Third-party services
 
-Press-Print may depend on or operate within third-party host platforms, MCP hosting/network infrastructure, website infrastructure, repositories, or other services.
+Press Print may depend on or operate within third-party host platforms, website infrastructure, repositories, or other services.
 
 Those third-party services are governed by their own terms. The publisher does not control their availability, data practices, or policy changes.
 
 ## 15. Intellectual-property complaints
 
-Intellectual-property complaints about Press-Print project materials published by the publisher may be sent to `galokview@outlook.com`.
+Intellectual-property complaints about Press Print project materials published by the publisher may be sent to `galokview@outlook.com`.
 
-This contact does not create an obligation for the publisher to adjudicate disputes about user-supplied images processed through a host platform.
+This contact does not create an obligation for the publisher to adjudicate disputes about user-supplied images processed only on the host platform.
 
 ## 16. Changes to these Terms
 
-These Terms may be updated to reflect changes in Press-Print, host platforms, MCP functionality, or applicable requirements.
+These Terms may be updated to reflect changes in Press Print, host platforms, or applicable requirements.
 
 Updated versions will be published on the public website or project repository with a revised effective date. Continued use after updated Terms are published constitutes acceptance of the revised Terms.
 

@@ -1,80 +1,74 @@
-# OpenAI Plugin Submission Materials — Press-Print 2.0
+# OpenAI Plugin Submission Materials — Press Print 2.0
 
-This directory contains review-facing materials for the Press-Print 2.0 Plugin update. The 2.0 code and MCP protocol foundation are implemented on the feature branch; production deployment, ChatGPT end-to-end validation, public legal-page synchronization, final packaging, and portal submission remain release-gated follow-up actions.
+This directory contains review-facing materials for the UI-independent Press Print 2.0 Plugin package.
 
-## Submission architecture
+## Architecture
 
-Press-Print 2.0 combines:
+**Skills-only / no MCP runtime**
 
-- a **Skill** for visual reconstruction, art-direction behavior, source-text rules, and host orchestration;
-- a small **MCP App** for optional inline direction and revision controls; and
-- the compatible host platform's own image generation/editing capability for image output.
+Press Print 2.0 does not require:
 
-Press-Print does not operate a separate image-generation model, user account system, payment system, or persistent user-content database.
+- an MCP server,
+- a custom ChatGPT host UI,
+- authentication,
+- an external account,
+- a separate Press Print image-generation backend,
+- reviewer credentials or private fixture data.
+
+The Plugin supplies art-direction and visual-reconstruction instructions. The host platform performs image understanding and image generation/editing when those capabilities are available.
 
 ## Plugin identity
 
-- Plugin name: `Press-Print`
+- Public name: `Press Print`
+- Package name: `press-print`
 - Publisher brand: `Galok`
 - Developer identity: `Fan Jiale`
 - Category: `Creativity`
-- Short description: `AI art direction for photo reconstruction`
+- Short description: `AI art direction for existing imagery`
 - Version: `2.0.0`
 - Repository: `https://github.com/Fanjiale-CN/press-print`
 
-## Skill bundle
+## Package contents
 
-The active Skill lives at:
+The complete Plugin ZIP should preserve the repository-relative structure required by the submission portal, including the manifest and the Skill bundle.
 
-```text
-skills/press-print/
-├── SKILL.md
-└── references/
-    ├── press-print-v1.md
-    ├── press-print-v2-runtime.md
-    └── quality-rubric.md
-```
-
-`press-print-v1.md` remains the visual reconstruction authority. `press-print-v2-runtime.md` adds the READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE orchestration layer.
-
-## MCP App
-
-The interactive service lives at:
+Relevant files:
 
 ```text
-apps/press-print-chatgpt/
-├── src/server.ts
-├── assets/
-│   ├── direction-picker.html
-│   └── result-actions.html
-├── scripts/smoke-mcp.ts
-├── package.json
-├── tsconfig.json
-└── Dockerfile
+.codex-plugin/
+└── plugin.json
+
+skills/
+└── press-print/
+    ├── SKILL.md
+    └── references/
+        ├── press-print-v1.md
+        ├── press-print-v2-runtime.md
+        └── quality-rubric.md
+
+assets/
+├── press-print-logo-light.svg
+└── press-print-logo-dark.svg
 ```
 
-Current external MCP tools:
+Do not package the abandoned `apps/press-print-chatgpt/` UI layer. It is not part of Press Print 2.0.
 
-- `render_direction_picker`
-- `render_result_actions`
+## Canonical behavior
 
-The service exposes:
+Press Print 2.0 adds a research-backed decision layer around the established v1 visual language:
 
-- `GET /health`
-- `POST /mcp`
-- `GET /mcp` for supported Streamable HTTP handshake behavior
+`READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`
 
-The service is intentionally stateless and its current tool schemas do not accept raw source-image files.
+Key reviewer expectations:
 
-## Product behavior under review
-
-Reviewers should verify three primary user paths:
-
-1. **Vague request** → Press-Print reads the source and may show 1–3 source-specific art-direction choices.
-2. **Explicit request** → Press-Print skips unnecessary UI and reconstructs directly.
-3. **Revision** → Press-Print preserves successful crop, subject treatment, hierarchy, and hard locks while changing the requested axis.
-
-The user experience should remain simple: upload an image, say what you want, choose only if useful, generate, and continue refining.
+- clear requests execute directly,
+- vague requests are handled with source-specific judgment rather than a generic menu,
+- semantic identity and identity-bearing relations are protected,
+- reconstruction is visibly compositional rather than filter-only,
+- materiality is selective and causally justified,
+- revisions preserve successful decisions,
+- zero new text is added by default,
+- source text is not translated or bilingual-duplicated by default.
 
 ## Public listing URLs
 
@@ -83,17 +77,15 @@ The user experience should remain simple: upload an image, say what you want, ch
 - Privacy: `https://www.galok.me/press-print/privacy/`
 - Terms: `https://www.galok.me/press-print/terms/`
 
-The public privacy and terms pages must be synchronized with the 2.0 repository versions before final submission because 2.0 adds an MCP interaction service.
+Fan Jiale is the individual developer; Galok is the public publishing brand.
 
 ## Submission files
 
 - `listing-and-prompts.md` — 2.0 listing copy and starter prompts
-- `test-cases.md` — interaction, reconstruction, revision, UI, source-text, and negative-routing review cases
-- `release-notes.md` — 2.0 release notes and availability recommendation
-- `final-checklist.md` — release gates and remaining portal actions
+- `test-cases.md` — positive and negative review tests
+- `release-notes.md` — 2.0 release notes and availability guidance
+- `final-checklist.md` — final packaging and portal checklist
 
 ## Reviewer setup
 
-Press-Print does not require a Press-Print account, API key, demo credentials, MFA, payment method, private-network access, or fixture database.
-
-For positive tests, reviewers can attach any non-sensitive photograph they have permission to use. The production MCP endpoint must be available over stable HTTPS for the interactive tests.
+For positive tests, reviewers can attach any non-sensitive image they have permission to use. No Press Print account, API key, demo credentials, MFA, private-network access, or fixture database is required.

@@ -2,72 +2,47 @@
 
 ## Release notes
 
-### Press-Print v2.0.0 — Art direction, interaction, and intentional revision
+### Press Print 2.0.0 — Research-integrated art direction, no custom host UI
 
-Press-Print 2.0 upgrades the product from a reconstruction Skill into an AI art-direction and visual-reconstruction system while preserving the established Press-Print visual language.
+Press Print 2.0 upgrades the project from a strong source-aware reconstruction prompt into a research-backed AI art-direction system for existing imagery.
 
-The main user-facing change is intentionally simple:
+The release adds:
 
-> upload an image → say what you want → choose only if useful → generate → keep refining
+- a staged reasoning model: `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`;
+- semantic anchors, visual anchors, structural relations, identity invariants, low-information fields, and transformation budgets;
+- source-specific preservation contracts;
+- autonomous art-direction judgment for vague requests;
+- revision continuity that preserves successful decisions;
+- distinction between revising an existing result and trying an alternative from the original source;
+- a regression benchmark for protecting both quality and Press Print identity;
+- stronger anti-drift rules against generic AI polish, cinematic realism, decorative texture, arbitrary fragmentation, and cultural-costume styling.
 
-New behavior includes:
+The established Press Print v1 visual language remains authoritative. Version 2.0 extends the intelligence around that language rather than replacing it.
 
-- source-aware visual reading before reconstruction;
-- an internal preservation contract for identity-bearing subjects, structures, relations, colors, and gestures;
-- one to three source-specific art-direction choices when the user's request is genuinely vague;
-- direct execution when the user already supplied a clear direction;
-- compact interactive direction and revision controls through the Press-Print MCP App layer;
-- revision behavior that preserves successful crop, subject treatment, hierarchy, and explicit locks instead of restarting from scratch;
-- cause-level critique focused on semantic preservation, hierarchy, reconstruction strength, planar coherence, material coherence, and Press-Print identity;
-- a formal system constitution, visual grammar, schema, art-direction policy, capability contract, and regression benchmark.
+The architecture is deliberately **Skills-only and UI-independent**. Press Print 2.0 does not require an MCP server, custom ChatGPT widget, external account, authentication flow, or separate image-generation backend. The host platform performs image understanding and generation/editing when supported.
 
-The established visual reconstruction authority remains intact: selective cropping, planar compression, graphic hierarchy, visible halftone/duotone, controlled collage, tactile print logic, and strict source-text control.
+Source-text control remains strict: zero new text by default, no automatic translation, no bilingual duplication, and no approximate hallucinated replacement of uncertain source text.
 
-Press-Print 2.0 continues to add zero new typography by default. Source text is not translated or duplicated into bilingual layouts, and only exact user-supplied wording may be newly rendered.
+### Press Print 1.0.2 — Planar reconstruction and source-text control
 
-### Interactive architecture
+Version 1.0.2 strengthened flat 2D composition, interlocking planes, structural halftone, tactile collage, and source-text handling. It remains the visual baseline that 2.0 builds upon.
 
-Press-Print 2.0 includes a small MCP service used for optional inline UI:
+### Press Print 1.0.0 — Initial public release
 
-- `render_direction_picker`
-- `render_result_actions`
+The initial Skills-only release established source-aware reconstruction, structural-anchor preservation, selective photographic / printed / graphic / collaged states, and the first quality rubric.
 
-The MCP service does not provide a separate image-generation model and its current tool schema does not accept source-image files. Compatible host image generation/editing remains responsible for the image output.
+## Reviewer setup
 
-The interactive layer uses a stateless Streamable HTTP `/mcp` endpoint and is designed to remain optional: a clear request can proceed directly without forcing the user through a menu.
-
-### Press-Print v1.0.2 — Planar reconstruction and source-text control
-
-Press-Print v1.0.2 strengthened the visual system around flat 2D composition, interlocking color planes, visible structural halftone, tactile torn-paper collage, and explicit source-text handling.
-
-It formalized zero new text by default, no translation or bilingual duplication, controlled readable-text footprint, handling for dense signage environments, and an exception permitting only exact wording explicitly supplied by the user.
-
-### Press-Print v1.0.0 — Initial public submission
-
-Press-Print v1.0.0 was the initial public Skills-only submission for source-aware visual reconstruction of user-supplied photographs.
-
-## Reviewer setup for v2.0.0
-
-No Press-Print account, demo credentials, MFA, SMS verification, payment method, or private fixture data are required.
-
-For positive image tests:
-
-1. attach any non-sensitive photograph the reviewer has permission to use;
-2. use the prompts in `submission/openai/test-cases.md`;
-3. verify both the vague-request interactive path and the explicit-request direct path;
-4. create at least one follow-up revision to confirm successful decisions are preserved.
-
-The production MCP endpoint must be available over stable HTTPS before final submission. The repository's CI validates the MCP server, tool discovery, resource discovery, both interactive tool calls, widget resource reads, TypeScript build, and health endpoint.
+Attach any non-sensitive source image the reviewer has permission to use. No demo credentials, MFA, SMS, email confirmation, private-network access, test account, or Press Print API key are required.
 
 ## Availability recommendation
 
-**Target:** all countries and regions selectable in the OpenAI Plugin submission portal where the relevant ChatGPT / Codex Plugin, MCP App, and image-generation capabilities are available.
+**Target:** countries and regions selectable in the OpenAI Plugin submission portal where the relevant host image capabilities are available and where the publisher is comfortable supporting the Plugin.
 
 Rationale:
 
-- Press-Print does not require a region-specific account or payment system;
-- the interactive MCP layer uses a narrow, stateless schema and no persistent user-content database;
-- public support, privacy, terms, and product pages are provided under `galok.me`;
-- source-image generation/editing remains a host capability.
+- Press Print has no region-specific backend or infrastructure;
+- it does not require a regional account system, payment provider, or external data service;
+- public support, privacy, terms, and product pages are provided under `galok.me`.
 
-During submission, select only countries or regions that the portal makes available and where the publisher is comfortable supporting the Plugin. OpenAI product availability and policy restrictions remain authoritative.
+Portal availability and OpenAI policy remain authoritative at submission time.

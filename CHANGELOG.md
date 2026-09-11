@@ -1,5 +1,54 @@
 # Changelog
 
+## 2.0.0 — 2026-09-11
+
+### Added
+
+- seven research-derived canonical system documents covering runtime, art direction, core constitution, regression benchmarking, shared schema, capability contracts, and visual grammar
+- staged reasoning model: `READ → UNDERSTAND → PROTECT → DIRECT → RECONSTRUCT → MATERIALIZE → CRITIQUE → REVISE`
+- source-specific preservation contracts using `must preserve / should preserve / may transform / may remove`
+- semantic-anchor, visual-anchor, structural-relation, identity-invariant, low-information-field, and transformation-budget concepts
+- source-specific direction hypotheses rather than generic style presets
+- cause-level critique and revision continuity
+- source-type preservation defaults and a 40-image regression benchmark design
+- natural-language Direction, Structure, and Intensity semantics
+
+### Changed
+
+- upgraded Press Print from a reconstruction prompt system into a research-backed AI art-direction and visual-reconstruction system
+- vague requests now default to autonomous source-specific judgment; clarification or alternatives are reserved for genuine ambiguity
+- revisions preserve successful crop, hierarchy, locks, identity, and material decisions instead of behaving like random rerolls
+- alternative directions return to the original source image unless the user explicitly asks to build on a prior result
+- material effects are now explicitly causal and bounded rather than mandatory style signatures
+- strengthened the default requirement for visibly reconstructed composition so restraint does not collapse into ordinary photo styling
+- retained the established v1 visual language as rendering authority while adding 2.0 reasoning and preservation intelligence
+- retained strict source-text protection and zero-new-text default
+- public product name standardized as **Press Print** while package/repository identifiers may continue to use `press-print`
+
+### Architecture
+
+- remains a **Skills-only** Agent Skill / OpenAI Plugin architecture
+- no MCP server is required
+- no custom ChatGPT host UI is required
+- no external Press Print image-generation backend is required
+- host-native image understanding and generation/editing capabilities are used when available
+- future web or backend runtimes may implement the same six capability contracts without redefining the core product
+
+### Removed
+
+- ChatGPT creation-card and result-card implementation
+- MCP widget server and host bridge
+- UI-specific runtime dependencies, state assumptions, and host UI specifications
+- prompt behavior that required a card or widget for vague requests and revisions
+
+### Preserved from the abandoned UI experiment
+
+- Direction / Structure / Intensity as product semantics
+- revision continuity
+- distinction between revision-from-result and alternative-from-source
+- Typography, Restore, and Custom as interpretable direction families where relevant
+- the final Press Print product logo
+
 ## 1.0.2 — 2026-09-10
 
 ### Changed
@@ -32,7 +81,7 @@ A compliant v1.0.2 result adds zero new text by default. Source text remains in 
 - added a fallback rule: if exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as photographic texture rather than hallucinating a replacement
 - strengthened hard failures for pseudo-text, filler editorial copy, translated/rewritten/duplicated source text, enlarged source-text headlines, and approximate hallucinated replacements
 - reduced prompt language that strongly implied typography-led poster or magazine-cover design
-- clarified that Press-Print hierarchy must come from crop, scale, color, texture, source-derived geometry, overlap, and negative space rather than generated headlines or body copy
+- clarified that Press Print hierarchy must come from crop, scale, color, texture, source-derived geometry, overlap, and negative space rather than generated headlines or body copy
 - synchronized the universal Skill, OpenAI-packaged Skill, master prompt, packaged reference, and quality rubric around the same text policy
 - updated OpenAI starter prompts to explicitly prohibit new text while allowing source text to survive selectively
 - bumped OpenAI plugin metadata to `1.0.1`
@@ -40,52 +89,28 @@ A compliant v1.0.2 result adds zero new text by default. Source text remains in 
 
 ### Regression target
 
-The v1.0.1 hotfix specifically addresses a failure pattern observed after the initial public release: source photographs containing signage could trigger newly invented editorial headlines, filler copy, duplicated source words, or pseudo-text even though v1.0 prohibited generated typography.
+The v1.0.1 hotfix specifically addressed source photographs containing signage triggering newly invented editorial headlines, filler copy, duplicated source words, or pseudo-text.
 
-A compliant v1.0.1 result may retain original source signage when it contributes to semantic identity, but must not generate new typography.
-
-## Unreleased — OpenAI Plugin packaging
+## OpenAI Plugin packaging — pre-2.0
 
 ### Added
 
 - `.codex-plugin/plugin.json` for OpenAI plugin packaging
 - `skills/press-print/SKILL.md` as the OpenAI-packaged Skill entry point
 - self-contained bundled references for the master prompt and quality rubric
-- OpenAI host behavior for missing-image handling and direct image-generation/editing execution when available
-- compact Press-Print plugin icon based on the canonical Galok mark
-- dark and light SVG variants of the publisher mark
-- `BRAND.md` defining the Press-Print / Galok publisher relationship and listing copy
-- `PRIVACY.md`, `TERMS.md`, and `SUPPORT.md` for public review and distribution
-- public Press-Print landing, privacy, terms, and support routes on `galok.me`
-- repo-scoped development marketplace at `.agents/plugins/marketplace.json`
-- `eval/openai-plugin-test-plan.md` covering direct, indirect, follow-up, negative, boundary, and image-tool execution tests
-- starter prompts and public support contact metadata in the OpenAI plugin manifest
-
-### Listing metadata
-
-- public display name: `Press-Print`
-- developer / publisher brand: `Galok`
-- verified individual publisher identity: `Fan Jiale`
-- category: `Creativity`
-- short description: `Editorial photo reconstruction`
-- current prepared submission version: `1.0.2`
-- website: `https://www.galok.me/press-print/`
-- privacy: `https://www.galok.me/press-print/privacy/`
-- terms: `https://www.galok.me/press-print/terms/`
-- support: `https://www.galok.me/press-print/support/`
-- brand color: `#111111`
+- host behavior for missing-image handling and direct image generation/editing when available
+- brand, privacy, terms, support, evaluation, and listing materials
+- repo-scoped development marketplace metadata
 
 ### Architecture
 
-- remains a Skills-only plugin with no MCP server, authentication layer, or external runtime dependency
+- Skills-only plugin with no MCP server, authentication layer, or external runtime dependency
 - root `SKILL.md` remains the canonical universal Agent Skill entry point
-- packaged references carry equivalent reconstruction and source-text rules for the OpenAI host
-- behavioral changes require a versioned release and a changelog entry
-- development marketplace exposes the repository-root plugin for local ChatGPT desktop installation and testing
+- behavioral changes require a versioned release and changelog entry
 
 ## 1.0.0 — 2026-09-09
 
-Initial Press-Print image-only release.
+Initial Press Print image-only release.
 
 ### Added
 
@@ -104,7 +129,6 @@ Initial Press-Print image-only release.
 ### Baseline status
 
 - v1.0.0 established the initial image-only core baseline
-- the root `SKILL.md` remains the canonical universal Agent Skill entry point
 - platform-specific packaging may add manifests, metadata, assets, or synchronized Skill copies
 - behavioral changes require a versioned release and a changelog entry
 

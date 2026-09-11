@@ -1,7 +1,7 @@
 {
   "name": "press-print",
   "version": "2.0.0",
-  "description": "AI art direction and source-aware visual reconstruction with interactive direction selection, flat editorial composition, selective halftone, tactile collage, and strict source-text control.",
+  "description": "AI art direction and source-aware visual reconstruction with flat editorial composition, selective halftone, tactile collage, revision continuity, and strict source-text control.",
   "author": {
     "name": "Fan Jiale / Galok",
     "email": "galokview@outlook.com",
@@ -18,14 +18,13 @@
     "halftone",
     "duotone",
     "collage",
-    "visual-reconstruction",
-    "interactive"
+    "visual-reconstruction"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Press Print",
     "shortDescription": "AI art direction for existing imagery",
-    "longDescription": "Press Print 2.0 reads a user-supplied image before reconstructing it. For vague requests, it can identify the source's strongest visual opportunity and present a small set of source-specific art-direction choices; for explicit requests, it executes directly without unnecessary setup. The established Press Print visual language remains intact: strongly flattened editorial composition, source-derived cropping and scale shifts, selective photographic retention, visible halftone and duotone, graphic fields, controlled tactile collage, and modernist hierarchy. Revisions preserve successful decisions rather than restarting from a random composition. Press Print adds no new typography by default, never invents or translates source text, and permits only exact wording explicitly supplied by the user.",
+    "longDescription": "Press Print 2.0 reads a user-supplied image before reconstructing it, identifies what must survive, forms a source-specific art-direction thesis, and rebuilds the image through flattened editorial composition, source-derived cropping and scale shifts, selective photographic retention, visible halftone and duotone, graphic fields, controlled tactile collage, and modernist hierarchy. Clear requests execute directly; vague requests are handled with autonomous judgment unless real ambiguity requires clarification. Revisions preserve successful decisions rather than restarting from a random composition. Press Print adds no new typography by default, never invents or translates source text, and permits only exact wording explicitly supplied by the user unless generated copy is explicitly authorized.",
     "developerName": "Fan Jiale",
     "category": "Creativity",
     "capabilities": [

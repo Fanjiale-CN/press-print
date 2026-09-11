@@ -1,121 +1,80 @@
-# Final Submission Readiness Checklist — Press-Print 2.0
+# Final Submission Readiness Checklist — Press Print 2.0
 
-This checklist is the release gate for Press-Print 2.0. Do not merge the 2.0 feature branch into `main` or submit the new version until the required runtime and reviewer paths are proven.
+This checklist covers the UI-independent Skills-only Press Print 2.0 package.
 
-## Repository and product definition
+## Repository readiness
 
-- [x] Active Skill upgraded to Press-Print 2.0 orchestration.
-- [x] Established v1 visual reconstruction prompt retained as the rendering authority rather than rewritten.
-- [x] Core product constitution added under `docs/system/`.
-- [x] Visual grammar added under `docs/system/`.
-- [x] Shared system schema added and aligned to the 2.0 failure taxonomy.
-- [x] Art-direction policy aligned to the real 2.0 interaction model.
-- [x] Tool/capability contract distinguishes model-native capabilities from externally exposed MCP tools.
-- [x] Regression benchmark added.
-- [x] Product manifest updated to version `2.0.0`.
-- [x] Press-Print 2.0 light and dark SVG product marks added.
-- [x] `BRAND.md` updated so Press-Print has its own mark while Galok remains the publisher identity.
+- [x] Public product name is `Press Print`.
+- [x] Package version is `2.0.0`.
+- [x] Plugin manifest is present at `.codex-plugin/plugin.json`.
+- [x] Packaged Skill is present at `skills/press-print/`.
+- [x] Packaged references include `press-print-v1.md`, `press-print-v2-runtime.md`, and `quality-rubric.md`.
+- [x] The seven canonical 2.0 research/system outputs are retained.
+- [x] ChatGPT host UI source code has been removed from the active product architecture.
+- [x] Host-UI specification documents have been removed from the active product architecture.
+- [x] The Skill no longer depends on creation/result cards, widgets, or MCP UI tools.
+- [x] Direction / Structure / Intensity remain available as natural-language product semantics.
+- [x] Revision continuity remains part of the 2.0 behavior.
+- [x] Source-text protection remains strict.
+- [x] Light and dark Press Print logo assets are present.
+- [x] Privacy and Terms describe a Skills-only architecture with no separate Press Print MCP service.
 
-## MCP App implementation
+## Behavior checks
 
-- [x] `render_direction_picker` implemented.
-- [x] `render_result_actions` implemented.
-- [x] Inline direction picker widget implemented.
-- [x] Inline result-actions widget implemented.
-- [x] Widget follow-up messaging wired to the host conversation.
-- [x] Widget state updates wired for selected direction/action.
-- [x] Light/dark host adaptation implemented.
-- [x] Mobile single-column direction layout implemented.
-- [x] Stateless Streamable HTTP `/mcp` endpoint implemented.
-- [x] `/health` endpoint implemented.
-- [x] Production TypeScript build implemented.
-- [x] Multi-stage production Dockerfile implemented.
+- [ ] Re-test default vague invocation with representative source images.
+- [ ] Confirm vague requests produce autonomous source-specific judgment rather than a menu or generic preset list.
+- [ ] Confirm explicit requests execute directly.
+- [ ] Confirm a revision preserves successful crop, identity, hierarchy, locks, and useful material decisions.
+- [ ] Confirm an alternative-from-source returns to the original source image unless the user requests otherwise.
+- [ ] Confirm default results are visibly reconstructed rather than ordinary photo styling.
+- [ ] Confirm material effects remain selective and causally justified.
+- [ ] Confirm zero new text is added by default.
+- [ ] Confirm uncertain source text is obscured/cropped rather than hallucinated.
+- [ ] Confirm source text is not translated or bilingual-duplicated by default.
+- [ ] Run representative cases from `docs/system/PP_REGRESSION_BENCHMARK.md`.
 
-## Automated validation
+## Submission package
 
-- [x] GitHub Actions CI installs dependencies.
-- [x] TypeScript typecheck passes.
-- [x] Production server build passes.
-- [x] Server starts successfully in CI.
-- [x] `/health` responds successfully in CI.
-- [x] MCP SDK client can connect to `/mcp`.
-- [x] MCP tool discovery returns the expected UI tools.
-- [x] MCP resource discovery returns both widget resources.
-- [x] Both MCP tools can be called with representative structured inputs.
-- [x] Both widget resources can be read through MCP.
-- [ ] Reconfirm all automated checks after the final pre-deployment code change.
+The final ZIP should preserve this relevant structure:
 
-## Required 2.0 user-flow tests
+```text
+.codex-plugin/
+└── plugin.json
 
-- [ ] **Vague request:** attach a photograph and ask `@Press-Print 处理一下这张。`; verify source-specific directions appear only when useful.
-- [ ] Select a direction card; verify the selection returns to the same conversation and generation proceeds without asking the same question again.
-- [ ] Verify `Surprise me` chooses a source-specific direction rather than randomizing style.
-- [ ] **Explicit request:** ask for a specific reconstruction with hard locks; verify Press-Print executes directly without forcing a direction picker.
-- [ ] **Revision:** keep the current crop/subject and request one or two changes; verify successful decisions survive rather than rerolling.
-- [ ] Verify result-action buttons change one clear axis at a time.
-- [ ] Verify direction picker and result actions on mobile.
-- [ ] Verify direction picker and result actions in both light and dark ChatGPT themes.
+skills/
+└── press-print/
+    ├── SKILL.md
+    └── references/
+        ├── press-print-v1.md
+        ├── press-print-v2-runtime.md
+        └── quality-rubric.md
 
-## Visual regression gates
+assets/
+├── press-print-logo-light.svg
+└── press-print-logo-dark.svg
+```
 
-- [ ] Run a representative 2.0 gold subset before first release.
-- [ ] Confirm semantic preservation remains at or above the accepted threshold.
-- [ ] Confirm Press-Print identity remains at or above the accepted threshold.
-- [ ] Confirm reconstruction strength and editorial hierarchy do not regress from accepted v1 outputs.
-- [ ] Check portrait identity preservation.
-- [ ] Check architecture / structural rhythm preservation.
-- [ ] Check dense-signage source-text handling.
-- [ ] Check restrained variation does not remain over-textured.
-- [ ] Check aggressive variation does not collapse semantic identity.
-- [ ] Reject generic AI polish, cinematic realism drift, template sameness, and materiality without cause.
+Do not include the retired `apps/press-print-chatgpt/` implementation as an active runtime dependency.
 
-## Source-text regressions carried forward
+## Review materials
 
-- [ ] Zero new typography when the user did not request text.
-- [ ] No pseudo-text or filler editorial copy.
-- [ ] No translation or bilingual duplication of monolingual source text.
-- [ ] No hallucinated replacement for identity-critical source text.
-- [ ] Exact user-requested text remains exact and receives no extra invented copy.
+- [x] 2.0 listing copy prepared.
+- [x] Three 2.0 starter prompts prepared.
+- [x] Positive and negative review-test framework prepared.
+- [x] 2.0 release notes prepared.
+- [x] Public website, support, privacy, and terms URLs are listed.
+- [x] Developer / publisher relationship remains `Fan Jiale` / `Galok`.
 
-## Privacy, terms, and infrastructure
+## Portal actions
 
-- [x] Repository privacy policy updated for the Press-Print 2.0 MCP architecture.
-- [x] Repository terms updated for Press-Print 2.0.
-- [x] Current MCP schema does not accept raw source-image files.
-- [x] Current MCP implementation has no persistent user-content database.
-- [ ] Select and connect a production hosting provider.
-- [ ] Deploy the MCP App to a stable public HTTPS endpoint.
-- [ ] Verify the production `/health` endpoint.
-- [ ] Verify the production `/mcp` endpoint with the MCP smoke client.
-- [ ] Confirm production logs do not intentionally record tool-call request bodies.
-- [ ] Record the selected infrastructure provider in the privacy policy and deployment documentation if required for accurate disclosure.
-- [ ] Synchronize the updated privacy policy to the public `galok.me/press-print/privacy/` route.
-- [ ] Synchronize the updated Terms to the public `galok.me/press-print/terms/` route.
-- [ ] Confirm public support and product pages accurately describe 2.0.
+- [ ] Build the final Plugin ZIP from the reviewed repository state.
+- [ ] Upload that exact ZIP to the OpenAI submission flow.
+- [ ] Confirm the portal parses `.codex-plugin/plugin.json` successfully.
+- [ ] Copy the finalized listing details and starter prompts.
+- [ ] Add the positive and negative tests from `test-cases.md`.
+- [ ] Confirm country / region availability at submission time.
+- [ ] Review all policy attestations before submission.
 
-## OpenAI listing and reviewer material
+## Go / no-go status
 
-- [x] Listing copy updated to `2.0.0` positioning.
-- [x] Starter prompts updated to demonstrate vague and explicit paths.
-- [x] Review test cases updated for 2.0 interaction, reconstruction, revision, UI, and negative routing.
-- [x] Release notes updated for 2.0.
-- [ ] Confirm the final OpenAI submission/package format and current logo asset requirements in the portal.
-- [ ] Replace the manifest's temporary PNG icon reference if the final portal/runtime asset format requires the new 2.0 SVG assets or new raster exports.
-- [ ] Confirm verified developer identity and publisher relationship remain correct in the portal.
-- [ ] Enter the production MCP endpoint and any required MCP metadata.
-- [ ] Test the exact packaged build that will be submitted.
-- [ ] Review and personally confirm all policy attestations before `Submit for Review`.
-
-## Merge gate
-
-Do **not** merge the 2.0 PR into `main` until all of the following are true:
-
-1. production MCP is reachable over stable HTTPS;
-2. the vague, explicit, and revision flows pass in real ChatGPT;
-3. public privacy / terms pages match the deployed architecture;
-4. the final automated CI run is green;
-5. representative visual and source-text regression tests pass.
-
-## Current status
-
-**Status: 2.0 CODE + MCP PROTOCOL FOUNDATION READY; PRODUCTION DEPLOYMENT AND CHATGPT END-TO-END VALIDATION PENDING.**
+**Status: 2.0 UI-FREE REPOSITORY STRUCTURE READY; VISUAL REGRESSION RETEST + FINAL ZIP BUILD PENDING.**

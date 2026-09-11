@@ -1,238 +1,124 @@
-# OpenAI Review Test Cases — Press-Print 2.0
+# OpenAI Review Test Cases — Press Print 2.0
 
-These cases cover the Press-Print 2.0 interaction model, source-aware art direction, revision behavior, and the source-text protections carried forward from v1.0.2.
+These cases cover the UI-independent Press Print 2.0 Skill, including autonomous art direction, preservation contracts, visible reconstruction, revision continuity, alternative-from-source behavior, and source-text protection.
 
-Press-Print requires no account, authentication, demo credentials, or private fixture data.
+Press Print requires no account, authentication, demo credentials, external MCP server, or private fixture data.
 
-For positive tests, attach any non-sensitive photograph matching the requested source category. Unless the user requests a different crop or format, preserve the source aspect ratio.
+For positive tests, attach any non-sensitive source image the reviewer has permission to use.
 
-## Core 2.0 interaction tests
+## Positive test cases
 
-### P1 — Vague request should produce source-specific direction choices
-
-**User prompt**
-
-`@Press-Print 处理一下这张。`
-
-**Fixture**
-
-Attach a non-sensitive street, architecture, portrait, transport, or public-space photograph with enough structure to support more than one reasonable reconstruction strategy.
-
-**Expected behavior**
-
-Press-Print should first inspect the actual source image and form a preservation contract internally.
-
-Because the request is genuinely vague, Press-Print may render an inline direction picker with **one to three** source-specific art-direction hypotheses. The choices should describe meaningful structural differences such as:
-
-- stronger planar hierarchy,
-- more aggressive but controlled fragmentation,
-- quieter negative-space treatment,
-- different crop / scale emphasis.
-
-The choices must not be generic style presets or an unrelated list of effects.
-
-Each direction should identify what it intends to preserve. The system should not ask the user to manually diagnose the photograph before offering useful judgment.
-
-After the user selects a direction, Press-Print should proceed to reconstruction without asking the same question again.
-
-### P2 — Explicit request should execute directly
+### P1 — Vague invocation / autonomous judgment
 
 **User prompt**
 
-`Use Press-Print on this image. Make it flatter and more fragmented, preserve the face and current aspect ratio, and add no text.`
+`Process this image with Press Print.`
 
 **Fixture**
 
-Attach a non-sensitive portrait or street portrait.
+Attach a non-sensitive street, city, interior, object, or landscape image.
 
 **Expected behavior**
 
-The request already supplies a clear direction and hard locks.
+Press Print should inspect the actual source, identify semantic and structural anchors, determine what may be spent, form one source-specific direction thesis, and reconstruct the image without forcing the user through a custom menu or widget.
 
-Press-Print should **not force the user through the direction picker**. It should analyze the source silently, treat face identity and aspect ratio as preservation locks, form one internal direction hypothesis, and reconstruct directly.
+The result should be visibly recomposed rather than the intact photograph with a filter. Material effects should appear only where they support structure or hierarchy.
 
-The output should be visibly transformed rather than merely filtered, while the face remains recognizable.
+No new text should be introduced by default.
 
-### P3 — Revision should preserve successful decisions instead of rerolling
+### P2 — Explicit strong reconstruction
+
+**User prompt**
+
+`Make this flatter and more graphic with Press Print. Preserve the main subject and defining structure. No new text.`
+
+**Fixture**
+
+Attach a non-sensitive architecture, transport, streetscape, or public-space image.
+
+**Expected behavior**
+
+The request should execute directly. The result should use planar compression, crop/reframe, scale contrast, isolation, suppression, or other structural operations before decorative texture.
+
+The subject and identity-bearing structure should survive while the camera composition is visibly reconstructed.
+
+### P3 — Portrait preservation
+
+**User prompt**
+
+`Reconstruct this portrait with Press Print. Keep the identity intact, simplify the background, and add no new typography.`
+
+**Fixture**
+
+Attach a non-sensitive portrait image the reviewer has permission to use.
+
+**Expected behavior**
+
+Press Print should protect face identity, decisive pose/gesture, and important subject relationships while spending redundant background detail first.
+
+The result should remain recognizable as the same person and source situation while becoming more planar, hierarchically intentional, and designed.
+
+### P4 — Dense source signage
+
+**User prompt**
+
+`用 Press Print 重构这张街景。保留场景身份，但不要新增、翻译或双语复制任何文字。`
+
+**Fixture**
+
+Attach a non-sensitive metro, railway, storefront, or dense commercial-street image with visible signage.
+
+**Expected behavior**
+
+Scene-identifying or identity-critical source text may remain selectively when feasible. Other text may be cropped, fragmented, obscured, halftoned, or reduced into texture.
+
+Press Print must not translate monolingual signs, create bilingual duplicates, invent replacement wording, or generate filler editorial copy. If exact text cannot be reproduced reliably, obscure or simplify it rather than hallucinating it.
+
+### P5 — Revision continuity
 
 **Prerequisite**
 
-Generate a Press-Print result first.
+Create a successful Press Print result from any suitable source.
 
 **User prompt**
 
-`这一版裁切很好，人物也别动。把右边再压一点，撕裂感收一点。`
+`Keep this crop and the subject treatment. Reduce the tearing and make the right side quieter.`
 
 **Expected behavior**
 
-Press-Print should treat the existing successful crop and subject treatment as locks for the revision.
+The revision should preserve successful crop, subject identity, hierarchy, locks, and useful material decisions. It should primarily reduce fragmentation/materiality and suppress the right side rather than rerolling the full composition.
 
-The new result should primarily:
+The revised result should remain clearly related to the previous successful version.
 
-- suppress the right side more strongly,
-- reduce fragmentation / torn-paper intensity,
-- preserve the successful crop,
-- preserve subject identity and the existing central art-direction thesis.
+### P6 — Alternative from original source
 
-It should not silently restart from the original source with an unrelated layout.
+**Prerequisite**
 
-### P4 — Surprise me should still remain source-specific
+Create at least one Press Print result from a source image.
 
 **User prompt**
 
-`@Press-Print 处理这个，Surprise me.`
-
-**Fixture**
-
-Attach a non-sensitive photograph.
+`Try another direction from the original image. Make it more restrained and planar.`
 
 **Expected behavior**
 
-Press-Print may skip a chooser and commit to the strongest source-specific direction, or show directions with a usable Surprise me action depending on host behavior.
+Press Print should conceptually return to the original source image rather than recursively transforming the previous generated result.
 
-In either case, “Surprise me” means **choose the strongest Press-Print reconstruction strategy for this actual source**, not randomize the style.
+Useful semantic lessons and explicit preservation locks may carry over, but the alternative should form a new direction thesis from the original source.
 
-The result must preserve semantic identity and explicit user constraints.
-
-### P5 — Single obvious direction should not manufacture three choices
+## Optional positive extension — Exact user wording
 
 **User prompt**
 
-`处理一下这张，主要突出这个人和后面巨大建筑之间的尺度差。其他你决定。`
+`Reconstruct this with Press Print and add only the exact text “地铁”.`
 
 **Expected behavior**
 
-The user has already supplied the central directional thesis. Press-Print should normally execute directly or, at most, expose one clearly useful interpretation if a user decision remains necessary.
+The result may add `地铁` and no other new copy unless the user separately authorizes generated text. It must not add a translation, subtitle, caption, date, filler copy, or bilingual parallel wording.
 
-It should not invent three artificial choices merely because the UI supports up to three.
+## Negative test cases
 
-## Source-aware reconstruction tests
-
-### P6 — Direct English invocation
-
-**User prompt**
-
-`Transform this photograph with Press-Print. Do not add new text or typography.`
-
-**Fixture**
-
-Attach a non-sensitive city, transport, or public-space photograph.
-
-**Expected behavior**
-
-Press-Print should identify source-defining anchors, disassemble and recompose the photograph, and use selective photographic, printed, graphic, and/or collaged states rather than a single whole-image filter.
-
-If the request remains visually underspecified, a source-specific direction picker is acceptable before generation. If one direction is clearly strongest, Press-Print may execute it directly.
-
-If the source contains text, existing source text may be retained selectively when it contributes to scene identity, but no new headline, caption, filler copy, label, pseudo-text, or decorative typography should be created.
-
-### P7 — Chinese invocation with dense source signage
-
-**User prompt**
-
-`用 Press-Print 重构这张照片，保留最重要的结构特征，不要新增文字。`
-
-**Fixture**
-
-Attach a non-sensitive metro, railway, street, storefront, or public-space photograph containing visible signage.
-
-**Expected behavior**
-
-The workflow should run naturally in Chinese.
-
-Scene-identifying or identity-critical source text may remain as source imagery when feasible. The model should not translate, rewrite, duplicate, materially respell, enlarge, or promote source signage into new typography.
-
-For dense signage, preserve typographic density rather than typographic completeness. Keep only a small number of identity-bearing source texts readable and reduce the rest into fragments, halftone, texture, or occlusion. Do not make monolingual signs bilingual.
-
-If exact source text cannot be preserved reliably, crop, obscure, simplify, or retain it as image texture rather than hallucinating replacement wording.
-
-### P8 — Portrait preservation contract
-
-**User prompt**
-
-`Reconstruct this portrait with Press-Print. Keep the person's identity and pose recognizable. No new typography.`
-
-**Fixture**
-
-Attach a non-sensitive portrait the reviewer has permission to use.
-
-**Expected behavior**
-
-Face identity, head-body relation, and decisive pose should be treated as high-priority invariants. Background detail may be spent more aggressively.
-
-The output may reorganize crop, scale, graphic fields, halftone, and controlled collage without turning the person into an unrelated face or generic illustrated character.
-
-### P9 — Architecture relation preservation
-
-**User prompt**
-
-`Use Press-Print on this architecture photo. Keep the structure recognizable but rebuild the composition.`
-
-**Fixture**
-
-Attach a non-sensitive architecture or streetscape photograph.
-
-**Expected behavior**
-
-Press-Print should protect identity-bearing silhouette, major proportional logic, façade rhythm, and any decisive human-scale relation.
-
-It may compress perspective, suppress repetitive detail, crop aggressively, or create planar fields when those changes support the direction.
-
-The result should not add arbitrary decorative geometry merely to appear designed.
-
-### P10 — Exact user-requested text
-
-**User prompt**
-
-`Use Press-Print to reconstruct this photograph and add only the exact text “地铁”.`
-
-**Fixture**
-
-Attach a non-sensitive photograph.
-
-**Expected behavior**
-
-The result may add `地铁` and no other new text. It must not add `Metro`, `Subway`, `地铁 / Metro`, a subtitle, caption, date, label, pseudo-text, or any parallel translation.
-
-If size and placement are unspecified, the requested text should remain visually controlled rather than taking over the reconstruction.
-
-## Interactive UI tests
-
-### UI1 — Direction picker data quality
-
-When `render_direction_picker` is used, verify:
-
-- 1–3 direction cards are visible,
-- each card has a concise title and source-specific summary,
-- directions are meaningfully different,
-- preservation notes are reflected in the follow-up instruction,
-- selecting a card sends the chosen instruction back into the same conversation,
-- `Surprise me` is not shown when there is only one direction,
-- mobile layout remains usable as a single-column stack.
-
-### UI2 — Result actions are revision actions, not style roulette
-
-After a Press-Print result exists, `render_result_actions` may expose a small set of useful next steps.
-
-Verify that each action changes one clear axis, for example:
-
-- More restrained
-- More assertive
-- More planar
-- More fragmented
-- Prepare as sticker asset, only when the host can actually support the requested asset workflow
-
-The follow-up instruction should preserve successful decisions from the current result unless the action explicitly changes them.
-
-### UI3 — Theme adaptation
-
-Verify both widgets remain readable in ChatGPT light and dark modes.
-
-The UI should feel native and compact rather than opening a separate editor for a simple choice.
-
-## Negative routing tests
-
-### N1 — Faithful restoration
+### N1 — Faithful restoration without Press Print intent
 
 **User prompt**
 
@@ -240,9 +126,13 @@ The UI should feel native and compact rather than opening a separate editor for 
 
 **Expected behavior**
 
-Press-Print should not be selected because faithful restoration is outside its reconstruction workflow.
+Press Print should not be selected automatically. Faithful archival-style restoration is outside its core reconstruction workflow.
 
-### N2 — Watercolor conversion
+**Safe fallback**
+
+Use the host's normal restoration or enhancement behavior.
+
+### N2 — Unrelated watercolor conversion
 
 **User prompt**
 
@@ -250,69 +140,39 @@ Press-Print should not be selected because faithful restoration is outside its r
 
 **Expected behavior**
 
-Press-Print should not be selected.
+Press Print should not be selected automatically because the request asks for a different transformation language rather than Press Print reconstruction.
 
-### N3 — Typography-led poster from scratch
-
-**User prompt**
-
-`Design a typography-heavy exhibition poster with a large headline, date, and editorial copy.`
-
-**Expected behavior**
-
-Press-Print should not be selected automatically for this request.
-
-If Press-Print is explicitly invoked and a source photograph is attached, it may reconstruct the source and add only exact wording explicitly supplied by the user. It must not silently become a general-purpose typesetting system or invent surrounding copy.
-
-### N4 — Explicit request must not be slowed by unnecessary UI
+### N3 — From-scratch typography-heavy design
 
 **User prompt**
 
-`Make this a restrained Press-Print reconstruction, keep the face unchanged, no text.`
+`Design a typography-heavy exhibition poster from scratch with a large headline, date, and editorial body copy.`
 
 **Expected behavior**
 
-Do not render a three-choice direction picker. Execute the clear request.
+Press Print should not be selected automatically. Its core identity is source-image art direction and reconstruction, not a generic from-scratch typesetting suite.
 
-### N5 — Vague request must not produce generic preset cards
+If the user explicitly invokes Press Print with a source image, exact supplied wording or explicitly authorized generated copy may be used under the Skill's typography rules.
 
-**User prompt**
+## 2.0 regression checks
 
-`处理一下。`
+Reject or revise a generated result if any of the following occurs:
 
-**Expected behavior**
+- source semantic identity collapses
+- the output is mostly the intact source photo with cosmetic treatment
+- hierarchy is weaker or no more intentional than the source without a deliberate reason
+- a vague request produces generic style presets instead of source-specific judgment
+- arbitrary fragmentation damages identity-bearing relations
+- halftone, tearing, paper, grain, or misregistration is used globally without structural cause
+- the result drifts into cinematic realism or generic premium-ad polish
+- unrelated source categories collapse into the same template
+- cultural references become decorative costume or stereotypes
+- a revision rerandomizes successful decisions instead of addressing the requested axis
+- an alternative requested from the original silently uses the prior generated result as mandatory visual input
+- unrequested readable text appears
+- source text is translated, bilingual-duplicated, materially rewritten, or replaced with hallucinated wording
+- user-supplied exact text is altered or surrounded with extra unrequested copy
 
-If a direction picker is shown, reject behavior where cards are merely generic labels such as “Retro / Minimal / Cyberpunk” with no source-specific reasoning.
+## Research benchmark note
 
-## 2.0 regression failure checks
-
-A result or interaction should be rejected, regenerated, or revised if any of the following occurs:
-
-- the user gives a clear direction but is unnecessarily forced through a chooser,
-- vague input produces generic style presets instead of source-specific art direction,
-- three choices are manufactured when only one meaningful direction exists,
-- a revision discards successful crop, locks, or hierarchy without cause,
-- a one-axis refinement causes an unrelated total redesign,
-- source semantic identity collapses,
-- output is essentially the intact photo plus a print filter,
-- torn paper, halftone, or texture appears without a structural reason,
-- every image receives nearly the same composition,
-- output drifts toward smooth generic AI advertising polish,
-- output drifts toward cinematic 3D realism,
-- unrequested readable text appears that did not exist in the source,
-- pseudo-text or filler editorial copy appears,
-- source text is translated, rewritten, duplicated, materially respelled, or enlarged into a new headline,
-- monolingual source text receives a translated or bilingual parallel version,
-- user-requested exact text is altered, expanded, translated, or accompanied by extra copy,
-- identity-critical source text is replaced with hallucinated wording,
-- generated typography is used to create hierarchy instead of source-derived image structure.
-
-## Release expectation
-
-Press-Print 2.0 should feel simpler to operate than v1 while demonstrating more visual judgment. The reviewer should be able to experience the product primarily as:
-
-```text
-upload image → say what you want → choose only if useful → generate → keep refining
-```
-
-The extra intelligence should be visible in the quality of decisions, not in the number of questions or controls shown to the user.
+For broader release validation, use `docs/system/PP_REGRESSION_BENCHMARK.md`, which defines the 40-image target set, source categories, hard cases, scoring dimensions, identity gates, and failure taxonomy.
