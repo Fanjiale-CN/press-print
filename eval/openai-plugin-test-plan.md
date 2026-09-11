@@ -1,10 +1,10 @@
-# Press-Print OpenAI Plugin Test Plan
+# Press Print OpenAI Plugin Test Plan — 2.0
 
-This test plan covers the v1.0.2 installed-plugin validation pass for the Skills-only OpenAI Plugin package.
+This plan validates the UI-independent Skills-only Press Print 2.0 package.
 
 ## Goal
 
-Verify that Press-Print can be discovered through a repo marketplace, installed in a supported ChatGPT desktop surface, invoked directly or indirectly, and used with a supplied image while following the v1.0.2 planar, source-text, language, footprint, halftone, and torn-paper rules.
+Verify that Press Print can be discovered and invoked with a supplied image, performs source-aware art direction and reconstruction, preserves semantic identity, keeps revision continuity, and follows the 2.0 research-derived decision system without relying on MCP widgets or a custom ChatGPT host UI.
 
 ## Marketplace setup
 
@@ -12,118 +12,134 @@ The repository exposes a development marketplace at:
 
 `.agents/plugins/marketplace.json`
 
-Add it with the Codex CLI:
+Example local setup:
 
 ```bash
 codex plugin marketplace add Fanjiale-CN/press-print --ref main
 codex plugin marketplace list
 ```
 
-The marketplace should appear as `Press-Print Development` and expose the `press-print` plugin.
-
-After adding the marketplace, restart the ChatGPT desktop app before installing or testing the plugin.
+The marketplace should expose the `press-print` plugin.
 
 ## Test rules
 
-Run each test in a new conversation unless the case is explicitly a follow-up test. Keep the same source image when comparing outputs across revisions. Record whether the plugin activated, whether image generation/editing actually ran, and whether the result satisfies the v1.0.2 quality rubric.
+Run each primary test in a new conversation unless the case is explicitly a follow-up. Use representative source images across multiple categories. For revisions, retain the same conversation and source lineage.
+
+Record:
+- whether the Skill activated,
+- whether host image generation/editing actually ran,
+- whether semantic identity survived,
+- whether reconstruction was visibly compositional,
+- whether materiality was causally justified,
+- whether the result retained Press Print identity.
 
 ## Positive tests
 
-### P1 — Direct English invocation
+### P1 — Vague English invocation
 
 Input:
 
-`@Press-Print Transform this photograph using Press-Print.`
+`@Press Print Process this image.`
 
-Attach a source photograph.
+Attach a source image.
 
 Expected:
-- Press-Print activates.
-- The supplied image is treated as source material.
-- The host generates or edits an image when image generation/editing is available.
-- The response does not stop at providing a prompt for another model.
+- Press Print activates;
+- the source is visually read before treatment;
+- the system chooses a source-specific direction autonomously unless real ambiguity exists;
+- no custom menu or widget is required;
+- the result is reconstructed rather than filtered;
+- no new text is added by default.
 
-### P2 — Direct Chinese invocation
+### P2 — Vague Chinese invocation
 
 Input:
 
-`@Press-Print 用 Press-Print 重构这张照片。`
+`@Press Print 处理这张图片，不要新增文字。`
 
-Attach a source photograph.
+Attach a source image.
 
-Expected: same functional behavior as P1.
+Expected: same core behavior as P1, with concise Chinese interaction.
 
-### P3 — Indirect invocation
-
-Input:
-
-`Turn this photograph into a bold contemporary editorial print reconstruction while preserving its defining structure.`
-
-Attach a source photograph.
-
-Expected:
-- Press-Print may activate based on the skill description even when the product name is not used.
-- The result follows source-aware reconstruction rather than a generic poster filter.
-
-### P4 — Missing required image
+### P3 — Explicit strong reconstruction
 
 Input:
 
-`@Press-Print Transform this.`
+`Make this flatter and more graphic. Preserve the main subject and defining structure. No typography.`
 
-Do not attach an image.
-
-Expected:
-- Press-Print asks for a source image.
-- It does not invent a source scene or generate an unrelated image.
-
-### P5 — Follow-up refinement
-
-After a successful P1 or P2 result, input:
-
-`Make the reconstruction more aggressive while preserving the main structural anchors.`
+Attach a source image.
 
 Expected:
-- The follow-up remains inside Press-Print logic.
-- Structural anchors remain recognizable.
-- The result becomes more reconstructed without turning into arbitrary decoration.
+- execute directly without redundant clarification;
+- protect explicit locks;
+- prioritize crop, isolation, suppression, scale contrast, and planar compression before surface effects;
+- produce visible compositional reconstruction.
 
-### P6 — Exact user-requested text
+### P4 — Missing source image
 
 Input:
 
-`@Press-Print Reconstruct this photograph and add only the exact text “地铁”.`
+`@Press Print Process this image.`
 
-Attach a source photograph.
+Do not attach or otherwise provide an image.
 
 Expected:
-- The result may add `地铁`.
-- No other new text, translation, bilingual duplicate, caption, label, date, or pseudo-text appears.
-- The requested text remains visually controlled when placement and size are unspecified.
+- request a source image;
+- do not invent an unrelated source scene.
 
-### P7 — High text-density source
+### P5 — Revision continuity
+
+After a successful result, input:
+
+`Keep this crop and the subject treatment. Reduce the tearing and quiet the right side.`
+
+Expected:
+- retain successful crop, identity, hierarchy, and locks;
+- reduce materiality/fragmentation and right-side competition;
+- do not rerandomize the whole composition.
+
+### P6 — Alternative from original
+
+After a successful result, input:
+
+`Try another direction from the original source. Make it quieter and more planar.`
+
+Expected:
+- conceptually return to the original source rather than recursively transforming the prior generated result;
+- carry forward only useful semantic lessons and explicit locks;
+- form a new direction thesis.
+
+### P7 — Dense source signage
 
 Input:
 
-`@Press-Print Reconstruct this signage-heavy street photograph without adding text.`
-
-Attach a source photograph of a dense commercial street, station, convenience store, supermarket, or signage wall.
+`用 Press Print 重构这张招牌很多的街景。保留场景身份，不要新增、翻译或双语复制文字。`
 
 Expected:
-- The result preserves typographic density rather than typographic completeness.
-- Only a small number of identity-bearing source texts remain clearly readable.
-- Most other text becomes cropped fragments, halftone, texture, or occlusion.
-- Monolingual source signs are not translated or made bilingual.
+- preserve only identity-bearing source text clearly when feasible;
+- allow other source text to become crop, fragment, halftone, texture, or occlusion;
+- never invent replacement wording;
+- never translate monolingual source text by default.
+
+### P8 — Exact user-supplied wording
+
+Input:
+
+`Reconstruct this with Press Print and add only the exact text “地铁”.`
+
+Expected:
+- may add `地铁`;
+- no translation, caption, date, label, filler copy, or other generated wording appears unless separately authorized.
 
 ## Negative tests
 
-### N1 — Restoration
+### N1 — Faithful restoration
 
 Input:
 
 `Restore this old photograph naturally and faithfully.`
 
-Expected: Press-Print should not be selected as the appropriate workflow.
+Expected: Press Print should not be selected automatically for ordinary faithful restoration.
 
 ### N2 — Watercolor conversion
 
@@ -131,42 +147,44 @@ Input:
 
 `Turn this image into a watercolor painting.`
 
-Expected: Press-Print should not be selected as the appropriate workflow.
+Expected: Press Print should not be selected automatically.
 
-### N3 — Typography-led poster
+### N3 — From-scratch typography-heavy layout
 
 Input:
 
-`Design a typography-heavy poster with a large headline and date.`
+`Design a typography-heavy exhibition poster from scratch with headline, date, and body copy.`
 
-Expected: Press-Print v1.0.2 should not be selected because from-scratch typography-led design remains outside scope. The exact-user-wording exception does not permit invented poster copy.
+Expected: Press Print should not be selected automatically because its core identity is source-image art direction and reconstruction rather than general-purpose typesetting.
 
 ## Visual quality checks
 
-For successful image transformations, evaluate against `quality-rubric.md` and reject or regenerate if any hard failure appears.
+For successful transformations, evaluate against both:
+
+- `eval/quality-rubric.md`
+- `docs/system/PP_REGRESSION_BENCHMARK.md`
 
 Check specifically that:
 
-- semantic identity remains recognizable
-- 1 to 3 structural anchors survive
-- the original camera composition is visibly reconstructed
-- photographic, printed, graphic, and collaged states are selective rather than uniform
-- the composition is strongly flattened into a designed 2D surface with interlocking planes
-- halftone is clearly visible and structurally varied without being applied across the entire image
-- torn-paper edges, cut-paper overlaps, or deliberate paper-layer transitions support the collage structure
-- arbitrary circles, suns, triangles, stripes, or blocks do not dominate
-- no unrequested text is invented
-- source text is not translated or duplicated into a bilingual version
-- exact user-requested text is not altered or accompanied by extra copy
-- readable text stays within the 15% total / 8% per-block guidance unless source necessity or an explicit request to enlarge the user's exact supplied text requires otherwise
-- the original aspect ratio is preserved unless explicitly changed
-- the result is not merely the source photograph plus a print filter
+- semantic identity remains recognizable;
+- identity-bearing relations survive;
+- hierarchy is stronger or more intentional;
+- the source camera composition is visibly reconstructed in the default case;
+- planar/editorial character is present;
+- halftone and collage are selective rather than mandatory global effects;
+- materiality is bounded and structurally justified;
+- low-information fields have a functional role;
+- generic premium-ad polish and cinematic realism do not take over;
+- unrelated sources do not collapse into the same template;
+- no unrequested text is invented;
+- source text is not translated or bilingual-duplicated by default;
+- uncertain source text is obscured rather than hallucinated.
 
 ## Host-capability distinction
 
-If the Skill activates correctly but the current ChatGPT surface does not provide image generation/editing to the installed plugin, record that as a host-capability limitation rather than a Press-Print reconstruction failure.
+If the Skill activates correctly but the current host surface does not provide image understanding or image generation/editing to the installed Plugin, record that as a host-capability limitation rather than a Press Print reconstruction failure.
 
-If image generation/editing is available but Press-Print only returns a prompt instead of executing the transformation, record that as a Skill behavior failure.
+If image generation/editing is available but Press Print stops at describing a prompt instead of performing the requested supported transformation, record that as a Skill behavior failure.
 
 ## Result record
 
@@ -174,10 +192,12 @@ For each case, record:
 
 - test ID
 - date
-- ChatGPT surface
+- host surface
 - model/configuration
 - plugin activation: yes/no
 - image tool execution: yes/no/not available
-- rubric score when applicable
-- observed failure mode
+- semantic preservation score
+- Press Print identity score
+- reconstruction strength score
+- observed failure taxonomy tags
 - notes
