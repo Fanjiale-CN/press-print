@@ -1,26 +1,21 @@
-# Press-Print
+# Press Print
 
-**A source-aware visual reconstruction system for transforming photographs into contemporary print-driven compositions.**
+**AI art direction and source-aware visual reconstruction for existing imagery.**
 
-Press-Print is an open-source **Agent Skill / SKILL.md** for image transformation, image generation workflows, editorial design, halftone, duotone, collage, and contemporary print-driven visual reconstruction.
+Press Print is an open-source **Agent Skill / SKILL.md** that reads a source image, decides what must survive, forms a source-specific art-direction thesis, and reconstructs the image into a contemporary print-driven composition.
 
-Press-Print takes a photograph apart and rebuilds it as a bold, layered, graphic image using selective photography, halftone and duotone printing, flat color, controlled collage, source-derived geometry, and modernist editorial hierarchy.
-
+> **Photography is source material, not sacred material.**
+>
+> **Reconstruct, do not decorate.**
+>
 > **Preserve semantic identity, not visual completeness.**
+
+Press Print 2.0 keeps the visual DNA established in v1 while adding stronger source understanding, preservation logic, art-direction judgment, critique, and revision continuity. It remains a **Skills-only** system. There is no required MCP server or custom ChatGPT host UI.
 
 ## Install
 
-Press-Print can be installed directly from GitHub. Direct installation does **not** depend on skills.sh or GitHub search indexing.
-
-Check that the skill is discoverable in the repository:
-
 ```bash
 npx skills add Fanjiale-CN/press-print --list
-```
-
-Install Press-Print:
-
-```bash
 npx skills add Fanjiale-CN/press-print --skill press-print
 ```
 
@@ -28,150 +23,179 @@ Repository: `Fanjiale-CN/press-print`
 Skill: `press-print`  
 Entry point: `SKILL.md`
 
-If a skill directory or search engine has not indexed this repository yet, use the direct install command above.
+## How Press Print 2.0 works
 
-## Why Press-Print exists
+The internal reasoning sequence is:
 
-Many image-style prompts produce one of two weak outcomes: the original photograph with a filter on top, or a generic poster that loses the identity of the source.
+```text
+READ
+→ UNDERSTAND
+→ PROTECT
+→ DIRECT
+→ RECONSTRUCT
+→ MATERIALIZE
+→ CRITIQUE
+→ REVISE
+```
 
-Press-Print is designed around a stricter reconstruction process:
+The user does not need to operate those stages manually. A clear request executes directly. A vague request is inspected and art-directed autonomously unless genuine ambiguity would materially change the result.
 
-**Disassemble → Recompose → Reassign → Reduce → Hierarchize**
+### READ / UNDERSTAND
+Identify semantic anchors, visual anchors, structural relations, identity invariants, clutter, low-information fields, directional forces, and transformation opportunities.
 
-The goal is to keep the source recognizable while making the final image unmistakably reconstructed and non-photographic.
+### PROTECT
+Classify source information into:
 
-## v1.0.2 scope
+- must preserve
+- should preserve
+- may transform
+- may remove
 
-Press-Print v1.0.2 is **source-text controlled**.
+Explicit user locks always outrank defaults.
 
-By default, it introduces no new typography, captions, place names, dates, slogans, metadata, translations, or bilingual duplicates. Existing source text may survive selectively in its original language. If the user explicitly supplies exact text to add, only that wording may be rendered and no extra copy may be generated.
+### DIRECT
+Form one dominant source-specific thesis about what to amplify, suppress, reframe, flatten, isolate, or fragment.
 
-### What v1.0.2 is not
+Direction is structural judgment, not a generic style preset.
 
-Press-Print v1.0.2 is not a general-purpose poster or graphic-design system.
+### RECONSTRUCT
+Prefer structural operations before effects:
 
-It is designed to reconstruct an existing source photograph into a contemporary print-driven image. It is not intended for typography-led poster layouts, event or exhibition posters, headline/date/body-copy compositions, or graphic designs created from scratch.
+- crop / reframe
+- isolate
+- suppress
+- scale contrast
+- planar compression
+- controlled fragmentation, overlap, or repetition when justified
 
-If a request primarily depends on invented typography or editorial copy, it falls outside the v1.0.2 scope. Explicitly requested wording is a controlled exception, not permission to invent surrounding copy.
+A successful default result should be visibly reconstructed, not merely photo-styled.
 
-Monolingual source text must not be translated or expanded into a bilingual layout. Existing bilingual source content may remain only in source-derived form.
+### MATERIALIZE
+Use halftone, duotone, torn/cut edges, paper layering, registration error, photocopy behavior, and related print materiality only when they reinforce the composition.
 
-## Core principles
+### CRITIQUE / REVISE
+Preserve successful decisions and fix the cause of a failure rather than re-randomizing the whole image.
 
-- photography is source material, not the final composition
-- preserve 1 to 3 source-defining structural anchors
-- reconstruct the camera composition instead of merely stylizing it
-- use different visual states selectively
-- let graphic interventions emerge from the source itself
-- use halftone as structure, not as a blanket filter
-- use collage as hierarchy, not decoration
-- remove information aggressively but intelligently
-- preserve modern subjects as modern
-- avoid arbitrary poster geometry and fake nostalgia
+## Natural-language controls
 
-## Visual states
+Press Print retains three useful semantic controls without requiring a custom UI:
 
-Press-Print can combine four states within one image:
+- **Direction**: the dominant reconstruction thesis
+- **Structure**: how much original compositional continuity may be spent
+- **Intensity**: how strongly the chosen treatment appears
 
-**PHOTOGRAPHIC**  
-Selected recognizable source detail.
+Users may state these explicitly or simply describe what they want in normal language.
 
-**PRINTED**  
-Halftone, duotone, high-contrast, screenprint, or offset-like treatment.
+## Core visual identity
 
-**GRAPHIC**  
-Flat fields, silhouettes, simplified structures, and abstracted geometry.
+Press Print generally prefers:
 
-**COLLAGED**  
-Cut, torn, layered, shifted, or interrupted fragments.
+- flat, surface-first composition
+- compressed or interrupted depth
+- strong editorial hierarchy
+- source-derived crop and scale shifts
+- interlocking graphic planes
+- selective photographic retention
+- visible but selective halftone / duotone
+- bold silhouette and shape logic
+- controlled tactile collage
+- active low-information fields
+- contemporary print energy rather than generic retro styling
 
-No single state should dominate every region by default.
+It avoids:
+
+- intact photo + cosmetic texture
+- generic premium-ad polish
+- cinematic realism drift
+- blanket halftone
+- uniform torn-paper treatment
+- arbitrary fragmentation
+- generic vector tracing
+- culture-as-costume styling
+- template sameness across unrelated sources
+
+## Source text policy
+
+Press Print adds **zero new text by default**.
+
+If source text already exists, it may be preserved, cropped, obscured, fragmented, reduced, or treated as source imagery. Identity-critical wording should be preserved faithfully when feasible.
+
+Press Print must not:
+
+- invent approximate replacement wording
+- translate source text by default
+- create bilingual duplicates by default
+- turn source signage into a newly typeset headline without instruction
+- hallucinate pseudo-text when exact text cannot be reproduced
+
+If the user supplies exact wording, use only that wording unless they explicitly authorize generated copy.
+
+## Research-derived system
+
+Press Print 2.0 is grounded in seven canonical system documents:
+
+1. [`docs/PRESS_PRINT_2_RUNTIME.md`](docs/PRESS_PRINT_2_RUNTIME.md)
+2. [`docs/system/PP_ART_DIRECTION_POLICY.md`](docs/system/PP_ART_DIRECTION_POLICY.md)
+3. [`docs/system/PP_CORE_CONSTITUTION.md`](docs/system/PP_CORE_CONSTITUTION.md)
+4. [`docs/system/PP_REGRESSION_BENCHMARK.md`](docs/system/PP_REGRESSION_BENCHMARK.md)
+5. [`docs/system/PP_SYSTEM_SCHEMA.yaml`](docs/system/PP_SYSTEM_SCHEMA.yaml)
+6. [`docs/system/PP_TOOL_SPEC.md`](docs/system/PP_TOOL_SPEC.md)
+7. [`docs/system/PP_VISUAL_GRAMMAR.md`](docs/system/PP_VISUAL_GRAMMAR.md)
+
+These preserve the research layer independently of any particular interface implementation.
+
+## Visual authority
+
+The established v1 rendering language remains available at:
+
+- [`prompt/press-print-v1.md`](prompt/press-print-v1.md)
+- [`skills/press-print/references/press-print-v1.md`](skills/press-print/references/press-print-v1.md)
+
+The 2.0 reasoning layer extends that visual language rather than replacing it.
 
 ## Showcase
 
-These are the canonical high-resolution v1.0 showcase plates. Each plate is displayed as one complete before/after image exactly as uploaded. Click any image to open the original repository asset at full resolution.
+The repository retains the ten canonical high-resolution v1 source/result showcase plates in [`examples/showcase/`](examples/showcase/). See [`examples/README.md`](examples/README.md) for notes and evaluation guidance.
 
-### 01
-<a href="examples/showcase/0D0EB3E7-CDA9-4F6C-B8C5-B6613F6CEBCB.png"><img src="examples/showcase/0D0EB3E7-CDA9-4F6C-B8C5-B6613F6CEBCB.png" alt="Press-Print showcase 01" width="100%"></a>
+## Evaluation
 
-### 02
-<a href="examples/showcase/2045E30A-8BAE-4625-B726-1EBC31166618.png"><img src="examples/showcase/2045E30A-8BAE-4625-B726-1EBC31166618.png" alt="Press-Print showcase 02" width="100%"></a>
+Use:
 
-### 03
-<a href="examples/showcase/43A519AD-FAA7-40EE-9425-D8EA1CCAA11C.png"><img src="examples/showcase/43A519AD-FAA7-40EE-9425-D8EA1CCAA11C.png" alt="Press-Print showcase 03" width="100%"></a>
+- [`eval/quality-rubric.md`](eval/quality-rubric.md)
+- [`docs/system/PP_REGRESSION_BENCHMARK.md`](docs/system/PP_REGRESSION_BENCHMARK.md)
 
-### 04
-<a href="examples/showcase/48FEE737-3D46-446B-AAEF-6F1ADB22E70F.png"><img src="examples/showcase/48FEE737-3D46-446B-AAEF-6F1ADB22E70F.png" alt="Press-Print showcase 04" width="100%"></a>
-
-### 05
-<a href="examples/showcase/52C803C9-C030-4574-8FEF-CE30FDF6A5C4.png"><img src="examples/showcase/52C803C9-C030-4574-8FEF-CE30FDF6A5C4.png" alt="Press-Print showcase 05" width="100%"></a>
-
-### 06
-<a href="examples/showcase/7AA8CDA5-FC9F-4698-A622-329A248F90FB.png"><img src="examples/showcase/7AA8CDA5-FC9F-4698-A622-329A248F90FB.png" alt="Press-Print showcase 06" width="100%"></a>
-
-### 07
-<a href="examples/showcase/8E3C63CD-7AD2-4E0A-A4AD-AB9C82A9044A.png"><img src="examples/showcase/8E3C63CD-7AD2-4E0A-A4AD-AB9C82A9044A.png" alt="Press-Print showcase 07" width="100%"></a>
-
-### 08
-<a href="examples/showcase/A9F371AC-D68C-4BC5-AD10-261487723695.png"><img src="examples/showcase/A9F371AC-D68C-4BC5-AD10-261487723695.png" alt="Press-Print showcase 08" width="100%"></a>
-
-### 09
-<a href="examples/showcase/AE838326-B4A9-443E-AF99-B1FE4AB22525.png"><img src="examples/showcase/AE838326-B4A9-443E-AF99-B1FE4AB22525.png" alt="Press-Print showcase 09" width="100%"></a>
-
-### 10
-<a href="examples/showcase/C24DF515-DCB7-4D3A-A871-BDC8F58B38C1.png"><img src="examples/showcase/C24DF515-DCB7-4D3A-A871-BDC8F58B38C1.png" alt="Press-Print showcase 10" width="100%"></a>
-
-See [`examples/README.md`](examples/README.md) for the showcase note and evaluation guidance.
+The 2.0 benchmark evaluates semantic preservation, Press Print identity, reconstruction strength, editorial hierarchy, planar coherence, material coherence, source specificity, and common drift penalties.
 
 ## Repository structure
 
 ```text
 press-print/
 ├── SKILL.md
-├── README.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── CHANGELOG.md
-├── prompt/
-│   └── press-print-v1.md
+├── skills/press-print/
+│   ├── SKILL.md
+│   └── references/
+│       ├── press-print-v1.md
+│       ├── press-print-v2-runtime.md
+│       └── quality-rubric.md
+├── docs/
+│   ├── PRESS_PRINT_2_RUNTIME.md
+│   └── system/
+│       ├── PP_ART_DIRECTION_POLICY.md
+│       ├── PP_CORE_CONSTITUTION.md
+│       ├── PP_REGRESSION_BENCHMARK.md
+│       ├── PP_SYSTEM_SCHEMA.yaml
+│       ├── PP_TOOL_SPEC.md
+│       └── PP_VISUAL_GRAMMAR.md
+├── prompt/press-print-v1.md
 ├── eval/
-│   └── quality-rubric.md
 └── examples/
-    ├── README.md
-    └── showcase/
-        └── high-resolution v1.0 showcase plates
 ```
-
-## Using it as a Skill
-
-Clients that support `SKILL.md` / Agent Skills can install or copy this repository into their skills directory.
-
-The skill file contains the operational workflow and constraints. The full master prompt is in [`prompt/press-print-v1.md`](prompt/press-print-v1.md).
-
-For manual image generation, use the master prompt together with a source image.
-
-## Evaluation
-
-Use [`eval/quality-rubric.md`](eval/quality-rubric.md) to compare models or iterations. It scores:
-
-- semantic retention
-- reconstruction strength
-- editorial hierarchy
-- treatment diversity
-- restraint and source discipline
-
-The rubric also defines hard failures such as filter-only output, blanket halftone, hallucinated text, semantic loss, and arbitrary poster geometry.
-
-## Contributing
-
-Model comparisons, reproducible failure cases, source/result pairs, and prompt refinements are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Current status
 
-**Version:** 1.0.2
-
-**Edition:** Source-Text-Controlled
-**Status:** Public release
+**Version:** 2.0.0  
+**Architecture:** Skills-only, UI-independent  
+**Status:** Research-integrated release candidate
 
 ## Author
 
@@ -179,6 +203,6 @@ Created by **Fan Jiale / Galok**.
 
 ## License
 
-MIT for the Press-Print skill text, prompt system, documentation, and related project materials. See `LICENSE`.
+MIT for the Press Print skill text, prompt system, documentation, and related project materials. See `LICENSE`.
 
-Showcase images are provided for demonstration and evaluation; image rights may depend on their original provenance. See [`examples/README.md`](examples/README.md).
+Showcase image rights may depend on their original provenance. See [`examples/README.md`](examples/README.md).
