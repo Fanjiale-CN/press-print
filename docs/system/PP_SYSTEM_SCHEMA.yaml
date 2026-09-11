@@ -48,6 +48,7 @@ enums:
     - semantic_isolation
     - continuation
     - framing
+    - graphic_mass
 
   edge_type:
     - clean_cut
@@ -139,6 +140,20 @@ schemas:
           location_hint: string
           strength: float
           rationale: string
+      repetition_groups:
+        description: >
+          Optional grouping for repeated or highly similar elements when equal salience would weaken hierarchy.
+        type: list
+        item:
+          id: string
+          member_ids: [string]
+          identity_bearing_as_group: bool
+          dominant_candidate_ids: [string]
+          rationale: string
+      hierarchy_stability:
+        description: >
+          Estimated confidence that the source hierarchy can carry the intended reconstruction without explicit stabilization.
+        type: float
       directional_forces:
         type: list
         item:
@@ -235,6 +250,15 @@ schemas:
       preserve:
         type: list
         item: string
+      hierarchy_plan:
+        description: >
+          Optional plan used when the source hierarchy is diffuse, repetitive, sparse, or ambiguous.
+        type:
+          dominant_targets: [string]
+          supporting_targets: [string]
+          field_targets: [string]
+          quiet_field_roles: [string]
+          rationale: string
       compositional_strategy:
         type:
           crop_aggression: float
@@ -352,6 +376,9 @@ schemas:
       failure_causes:
         - identity_damage
         - weak_hierarchy
+        - hierarchy_inheritance
+        - repetition_equalization
+        - quiet_field_misuse
         - under_reconstruction
         - over_fragmentation
         - decorative_excess
