@@ -58,7 +58,13 @@ Include at least:
 - subject near frame edge,
 - visually beautiful but semantically weak image,
 - semantically rich but visually messy image,
-- fragile identity with limited transformation budget.
+- fragile identity with limited transformation budget,
+- a dense field of repeated similar subjects with no obvious single hero,
+- a repeated group whose group identity matters more than any single instance,
+- a scene with a substantial low-information field that strongly affects composition,
+- a sparse scene where filling the quiet field with invented content would be an obvious failure.
+
+The hierarchy edge cases should span multiple source types rather than one favorite example. Use food/object, architecture, landscape, retail, street, and other suitable sources.
 
 ---
 
@@ -131,6 +137,15 @@ High score:
 ### 4.4 Editorial Hierarchy
 Is the result more hierarchically intentional than the source?
 
+For unstable source hierarchies also ask:
+- Did repeated similar subjects receive differentiated visual roles rather than equal treatment?
+- Did a useful dominant anchor or dominant cluster emerge when needed?
+- Was group identity preserved when repetition itself carried meaning?
+- Did substantial low-information fields receive a clear compositional role?
+- Was quiet space left passive or filled with unrelated invented content?
+
+Do not award hierarchy points merely because one object became larger. The hierarchy must improve the reading of the source.
+
 ### 4.5 Planar Composition / Surface Coherence
 Does the image read as designed on a surface rather than as a deep realistic scene?
 
@@ -180,7 +195,9 @@ Reasonable candidates:
 - detection of face integrity where relevant,
 - detection of output smoothness / texture dispersion,
 - style-consistency classifiers trained on approved Press-Print exemplars,
-- comparison against prior accepted benchmark outputs.
+- comparison against prior accepted benchmark outputs,
+- optional salience/grouping analysis for hierarchy stress cases,
+- optional low-information-field comparison to detect arbitrary filler or role collapse.
 
 ### 5.3 Human review board
 At minimum, one internal reviewer should answer:
@@ -197,6 +214,8 @@ Keep a small set of:
 - accepted borderline outputs,
 - rejected failures.
 
+Include at least one accepted and rejected example for repeated-field hierarchy and low-information-field handling.
+
 Use this to train reviewer consistency.
 
 ---
@@ -212,6 +231,8 @@ Across the benchmark suite:
 - no meaningful drop in Reconstruction Strength,
 - no spike in penalties.
 
+Hierarchy changes must not improve repeated-object scenes by damaging group identity, and must not improve sparse scenes by simply cropping away every quiet field.
+
 ### 6.2 Identity gate
 Across the benchmark suite:
 - Press-Print Identity Score must not decline below accepted threshold,
@@ -225,7 +246,11 @@ Any release is blocked if:
 - torn / textured effects appear globally regardless of source,
 - default mode trends toward generic AI polish,
 - “restrained” variation still looks overly effect-heavy,
-- one source type is systematically mishandled.
+- one source type is systematically mishandled,
+- repeated-object stress cases systematically preserve equal salience when hierarchy should be formed,
+- hierarchy stabilization systematically forces single-object heroes when the group is identity-bearing,
+- substantial quiet fields are systematically filled with unrelated invented content,
+- low-information fields are systematically removed even when they carry scale, pacing, isolation, or framing.
 
 ---
 
@@ -235,6 +260,9 @@ Use these canonical tags:
 
 - identity_damage
 - weak_hierarchy
+- hierarchy_inheritance
+- repetition_equalization
+- quiet_field_misuse
 - under_reconstruction
 - over_fragmentation
 - decorative_excess
@@ -247,7 +275,7 @@ Use these canonical tags:
 - cultural_costume_drift
 - drift_from_direction
 
-This taxonomy must remain aligned with `CritiqueResult.failure_causes` in `PP_SYSTEM_SCHEMA.yaml`.
+Keep these tags aligned with the runtime critique language. If `PP_SYSTEM_SCHEMA.yaml` is extended later, mirror these tags there rather than creating competing names.
 
 ---
 
@@ -271,6 +299,13 @@ For each tested output, reviewers record:
 - notes
 - failure taxonomy tags
 
+For hierarchy stress cases, notes should explicitly record:
+- dominant anchor / dominant cluster choice,
+- supporting field treatment,
+- group-identity retention,
+- low-information-field role,
+- any invented filler content.
+
 ---
 
 ## 9. Version-to-version comparison
@@ -284,12 +319,14 @@ Track:
 - mean score shifts,
 - penalty shifts,
 - source-type-specific regressions,
-- reviewer notes on identity drift.
+- reviewer notes on identity drift,
+- hierarchy-stress-case pass rate.
 
 ### Example interpretation
 - Quality up, identity down → reject.
 - Identity steady, reconstruction stronger, penalties steady → good candidate.
 - Portraits improve but architecture worsens → targeted fix needed.
+- Repeated fields improve but group identity collapses → reject and revise the hierarchy rule.
 
 ---
 
@@ -300,6 +337,7 @@ Track:
 3. Archive prior benchmark outputs.
 4. Version-control accepted outputs and reviewer notes.
 5. Recalibrate reviewers periodically.
+6. Keep hierarchy stress cases stable long enough to detect regressions rather than tuning them to one model release.
 
 ---
 
